@@ -77,7 +77,7 @@ Public Module learning
             Dim ANN As ANN = DirectCast(model, ANN)
 
             ANN.data = x
-            ANN.input = features
+            ANN.input = REnv.asVector(Of String)(features)
 
             Return model
         Else
@@ -154,7 +154,7 @@ Public Module learning
     <ExportAPI("learn")>
     <RApiReturn(GetType(MLModel))>
     Public Function learn(model As MLModel, Optional env As Environment = Nothing) As Object
-
+        Return model.DoCallTraining
     End Function
 
     ''' <summary>
