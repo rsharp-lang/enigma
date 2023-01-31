@@ -2,7 +2,9 @@ require(enigma);
 
 imports ["learning", "model", "activateFunction"] from "enigma";
 
-data = data("bezdekIris");
+data("bezdekIris");
+
+data = bezdekIris;
 
 print(data, max.print = 6);
 
