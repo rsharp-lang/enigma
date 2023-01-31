@@ -6,9 +6,17 @@ Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 
+''' <summary>
+''' the activate function handler
+''' </summary>
 <Package("activateFunction")>
 Public Module activateFunction
 
+    ''' <summary>
+    ''' Create sigmoid activation function
+    ''' </summary>
+    ''' <param name="alpha"></param>
+    ''' <returns></returns>
     <ExportAPI("sigmoid")>
     Public Function Sigmoid(Optional alpha As Double = 0.2) As IActivationFunction
         Return New Sigmoid(alpha)
@@ -18,7 +26,9 @@ Public Module activateFunction
     ''' create a new custom activate function
     ''' </summary>
     ''' <param name="forward"></param>
-    ''' <param name="derivative"></param>
+    ''' <param name="derivative">
+    ''' derivative formula of the ``<paramref name="forward"/>`` formula
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("func")>

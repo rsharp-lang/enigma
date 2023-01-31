@@ -11,6 +11,9 @@ Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports REnv = SMRUCC.Rsharp.Runtime
 
+''' <summary>
+''' machine learning toolkit
+''' </summary>
 <Package("learning")>
 Public Module learning
 
@@ -53,8 +56,14 @@ Public Module learning
     ''' <summary>
     ''' feed training data to the machine learning model
     ''' </summary>
-    ''' <param name="model"></param>
-    ''' <param name="x"></param>
+    ''' <param name="model">A machine learning model object</param>
+    ''' <param name="x">
+    ''' the training data to feed to the model object, 
+    ''' it usually be a dataframe object.
+    ''' </param>
+    ''' <param name="features">
+    ''' usually a character vector to gets the training data fields
+    ''' </param>
     ''' <returns></returns>
     <ExportAPI("feed")>
     <RApiReturn(GetType(Model))>
@@ -76,6 +85,14 @@ Public Module learning
         End If
     End Function
 
+    ''' <summary>
+    ''' configs of the hidden layer of the ``<see cref="ANN"/>`` model
+    ''' </summary>
+    ''' <param name="model">The ``<see cref="ANN"/>`` machine learning model object</param>
+    ''' <param name="size">A integer vector for configs the layer size in the hidden layer</param>
+    ''' <param name="activate">Activation function of the hidden layer</param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("hidden_layer")>
     <RApiReturn(GetType(Model))>
     Public Function hidden_layer(model As ANN, <RRawVectorArgument> size As Object,
@@ -97,6 +114,14 @@ Public Module learning
         Return model
     End Function
 
+    ''' <summary>
+    ''' configs of the output layer of the ``<see cref="ANN"/>`` model
+    ''' </summary>
+    ''' <param name="model"></param>
+    ''' <param name="labels"></param>
+    ''' <param name="activate"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("output_layer")>
     <RApiReturn(GetType(Model))>
     Public Function output_layer(model As ANN,
@@ -120,12 +145,25 @@ Public Module learning
         Return model
     End Function
 
+    ''' <summary>
+    ''' Do machine learning model training
+    ''' </summary>
+    ''' <param name="model"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("learn")>
     <RApiReturn(GetType(Model))>
     Public Function learn(model As Model, Optional env As Environment = Nothing) As Object
 
     End Function
 
+    ''' <summary>
+    ''' Do data prediction
+    ''' </summary>
+    ''' <param name="model"></param>
+    ''' <param name="data"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("solve")>
     Public Function fitData(model As Model, data As Object, Optional env As Environment = Nothing) As Object
 
