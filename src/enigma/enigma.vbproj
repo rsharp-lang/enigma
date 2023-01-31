@@ -14,8 +14,10 @@
     <ProjectReference Include="..\..\..\sciBASIC#\Data_science\DataMining\DataMining\DataMining.NET5.vbproj" />
     <ProjectReference Include="..\..\..\sciBASIC#\Data_science\MachineLearning\DeepLearning\DeepLearning.NET6.vbproj" />
     <ProjectReference Include="..\..\..\sciBASIC#\Data_science\MachineLearning\MachineLearning\machine_learning-netcore5.vbproj" />
+    <ProjectReference Include="..\..\..\sciBASIC#\Data_science\Mathematica\Math\MathLambda\symbolic-netcore5.vbproj" />
     <ProjectReference Include="..\..\..\sciBASIC#\Data_science\Mathematica\Math\Math\Math.NET5.vbproj" />
     <ProjectReference Include="..\..\..\sciBASIC#\Microsoft.VisualBasic.Core\src\Core.vbproj" />
+    <ProjectReference Include="..\..\..\sciBASIC#\mime\application%xml\xml-netcore5.vbproj" />
   </ItemGroup>
 
 </Project>
