@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
 
-Public Class ANN : Inherits Model
+Public Class ANN : Inherits MLModel
 
     Public Property data As Object
     Public Property input As Object
@@ -26,6 +26,6 @@ End Class
 ''' <summary>
 ''' the machine learning model
 ''' </summary>
-Public MustInherit Class Model
+Public MustInherit Class MLModel
 
 End Class

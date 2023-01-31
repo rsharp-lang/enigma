@@ -25,7 +25,7 @@ Public Module models
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("snapshot")>
-    Public Function snapshot(model As Model, file As String, Optional env As Environment = Nothing) As Object
+    Public Function snapshot(model As MLModel, file As String, Optional env As Environment = Nothing) As Object
 
     End Function
 

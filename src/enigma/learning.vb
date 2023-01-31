@@ -29,7 +29,7 @@ Public Module learning
     ''' </param>
     ''' <returns></returns>
     <ExportAPI("tensor")>
-    <RApiReturn(GetType(Model))>
+    <RApiReturn(GetType(MLModel))>
     Public Function tensorModel(model As Object, Optional env As Environment = Nothing) As Object
         If model Is Nothing Then
             Return Internal.debug.stop("a required of the machine learning model object could not be nothing!", env)
@@ -38,7 +38,7 @@ Public Module learning
 
             If Program.isException(model) Then
                 Return model
-            ElseIf TypeOf model Is Model Then
+            ElseIf TypeOf model Is MLModel Then
                 Return model
             Else
                 Return Internal.debug.stop("invalid model function, the function should be procude a new machine learning model object!", env)
@@ -46,7 +46,7 @@ Public Module learning
         ElseIf TypeOf model Is String Then
             ' is model file path
             Return enigma.models.readModelFile(model, env)
-        ElseIf TypeOf model Is Model Then
+        ElseIf TypeOf model Is MLModel Then
             Return model
         Else
             Return Message.InCompatibleType(GetType(String), model.GetType, env)
@@ -66,8 +66,8 @@ Public Module learning
     ''' </param>
     ''' <returns></returns>
     <ExportAPI("feed")>
-    <RApiReturn(GetType(Model))>
-    Public Function feed(model As Model, x As Object,
+    <RApiReturn(GetType(MLModel))>
+    Public Function feed(model As MLModel, x As Object,
                          <RRawVectorArgument> features As Object,
                          <RListObjectArgument>
                          Optional args As list = Nothing,
@@ -94,7 +94,7 @@ Public Module learning
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("hidden_layer")>
-    <RApiReturn(GetType(Model))>
+    <RApiReturn(GetType(MLModel))>
     Public Function hidden_layer(model As ANN, <RRawVectorArgument> size As Object,
                                  Optional activate As Object = Nothing,
                                  Optional env As Environment = Nothing) As Object
@@ -123,7 +123,7 @@ Public Module learning
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("output_layer")>
-    <RApiReturn(GetType(Model))>
+    <RApiReturn(GetType(MLModel))>
     Public Function output_layer(model As ANN,
                                  <RRawVectorArgument>
                                  Optional labels As Object = Nothing,
@@ -152,8 +152,8 @@ Public Module learning
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("learn")>
-    <RApiReturn(GetType(Model))>
-    Public Function learn(model As Model, Optional env As Environment = Nothing) As Object
+    <RApiReturn(GetType(MLModel))>
+    Public Function learn(model As MLModel, Optional env As Environment = Nothing) As Object
 
     End Function
 
@@ -165,7 +165,7 @@ Public Module learning
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("solve")>
-    Public Function fitData(model As Model, data As Object, Optional env As Environment = Nothing) As Object
+    Public Function fitData(model As MLModel, data As Object, Optional env As Environment = Nothing) As Object
 
     End Function
 End Module
