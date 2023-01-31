@@ -2,9 +2,13 @@
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
+Imports Microsoft.VisualBasic.Math.Scripting.MathExpression
+Imports Microsoft.VisualBasic.MIME.application.xml.MathML
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.Closure
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
+Imports MathExp = Microsoft.VisualBasic.Math.Scripting.MathExpression.Impl.Expression
 
 ''' <summary>
 ''' the activate function handler
@@ -46,7 +50,19 @@ Public Module activateFunction
     End Function
 
     Private Function getLambda(raw As Object, env As Environment) As [Variant](Of Func(Of Double, Double), Message)
+        If TypeOf raw Is String Then
+            ' parse the math expression and the expression
+            ' should contains only one variable: x
+            Dim exp As MathExp = ExpressionEngine.Parse(DirectCast(raw, String))
 
+            Throw New NotImplementedException
+        ElseIf TypeOf raw Is DeclareLambdaFunction Then
+            Dim lambda As DeclareLambdaFunction = DirectCast(raw, DeclareLambdaFunction)
+            Dim mathML As New LambdaExpression With {
+                .parameters = lambda.parameterNames,
+                .lambda =
+            }
+        End If
     End Function
 
     Friend Function getFunction(func As Object, env As Environment) As [Variant](Of Message, IActivationFunction)
