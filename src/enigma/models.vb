@@ -14,6 +14,11 @@ Public Module models
         Return New ANN
     End Function
 
+    <ExportAPI("activate")>
+    Public Function activateFunc(forward As Object, derivative As Object, Optional env As Environment = Nothing) As Object
+
+    End Function
+
     <ExportAPI("snapshot")>
     Public Function snapshot(model As Model, file As String, Optional env As Environment = Nothing) As Object
 
