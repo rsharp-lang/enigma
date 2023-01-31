@@ -1,5 +1,4 @@
-﻿Imports System.Reflection
-Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
+﻿Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
 
 Public Class CustomFunction : Inherits IActivationFunction
 
