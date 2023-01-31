@@ -57,6 +57,7 @@ Public Module learning
     ''' <param name="x"></param>
     ''' <returns></returns>
     <ExportAPI("feed")>
+    <RApiReturn(GetType(Model))>
     Public Function feed(model As Model, x As Object,
                          <RRawVectorArgument> features As Object,
                          <RListObjectArgument>
@@ -76,6 +77,7 @@ Public Module learning
     End Function
 
     <ExportAPI("hidden_layer")>
+    <RApiReturn(GetType(Model))>
     Public Function hidden_layer(model As ANN, <RRawVectorArgument> size As Object,
                                  Optional activate As Object = Nothing,
                                  Optional env As Environment = Nothing) As Object
@@ -96,6 +98,7 @@ Public Module learning
     End Function
 
     <ExportAPI("output_layer")>
+    <RApiReturn(GetType(Model))>
     Public Function output_layer(model As ANN,
                                  <RRawVectorArgument>
                                  Optional labels As Object = Nothing,
@@ -118,7 +121,8 @@ Public Module learning
     End Function
 
     <ExportAPI("learn")>
-    Public Function learn(model As Model) As Object
+    <RApiReturn(GetType(Model))>
+    Public Function learn(model As Model, Optional env As Environment = Nothing) As Object
 
     End Function
 
