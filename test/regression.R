@@ -2,16 +2,16 @@ require(enigma);
 
 imports ["learning", "model", "activateFunction"] from "enigma";
 
-data("bezdekIris");
+data("mtcars");
 
-data = bezdekIris;
+data = mtcars;
 
 print(data, max.print = 6);
 
 tensor(model = ANN)
-|> feed(data, features = ["D1","D2","D3","D4"])
-|> hidden_layer([10, 25, 15], activate = "Sigmoid(alpha = 2.0)")
-|> output_layer(activate = activateFunction::func(
+|> feed(data, features = ["cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"])
+|> hidden_layer([13, 25, 15], activate = "Sigmoid(alpha = 2.0)")
+|> output_layer(labels = "mpg", activate = activateFunction::func(
     forward = x -> log(x ^ 2), 
     derivative = x -> 1 / (2 * x)
 ))
@@ -20,7 +20,7 @@ tensor(model = ANN)
 ;
 
 tensor(model = "./model.hds")
-|> solve(bezdekIris)
+|> solve(mtcars)
 |> print()
 ;
 
