@@ -2,7 +2,11 @@ require(enigma);
 
 imports ["learning", "model", "activateFunction"] from "enigma";
 
-data = read.csv("");
+data = data(bezdekIris);
+
+print(data, max.print = 6);
+
+stop();
 
 tensor(model = ANN)
 |> feed(data, features = ["","",""])
