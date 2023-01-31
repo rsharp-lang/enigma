@@ -1,10 +1,24 @@
 .\" man page create by R# package system.
 .TH LEARNING 1 2000-Jan "tensor" "tensor"
 .SH NAME
-tensor \- 
+tensor \- create a new machine learning model
 .SH SYNOPSIS
 \fItensor(\fBmodel\fR as any, 
 [\fB<Environment>\fR]);\fR
+.SH DESCRIPTION
+.PP
+create a new machine learning model
+.PP
+.SH OPTIONS
+.PP
+\fBmodel\fB \fR\- 
+ the source of the machine learning model where it comes from:
+ 
+ 1. could be a file name to the trained model file
+ 2. could be a function name in \fBmodels\fR namespace to train a new model
+ 
+. 
+.PP
 .SH SEE ALSO
 learning
 .SH FILES
