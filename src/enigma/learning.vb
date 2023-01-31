@@ -1,9 +1,13 @@
 ﻿
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports SMRUCC.Rsharp.Interpreter
+Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.Closure
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
+Imports SMRUCC.Rsharp.Runtime.Internal.Object
+Imports SMRUCC.Rsharp.Runtime.Interop
 
 <Package("learning")>
 Public Module learning
@@ -11,7 +15,7 @@ Public Module learning
     ''' <summary>
     ''' create a new machine learning model
     ''' </summary>
-    ''' <param name="x">
+    ''' <param name="model">
     ''' the source of the machine learning model where it comes from:
     ''' 
     ''' 1. could be a file name to the trained model file
@@ -19,21 +23,66 @@ Public Module learning
     ''' 
     ''' </param>
     ''' <returns></returns>
-    <ExportAPI("model")>
-    Public Function model(x As Object, Optional env As Environment = Nothing) As Object
-        If x Is Nothing Then
+    <ExportAPI("tensor")>
+    Public Function tensorModel(model As Object, Optional env As Environment = Nothing) As Object
+        If model Is Nothing Then
             Return Internal.debug.stop("a required of the machine learning model object could not be nothing!", env)
-        ElseIf TypeOf x Is DeclareNewFunction Then
-        ElseIf TypeOf x Is String Then
+        ElseIf TypeOf model Is DeclareNewFunction Then
+            model = DirectCast(model, Expression).Evaluate(env)
+
+            If Program.isException(model) Then
+                Return model
+            ElseIf TypeOf model Is Model Then
+                Return model
+            Else
+                Return Internal.debug.stop("invalid model function, the function should be procude a new machine learning model object!", env)
+            End If
+        ElseIf TypeOf model Is String Then
             ' is model file path
-            Return learning.readModelFile(x, env)
+            Return enigma.models.readModelFile(model, env)
         Else
-            Return Message.InCompatibleType(GetType(String), x.GetType, env)
+            Return Message.InCompatibleType(GetType(String), model.GetType, env)
         End If
     End Function
 
-    <ExportAPI("readModelFile")>
-    Public Function readModelFile(file As Object, Optional env As Environment = Nothing) As Object
+    ''' <summary>
+    ''' feed training data to the machine learning model
+    ''' </summary>
+    ''' <param name="model"></param>
+    ''' <param name="x"></param>
+    ''' <returns></returns>
+    <ExportAPI("feed")>
+    Public Function feed(model As Model, x As Object,
+                         <RRawVectorArgument> features As Object,
+                         <RListObjectArgument>
+                         Optional args As list = Nothing,
+                         Optional env As Environment = Nothing) As Object
+
+    End Function
+
+    <ExportAPI("hidden_layer")>
+    Public Function hidden_layer(model As ANN, <RRawVectorArgument> size As Object,
+                                 Optional activate As Object = Nothing,
+                                 Optional env As Environment = Nothing) As Object
+
+    End Function
+
+    <ExportAPI("output_layer")>
+    Public Function output_layer(model As ANN,
+                                 <RRawVectorArgument>
+                                 Optional labels As Object = Nothing,
+                                 Optional activate As Object = Nothing,
+                                 Optional env As Environment = Nothing) As Object
+
+    End Function
+
+    <ExportAPI("learn")>
+    Public Function learn(model As Model) As Object
+
+    End Function
+
+    <ExportAPI("solve")>
+    Public Function fitData(model As Model, data As Object, Optional env As Environment = Nothing) As Object
 
     End Function
 End Module

@@ -1,7 +1,8 @@
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports SMRUCC.Rsharp.Runtime
 
-<Package("models")>
+<Package("model")>
 Public Module models
 
     ''' <summary>
@@ -13,4 +14,13 @@ Public Module models
         Return New ANN
     End Function
 
+    <ExportAPI("snapshot")>
+    Public Function snapshot(model As Model, file As String, Optional env As Environment = Nothing) As Object
+
+    End Function
+
+    <ExportAPI("readModelFile")>
+    Public Function readModelFile(file As Object, Optional env As Environment = Nothing) As Object
+
+    End Function
 End Module
