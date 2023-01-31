@@ -34,15 +34,9 @@ Public Module learning
         If model Is Nothing Then
             Return Internal.debug.stop("a required of the machine learning model object could not be nothing!", env)
         ElseIf TypeOf model Is DeclareNewFunction Then
-            model = DirectCast(model, Expression).Evaluate(env)
-
-            If Program.isException(model) Then
-                Return model
-            ElseIf TypeOf model Is MLModel Then
-                Return model
-            Else
-                Return Internal.debug.stop("invalid model function, the function should be procude a new machine learning model object!", env)
-            End If
+            Return checkModel(model:=DirectCast(model, Expression).Evaluate(env), env)
+        ElseIf TypeOf model Is RMethodInfo Then
+            Return checkModel(model:=DirectCast(model, RMethodInfo).Invoke(env, {}), env)
         ElseIf TypeOf model Is String Then
             ' is model file path
             Return enigma.models.readModelFile(model, env)
@@ -50,6 +44,16 @@ Public Module learning
             Return model
         Else
             Return Message.InCompatibleType(GetType(String), model.GetType, env)
+        End If
+    End Function
+
+    Private Function checkModel(model As Object, env As Environment) As Object
+        If Program.isException(model) Then
+            Return model
+        ElseIf TypeOf model Is MLModel Then
+            Return model
+        Else
+            Return Internal.debug.stop("invalid model function, the function should be procude a new machine learning model object!", env)
         End If
     End Function
 
