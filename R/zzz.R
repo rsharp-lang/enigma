@@ -1,4 +1,4 @@
-imports ["learning", "model"] from "enigma";
+imports ["learning", "model", "activateFunction"] from "enigma";
 
 const .onLoad = function() {
 

@@ -1,5 +1,6 @@
 ﻿
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Interpreter
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
@@ -8,6 +9,7 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports REnv = SMRUCC.Rsharp.Runtime
 
 <Package("learning")>
 Public Module learning
@@ -24,6 +26,7 @@ Public Module learning
     ''' </param>
     ''' <returns></returns>
     <ExportAPI("tensor")>
+    <RApiReturn(GetType(Model))>
     Public Function tensorModel(model As Object, Optional env As Environment = Nothing) As Object
         If model Is Nothing Then
             Return Internal.debug.stop("a required of the machine learning model object could not be nothing!", env)
@@ -40,6 +43,8 @@ Public Module learning
         ElseIf TypeOf model Is String Then
             ' is model file path
             Return enigma.models.readModelFile(model, env)
+        ElseIf TypeOf model Is Model Then
+            Return model
         Else
             Return Message.InCompatibleType(GetType(String), model.GetType, env)
         End If
@@ -58,6 +63,16 @@ Public Module learning
                          Optional args As list = Nothing,
                          Optional env As Environment = Nothing) As Object
 
+        If TypeOf model Is ANN Then
+            Dim ANN As ANN = DirectCast(model, ANN)
+
+            ANN.data = x
+            ANN.input = features
+
+            Return model
+        Else
+            Return Internal.debug.stop(New NotImplementedException(model.GetType.FullName), env)
+        End If
     End Function
 
     <ExportAPI("hidden_layer")>
@@ -65,6 +80,19 @@ Public Module learning
                                  Optional activate As Object = Nothing,
                                  Optional env As Environment = Nothing) As Object
 
+        Dim f = activateFunction.getFunction(activate, env)
+        Dim sizeVec As Integer() = REnv.asVector(Of Integer)(size)
+
+        If f Like GetType(Message) Then
+            Return f.TryCast(Of Message)
+        End If
+
+        model.hidden = New HiddenLayerBuilderArgument With {
+            .size = sizeVec,
+            .activate = f.TryCast(Of IActivationFunction)
+        }
+
+        Return model
     End Function
 
     <ExportAPI("output_layer")>
@@ -74,6 +102,19 @@ Public Module learning
                                  Optional activate As Object = Nothing,
                                  Optional env As Environment = Nothing) As Object
 
+        Dim labelStr As String() = REnv.asVector(Of String)(labels)
+        Dim f = activateFunction.getFunction(activate, env)
+
+        If f Like GetType(Message) Then
+            Return f.TryCast(Of Message)
+        End If
+
+        model.output = New OutputLayerBuilderArgument With {
+            .labels = labelStr,
+            .activate = f.TryCast(Of IActivationFunction)
+        }
+
+        Return model
     End Function
 
     <ExportAPI("learn")>

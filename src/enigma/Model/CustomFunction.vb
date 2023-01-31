@@ -16,6 +16,11 @@ Public Class CustomFunction : Inherits IActivationFunction
     ReadOnly m_lambda As Func(Of Double, Double)
     ReadOnly m_derivative As Func(Of Double, Double)
 
+    Sub New(lambda As Func(Of Double, Double), derivative As Func(Of Double, Double))
+        m_lambda = lambda
+        m_derivative = derivative
+    End Sub
+
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
     Public Overrides Function [Function](x As Double) As Double
         Return m_lambda(x)
