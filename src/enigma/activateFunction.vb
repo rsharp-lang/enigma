@@ -2,6 +2,7 @@
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
+Imports Microsoft.VisualBasic.Math.Lambda
 Imports Microsoft.VisualBasic.Math.Scripting.MathExpression
 Imports Microsoft.VisualBasic.MIME.application.xml.MathML
 Imports Microsoft.VisualBasic.Scripting.MetaData
@@ -50,19 +51,20 @@ Public Module activateFunction
     End Function
 
     Private Function getLambda(raw As Object, env As Environment) As [Variant](Of Func(Of Double, Double), Message)
+        Dim lambda As LambdaExpression
+
         If TypeOf raw Is String Then
             ' parse the math expression and the expression
             ' should contains only one variable: x
-            Dim exp As MathExp = ExpressionEngine.Parse(DirectCast(raw, String))
-
-            Throw New NotImplementedException
+            lambda = Compiler.GetLambda(DirectCast(raw, String), "x")
         ElseIf TypeOf raw Is DeclareLambdaFunction Then
-            Dim lambda As DeclareLambdaFunction = DirectCast(raw, DeclareLambdaFunction)
-            Dim mathML As New LambdaExpression With {
-                .parameters = lambda.parameterNames,
-                .lambda =
-            }
+            lambda = Compiler.GetLambda(DirectCast(raw, DeclareLambdaFunction))
+        Else
+            Return Message.InCompatibleType(GetType(DeclareLambdaFunction), raw.GetType, env)
         End If
+
+        Dim pfunc As Func(Of Double, Double) = MathMLCompiler.CreateLambda(lambda).Compile
+        Return pfunc
     End Function
 
     Friend Function getFunction(func As Object, env As Environment) As [Variant](Of Message, IActivationFunction)
