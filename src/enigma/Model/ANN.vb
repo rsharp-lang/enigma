@@ -12,7 +12,7 @@ Public Class ANN : Inherits MLModel
     Public Property hidden As HiddenLayerBuilderArgument
     Public Property output As OutputLayerBuilderArgument
 
-    Public Overrides Function DoCallTraining() As Model
+    Public Overrides Function DoCallTraining() As MLModel
         Dim activate As New LayerActives With {
             .output = output.activate,
             .hiddens = hidden.activate
@@ -30,7 +30,7 @@ Public Class ANN : Inherits MLModel
             Dim outputs = DirectCast(data, dataframe).forEachRow(output.labels).ToArray
 
             For i As Integer = 0 To inputs.Length - 1
-                Dim input As Double() = renv.asvector(Of Double)(inputs(i).value)
+                Dim input As Double() = REnv.asVector(Of Double)(inputs(i).value)
                 Dim output As Double() = REnv.asVector(Of Double)(outputs(i).value)
 
                 Call trainer.Add(input, output)
@@ -41,7 +41,9 @@ Public Class ANN : Inherits MLModel
             Throw New NotImplementedException
         End If
 
-        Return model
+        Me.Model = model
+
+        Return Me
     End Function
 End Class
 
@@ -64,6 +66,20 @@ End Class
 ''' </summary>
 Public MustInherit Class MLModel
 
-    Public MustOverride Function DoCallTraining() As Model
+    ''' <summary>
+    ''' the trained machine learning model object
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Model As Model
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns>
+    ''' this function just returns it self with 
+    ''' the <see cref="Model"/> property value 
+    ''' updated.
+    ''' </returns>
+    Public MustOverride Function DoCallTraining() As MLModel
 
 End Class

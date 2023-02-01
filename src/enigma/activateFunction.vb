@@ -61,7 +61,9 @@ Public Module activateFunction
             Return Message.InCompatibleType(GetType(DeclareLambdaFunction), raw.GetType, env)
         End If
 
-        Dim pfunc As Func(Of Double, Double) = MathMLCompiler.CreateLambda(lambda).Compile
+        Dim plambda = MathMLCompiler.CreateLambda(lambda)
+        Dim pfunc As Func(Of Double, Double) = plambda.Compile
+
         Return pfunc
     End Function
 

@@ -1,6 +1,9 @@
+Imports System.IO
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Components
+Imports SMRUCC.Rsharp.Runtime.Interop
 
 ''' <summary>
 ''' Create the machine learning model
@@ -25,8 +28,17 @@ Public Module models
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("snapshot")>
+    <RApiReturn(GetType(Boolean))>
     Public Function snapshot(model As MLModel, file As String, Optional env As Environment = Nothing) As Object
+        If TypeOf model Is ANN Then
+            Using writer As New ANNPackFile(model.Model, file.Open(FileMode.OpenOrCreate, doClear:=True))
+                Call writer.Write()
+            End Using
+        Else
+            Return Message.InCompatibleType(GetType(MLModel), model.GetType, env)
+        End If
 
+        Return True
     End Function
 
     ''' <summary>
