@@ -25,6 +25,11 @@ Public Module activateFunction
         Return New Sigmoid(alpha)
     End Function
 
+    <ExportAPI("identical")>
+    Public Function Identical() As IActivationFunction
+        Return New Identical()
+    End Function
+
     ''' <summary>
     ''' create a new custom activate function
     ''' </summary>
