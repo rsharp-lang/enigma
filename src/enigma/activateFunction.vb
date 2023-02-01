@@ -22,18 +22,18 @@ Public Module activateFunction
     ''' <param name="alpha"></param>
     ''' <returns></returns>
     <ExportAPI("sigmoid")>
-    Public Function Sigmoid(Optional alpha As Double = 0.2) As IActivationFunction
-        Return New Sigmoid(alpha)
+    Public Function Sigmoid(Optional alpha As Double = 0.2, Optional truncate As Double = -1) As IActivationFunction
+        Return New Sigmoid(alpha) With {.Truncate = truncate}
     End Function
 
     <ExportAPI("identical")>
-    Public Function Identical() As IActivationFunction
-        Return New Identical()
+    Public Function Identical(Optional truncate As Double = -1) As IActivationFunction
+        Return New Identical() With {.Truncate = truncate}
     End Function
 
     <ExportAPI("qlinear")>
-    Public Function QLinear() As IActivationFunction
-        Return New QLinear
+    Public Function QLinear(Optional truncate As Double = -1) As IActivationFunction
+        Return New QLinear With {.Truncate = truncate}
     End Function
 
     ''' <summary>
@@ -46,7 +46,10 @@ Public Module activateFunction
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("func")>
-    Public Function customFunc(forward As Object, derivative As Object, Optional env As Environment = Nothing) As Object
+    Public Function customFunc(forward As Object, derivative As Object,
+                               Optional truncate As Double = -1,
+                               Optional env As Environment = Nothing) As Object
+
         Dim func = getLambda(forward, env)
         Dim deri = getLambda(derivative, env)
 
@@ -56,7 +59,9 @@ Public Module activateFunction
             Return deri.TryCast(Of Message)
         End If
 
-        Return New CustomFunction(func, deri)
+        Return New CustomFunction(func, deri) With {
+            .Truncate = truncate
+        }
     End Function
 
     Private Function getLambda(raw As Object, env As Environment) As [Variant](Of Func(Of Double, Double), Message)
