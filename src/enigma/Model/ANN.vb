@@ -75,13 +75,10 @@ Public Class ANN : Inherits MLModel
                 Next
             Next
 
-            Dim result As New dataframe With {
-                .columns = New Dictionary(Of String, Array),
-                .rownames = rowNames
-            }
+            Dim result As New dataframe(df)
 
             For Each name As String In outputs.Keys
-                Call result.columns.Add(name, outputs(name))
+                Call result.columns.Add("PREDICT_OUTPUT: " & name, outputs(name))
             Next
 
             Return result
