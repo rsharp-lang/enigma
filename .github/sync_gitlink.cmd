@@ -1,6 +1,6 @@
 @echo off
 
-REM git remote add gitlink https://gitlink.org.cn/xieguigang/ggplot.git
+REM git remote add gitlink https://www.gitlink.org.cn/xieguigang/enigma.git
 
 git pull gitlink HEAD
 git push gitlink HEAD
