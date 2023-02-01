@@ -26,9 +26,11 @@ Public Class ANN : Inherits MLModel
             active:=activate
         )
         Dim trainer As New TrainingUtils(model)
-        Dim truncate As Double = args.getValue(Of Double)({"truncate", "Truncate"}, env, [default]:=-1.0)
+        Dim truncate As Double = args.getValue({"truncate", "Truncate"}, env, [default]:=-1.0)
+        Dim threshold As Double = args.getValue({"threshold"}, env, [default]:=0.01)
 
         trainer.Truncate = truncate
+        trainer.ErrorThreshold = threshold
 
         If TypeOf data Is dataframe Then
             Dim inputs = DirectCast(data, dataframe).forEachRow(input).ToArray

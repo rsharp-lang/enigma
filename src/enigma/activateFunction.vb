@@ -31,6 +31,11 @@ Public Module activateFunction
         Return New Identical()
     End Function
 
+    <ExportAPI("qlinear")>
+    Public Function QLinear() As IActivationFunction
+        Return New QLinear
+    End Function
+
     ''' <summary>
     ''' create a new custom activate function
     ''' </summary>
