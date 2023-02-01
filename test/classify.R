@@ -3,6 +3,8 @@ require(enigma);
 imports ["learning", "model", "activateFunction"] from "enigma";
 imports "dataset" from "MLkit";
 
+setwd(@dir);
+
 data("bezdekIris");
 
 data = bezdekIris 
