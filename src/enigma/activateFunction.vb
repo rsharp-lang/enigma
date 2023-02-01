@@ -8,6 +8,7 @@ Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.Closure
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
+Imports SMRUCC.Rsharp.Runtime.Interop
 
 ''' <summary>
 ''' the activate function handler
@@ -75,12 +76,16 @@ Public Module activateFunction
     Friend Function getFunction(func As Object, env As Environment) As [Variant](Of Message, IActivationFunction)
         If func Is Nothing Then
             Return Internal.debug.stop("the required activate function can not be nothing!", env)
+        ElseIf TypeOf func Is Message Then
+            Return DirectCast(func, Message)
         ElseIf TypeOf func Is String Then
             Return ActiveFunction.Parse(func).CreateFunction
         ElseIf TypeOf func Is IActivationFunction Then
             Return DirectCast(func, IActivationFunction)
         ElseIf TypeOf func Is ActiveFunction Then
             Return DirectCast(func, ActiveFunction).CreateFunction
+        ElseIf TypeOf func Is RMethodInfo Then
+            Return getFunction(DirectCast(func, RMethodInfo).Invoke(env, {}), env)
         Else
             Return Message.InCompatibleType(GetType(IActivationFunction), func, env)
         End If
