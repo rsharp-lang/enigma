@@ -14,7 +14,7 @@ Public Class ANN : Inherits MLModel
     Public Property hidden As HiddenLayerBuilderArgument
     Public Property output As OutputLayerBuilderArgument
 
-    Public Overrides Function DoCallTraining() As MLModel
+    Public Overrides Function DoCallTraining(args As list, env As Environment) As MLModel
         Dim activate As New LayerActives With {
             .output = output.activate,
             .hiddens = hidden.activate
@@ -26,6 +26,9 @@ Public Class ANN : Inherits MLModel
             active:=activate
         )
         Dim trainer As New TrainingUtils(model)
+        Dim truncate As Double = args.getValue(Of Double)({"truncate", "Truncate"}, env, [default]:=-1.0)
+
+        trainer.Truncate = truncate
 
         If TypeOf data Is dataframe Then
             Dim inputs = DirectCast(data, dataframe).forEachRow(input).ToArray
@@ -119,7 +122,7 @@ Public MustInherit Class MLModel
     ''' the <see cref="Model"/> property value 
     ''' updated.
     ''' </returns>
-    Public MustOverride Function DoCallTraining() As MLModel
+    Public MustOverride Function DoCallTraining(args As list, env As Environment) As MLModel
 
     ''' <summary>
     ''' 

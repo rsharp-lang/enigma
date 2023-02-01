@@ -157,8 +157,12 @@ Public Module learning
     ''' <returns></returns>
     <ExportAPI("learn")>
     <RApiReturn(GetType(MLModel))>
-    Public Function learn(model As MLModel, Optional env As Environment = Nothing) As Object
-        Return model.DoCallTraining
+    Public Function learn(model As MLModel,
+                          <RListObjectArgument>
+                          Optional args As list = Nothing,
+                          Optional env As Environment = Nothing) As Object
+
+        Return model.DoCallTraining(args, env)
     End Function
 
     ''' <summary>
