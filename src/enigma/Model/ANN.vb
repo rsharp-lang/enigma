@@ -1,7 +1,9 @@
-﻿Imports Microsoft.VisualBasic.MachineLearning
+﻿Imports Microsoft.VisualBasic.Language
+Imports Microsoft.VisualBasic.MachineLearning
 Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork.Activations
+Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports REnv = SMRUCC.Rsharp.Runtime
 
@@ -45,6 +47,43 @@ Public Class ANN : Inherits MLModel
 
         Return Me
     End Function
+
+    Public Overrides Function Solve(data As Object, env As Environment) As Object
+        If TypeOf data Is dataframe Then
+            Dim df As dataframe = DirectCast(data, dataframe)
+            Dim inputs = df.forEachRow(input).ToArray
+            Dim rowNames As String() = df.getRowNames
+            Dim outputs As New Dictionary(Of String, Double())
+            Dim ANN As Network = Model
+
+            For Each label As String In output.labels
+                outputs.Add(label, New Double(rowNames.Length - 1) {})
+            Next
+
+            For i As Integer = 0 To inputs.Length - 1
+                Dim v As Double() = REnv.asVector(Of Double)(inputs(i).value)
+                Dim o As Double() = ANN.Compute(v)
+                Dim j As i32 = Scan0
+
+                For Each label As String In output.labels
+                    outputs(label)(i) = o(++j)
+                Next
+            Next
+
+            Dim result As New dataframe With {
+                .columns = New Dictionary(Of String, Array),
+                .rownames = rowNames
+            }
+
+            For Each name As String In outputs.Keys
+                Call result.columns.Add(name, outputs(name))
+            Next
+
+            Return result
+        Else
+            Throw New NotImplementedException
+        End If
+    End Function
 End Class
 
 Public Class HiddenLayerBuilderArgument
@@ -81,5 +120,15 @@ Public MustInherit Class MLModel
     ''' updated.
     ''' </returns>
     Public MustOverride Function DoCallTraining() As MLModel
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="data"></param>
+    ''' <param name="env"></param>
+    ''' <returns>
+    ''' this function should returns a <see cref="dataframe"/> object.
+    ''' </returns>
+    Public MustOverride Function Solve(data As Object, env As Environment) As Object
 
 End Class

@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Runtime.CompilerServices
+Imports Microsoft.VisualBasic.DataStorage.HDSPack
 Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork.StoreProcedure
@@ -24,7 +25,7 @@ Public Class ANNPackFile : Implements IDisposable
         Me.file = New StreamPack(file, [readonly]:=openRead)
 
         If Not openRead Then
-
+            Me.file.WriteText("ANN", "/etc/model.class")
         End If
     End Sub
 

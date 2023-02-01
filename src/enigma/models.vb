@@ -1,5 +1,7 @@
 Imports System.IO
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.DataStorage.HDSPack
+Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -48,7 +50,23 @@ Public Module models
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("readModelFile")>
-    Public Function readModelFile(file As Object, Optional env As Environment = Nothing) As Object
+    Public Function readModelFile(<RRawVectorArgument> file As Object, Optional env As Environment = Nothing) As Object
+        Dim data = SMRUCC.Rsharp.GetFileStream(file, FileAccess.Read, env)
 
+        If data Like GetType(Message) Then
+            Return data.TryCast(Of Message)
+        End If
+
+        Using buffer As Stream = data.TryCast(Of Stream)
+            Dim pack As New StreamPack(buffer, [readonly]:=True)
+            Dim cls As String = pack.ReadText("/etc/model.class").Trim
+
+            Select Case cls
+                Case "ANN"
+                    Return New ANN With {.Model = ANNPackFile.OpenRead(buffer)}
+                Case Else
+                    Return Internal.debug.stop($"unsure how to parse the model file with class label: '{cls}'", env)
+            End Select
+        End Using
     End Function
 End Module

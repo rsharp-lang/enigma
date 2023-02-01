@@ -170,6 +170,6 @@ Public Module learning
     ''' <returns></returns>
     <ExportAPI("solve")>
     Public Function fitData(model As MLModel, data As Object, Optional env As Environment = Nothing) As Object
-
+        Return model.Solve(data, env)
     End Function
 End Module

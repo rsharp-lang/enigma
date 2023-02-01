@@ -16,10 +16,9 @@ tensor(model = ANN)
     derivative = x -> 1 / (2 * x)
 ))
 |> learn()
-|> snapshot(file = "./model.hds")
-;
-
-tensor(model = "./model.hds")
+# |> snapshot(file = "./model.hds")
+# ;
+# tensor(model = "./model.hds")
 |> solve(mtcars)
 |> print()
 ;
