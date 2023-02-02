@@ -29,9 +29,11 @@ Public Class ANN : Inherits MLModel
         Dim truncate As Double = args.getValue({"truncate", "Truncate"}, env, [default]:=-1.0)
         Dim threshold As Double = args.getValue({"threshold"}, env, [default]:=0.01)
         Dim parallel As Boolean = args.getValue({"parallel", "Parallel"}, env, [default]:=False)
+        Dim softmax As Boolean = args.getValue("softmax", env, [default]:=False)
 
         trainer.Truncate = truncate
         trainer.ErrorThreshold = threshold
+        trainer.SetLayerNormalize(softmax)
 
         Helpers.MaxEpochs = args.getValue({"MaxEpochs", "max.epochs", "epochs"}, env, [default]:=10000)
 
