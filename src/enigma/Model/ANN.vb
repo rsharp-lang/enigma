@@ -33,6 +33,8 @@ Public Class ANN : Inherits MLModel
         trainer.Truncate = truncate
         trainer.ErrorThreshold = threshold
 
+        Helpers.MaxEpochs = args.getValue({"MaxEpochs", "max.epochs", "epochs"}, env, [default]:=10000)
+
         If TypeOf data Is dataframe Then
             Dim inputs = DirectCast(data, dataframe).forEachRow(input).ToArray
             Dim outputs = DirectCast(data, dataframe).forEachRow(output.labels).ToArray
