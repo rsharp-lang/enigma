@@ -7,7 +7,7 @@ Imports REnv = SMRUCC.Rsharp.Runtime
 Public Class ANNRegression : Inherits ANN
 
     Public Overrides Function DoCallTraining(args As list, env As Environment) As MLModel
-        Dim model As New Netz(input.Length, input.Length * 2, hidden.size.Length, output.labels.Length)
+        Dim model As New Netz(input.Length, 100, hidden.size.Length, output.labels.Length, activate:=AddressOf output.activate.Function)
 
         If TypeOf data Is dataframe Then
             Call trainOnDataframe(model, data)
