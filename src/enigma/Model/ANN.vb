@@ -28,6 +28,7 @@ Public Class ANN : Inherits MLModel
         Dim trainer As New TrainingUtils(model)
         Dim truncate As Double = args.getValue({"truncate", "Truncate"}, env, [default]:=-1.0)
         Dim threshold As Double = args.getValue({"threshold"}, env, [default]:=0.01)
+        Dim parallel As Boolean = args.getValue({"parallel", "Parallel"}, env, [default]:=False)
 
         trainer.Truncate = truncate
         trainer.ErrorThreshold = threshold
@@ -43,7 +44,7 @@ Public Class ANN : Inherits MLModel
                 Call trainer.Add(input, output)
             Next
 
-            Call trainer.Train()
+            Call trainer.Train(parallel)
         Else
             Throw New NotImplementedException
         End If
