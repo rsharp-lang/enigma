@@ -19,11 +19,13 @@ Public Class ANN : Inherits MLModel
             .output = output.activate,
             .hiddens = hidden.activate
         }
+        Dim learnRate As Double = args.getValue({"learn", "learn.rate"}, env, [default]:=0.01)
         Dim model As New Network(
             inputSize:=input.Length,
             hiddenSize:=hidden.size,
             outputSize:=output.labels.Length,
-            active:=activate
+            active:=activate,
+            learnRate:=learnRate
         )
         Dim trainer As New TrainingUtils(model)
         Dim truncate As Double = args.getValue({"truncate", "Truncate"}, env, [default]:=-1.0)
