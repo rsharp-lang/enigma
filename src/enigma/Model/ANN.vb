@@ -1,4 +1,5 @@
-﻿Imports Microsoft.VisualBasic.Language
+﻿Imports Microsoft.VisualBasic.ComponentModel.Ranges.Model
+Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.MachineLearning
 Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork
@@ -38,17 +39,7 @@ Public Class ANN : Inherits MLModel
         Helpers.MaxEpochs = args.getValue({"MaxEpochs", "max.epochs", "epochs"}, env, [default]:=10000)
 
         If TypeOf data Is dataframe Then
-            Dim inputs = DirectCast(data, dataframe).forEachRow(input).ToArray
-            Dim outputs = DirectCast(data, dataframe).forEachRow(output.labels).ToArray
-
-            For i As Integer = 0 To inputs.Length - 1
-                Dim input As Double() = REnv.asVector(Of Double)(inputs(i).value)
-                Dim output As Double() = REnv.asVector(Of Double)(outputs(i).value)
-
-                Call trainer.Add(input, output)
-            Next
-
-            Call trainer.Train(parallel)
+            Call trainOnDataframe(trainer, data, parallel)
         Else
             Throw New NotImplementedException
         End If
@@ -57,6 +48,37 @@ Public Class ANN : Inherits MLModel
 
         Return Me
     End Function
+
+    Private Sub trainOnDataframe(trainer As TrainingUtils, data As dataframe, parallel As Boolean)
+        Dim inputs = DirectCast(data, dataframe).forEachRow(input).ToArray
+        Dim outputs = DirectCast(data, dataframe).forEachRow(output.labels).ToArray
+        Dim output_range As New Dictionary(Of String, DoubleRange)
+        Dim std As DoubleRange = {0, 1}
+
+        For Each field As String In output.labels
+            Dim v As Double() = REnv.asVector(Of Double)(data(field))
+            Dim range As New DoubleRange(v)
+
+            output_range.Add(field, range)
+        Next
+
+        output.range = output_range.ToDictionary(Function(a) a.Key, Function(a) {a.Value.Min, a.Value.Max})
+
+        For i As Integer = 0 To inputs.Length - 1
+            Dim input As Double() = REnv.asVector(Of Double)(inputs(i).value)
+            Dim output As Double() = REnv.asVector(Of Double)(outputs(i).value)
+
+            Call Me.output.labels _
+                .Select(Function(key, idx)
+                            output(idx) = output_range(key).ScaleMapping(output(idx), std)
+                            Return 1
+                        End Function) _
+                .ToArray
+            Call trainer.Add(input, output)
+        Next
+
+        trainer.Train(parallel)
+    End Sub
 
     Public Overrides Function Solve(data As Object, env As Environment) As Object
         If TypeOf data Is dataframe Then
@@ -104,6 +126,7 @@ Public Class OutputLayerBuilderArgument
 
     Public Property labels As String()
     Public Property activate As IActivationFunction
+    Public Property range As Dictionary(Of String, Double())
 
 End Class
 
