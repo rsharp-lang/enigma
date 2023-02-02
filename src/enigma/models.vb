@@ -22,6 +22,11 @@ Public Module models
         Return New ANN
     End Function
 
+    <ExportAPI("ANN.regression")>
+    Public Function ANNRegression() As ANNRegression
+        Return New ANNRegression
+    End Function
+
     ''' <summary>
     ''' make the snapshot of the machine learning model
     ''' </summary>
