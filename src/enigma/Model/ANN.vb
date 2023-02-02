@@ -87,6 +87,7 @@ Public Class ANN : Inherits MLModel
             Dim rowNames As String() = df.getRowNames
             Dim outputs As New Dictionary(Of String, Double())
             Dim ANN As Network = Model
+            Dim std As DoubleRange = {0, 1}
 
             For Each label As String In output.labels
                 outputs.Add(label, New Double(rowNames.Length - 1) {})
@@ -98,7 +99,7 @@ Public Class ANN : Inherits MLModel
                 Dim j As i32 = Scan0
 
                 For Each label As String In output.labels
-                    outputs(label)(i) = o(++j)
+                    outputs(label)(i) = std.ScaleMapping(o(++j), output.range(label))
                 Next
             Next
 
