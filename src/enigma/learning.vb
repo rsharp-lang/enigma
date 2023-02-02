@@ -153,6 +153,17 @@ Public Module learning
     ''' Do machine learning model training
     ''' </summary>
     ''' <param name="model"></param>
+    ''' <param name="args">
+    ''' the additional arguments to the machine learning model trainer, it could be:
+    ''' 
+    ''' 1. ANN model
+    ''' 
+    ''' + truncate, numeric
+    ''' + threshold, numeric
+    ''' + parallel, logical
+    ''' + softmax, logical
+    ''' + max.epochs, integer
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("learn")>
