@@ -13,7 +13,7 @@ print(data, max.print = 6);
 tensor(model = model::xgboost)
 |> feed(data, features = ["x", "y"])
 |> output(labels = "z")
-|> learn()
+|> learn(lost = "squareloss", cost = "mse")
 |> solve(data)
 |> print()
 ;
