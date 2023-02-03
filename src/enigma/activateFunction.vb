@@ -49,7 +49,7 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 Public Module activateFunction
 
     ''' <summary>
-    ''' Create sigmoid activation function
+    ''' Logistic Sigmoid Function Formula
     ''' </summary>
     ''' <param name="alpha"></param>
     ''' <returns></returns>

@@ -32,7 +32,7 @@ the activate function handler
 >  fingers to the brain, and allows motor neurons to transmit 
 >  instructions from the brain to the limbs.
 
-+ [sigmoid](activateFunction/sigmoid.1) Create sigmoid activation function
++ [sigmoid](activateFunction/sigmoid.1) Logistic Sigmoid Function Formula
 + [identical](activateFunction/identical.1) 
 + [qlinear](activateFunction/qlinear.1) 
 + [func](activateFunction/func.1) create a new custom activate function
