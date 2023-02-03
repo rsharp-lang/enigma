@@ -39,6 +39,16 @@ Public Module models
         Return New XGBoost
     End Function
 
+    <ExportAPI("svm")>
+    Public Function svmModel() As SVMModel
+        Return New SVMModel
+    End Function
+
+    <ExportAPI("svr")>
+    Public Function svrModel() As SVMModel
+        Return New SVMModel
+    End Function
+
     <ExportAPI("ANN.regression")>
     Public Function ANNRegression() As ANNRegression
         Return New ANNRegression
