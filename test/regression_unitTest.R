@@ -9,6 +9,7 @@ let z = y / x;
 data = data.frame(x, y, z, row.names = as.character(x));
 
 print(data, max.print = 6);
+cat("\n\n\n");
 
 test = tensor(model = model::xgboost)
 |> feed(data, features = ["x", "y"])
@@ -21,6 +22,7 @@ test[, "errors"] = abs(test$z - test[, "z(predicts)"]);
 i = order(test$errors);
 test = test[i, ];
 
-print(test);
+cat("\n\n\n");
+print(test, max.print = 6);
 write.csv(test, file = `${@dir}/regression_test.csv`, row.names = TRUE);
 
