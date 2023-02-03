@@ -43,7 +43,7 @@ Public Module models
     <RApiReturn(GetType(Boolean))>
     Public Function snapshot(model As MLModel, file As String, Optional env As Environment = Nothing) As Object
         If TypeOf model Is ANN Then
-            Using writer As New ANNPackFile(model.Model, file.Open(FileMode.OpenOrCreate, doClear:=True))
+            Using writer As New ANNPackFile(model, file.Open(FileMode.OpenOrCreate, doClear:=True))
                 Call writer.Write()
             End Using
         ElseIf TypeOf model Is XGBoost Then
@@ -78,7 +78,7 @@ Public Module models
 
             Select Case cls
                 Case "ANN"
-                    Return New ANN With {.Model = ANNPackFile.OpenRead(buffer)}
+                    Return ANNPackFile.OpenRead(buffer)
                 Case "xgboost"
                     Return Internal.debug.stop($"unsure how to parse the model file with class label: '{cls}'", env)
                 Case Else
