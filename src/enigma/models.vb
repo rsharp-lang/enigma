@@ -23,6 +23,17 @@ Public Module models
         Return New ANN
     End Function
 
+    ''' <summary>
+    ''' ### XGBoost (eXtreme Gradient Boosting)
+    ''' 
+    ''' XGBoost is an optimized distributed gradient boosting library
+    ''' designed to be highly efficient, flexible and portable. 
+    ''' It implements machine learning algorithms under the Gradient
+    ''' Boosting framework. XGBoost provides a parallel tree boosting 
+    ''' (also known as GBDT, GBM) that solve many data science 
+    ''' problems in a fast and accurate way. 
+    ''' </summary>
+    ''' <returns></returns>
     <ExportAPI("xgboost")>
     Public Function xgboost() As XGBoost
         Return New XGBoost
