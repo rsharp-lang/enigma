@@ -99,16 +99,10 @@ Public Module learning
                          Optional args As list = Nothing,
                          Optional env As Environment = Nothing) As Object
 
-        If TypeOf model Is ANN Then
-            Dim ANN As ANN = DirectCast(model, ANN)
+        model.data = x
+        model.Features = REnv.asVector(Of String)(features)
 
-            ANN.data = x
-            ANN.Features = REnv.asVector(Of String)(features)
-
-            Return model
-        Else
-            Return Internal.debug.stop(New NotImplementedException(model.GetType.FullName), env)
-        End If
+        Return model
     End Function
 
     ''' <summary>
@@ -148,9 +142,9 @@ Public Module learning
     ''' <param name="activate"></param>
     ''' <param name="env"></param>
     ''' <returns></returns>
-    <ExportAPI("output_layer")>
+    <ExportAPI("output")>
     <RApiReturn(GetType(MLModel))>
-    Public Function output_layer(model As ANN,
+    Public Function output_layer(model As MLModel,
                                  <RRawVectorArgument>
                                  Optional labels As Object = Nothing,
                                  Optional activate As Object = Nothing,
@@ -161,12 +155,13 @@ Public Module learning
 
         If f Like GetType(Message) Then
             Return f.TryCast(Of Message)
+        ElseIf TypeOf model Is ANN Then
+            DirectCast(model, ANN).output = New OutputLayerBuilderArgument With {
+                .activate = f.TryCast(Of IActivationFunction)
+            }
         End If
 
-        model.output = New OutputLayerBuilderArgument With {
-            .labels = labelStr,
-            .activate = f.TryCast(Of IActivationFunction)
-        }
+        model.Labels = labelStr
 
         Return model
     End Function

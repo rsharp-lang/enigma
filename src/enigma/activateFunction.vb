@@ -117,7 +117,8 @@ Public Module activateFunction
 
     Friend Function getFunction(func As Object, env As Environment) As [Variant](Of Message, IActivationFunction)
         If func Is Nothing Then
-            Return Internal.debug.stop("the required activate function can not be nothing!", env)
+            Return Nothing
+            ' Return Internal.debug.stop("the required activate function can not be nothing!", env)
         ElseIf TypeOf func Is Message Then
             Return DirectCast(func, Message)
         ElseIf TypeOf func Is String Then

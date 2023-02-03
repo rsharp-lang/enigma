@@ -18,6 +18,12 @@ Public MustInherit Class MLModel
     ''' </summary>
     ''' <returns></returns>
     Public Property Features As String()
+    ''' <summary>
+    ''' the output labels
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Labels As String()
+    Public Property data As dataframe
 
     ''' <summary>
     ''' 

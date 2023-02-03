@@ -18,6 +18,7 @@
     <ProjectReference Include="..\..\..\sciBASIC#\Data_science\DataMining\DataMining\DataMining.NET5.vbproj" />
     <ProjectReference Include="..\..\..\sciBASIC#\Data_science\MachineLearning\DeepLearning\DeepLearning.NET6.vbproj" />
     <ProjectReference Include="..\..\..\sciBASIC#\Data_science\MachineLearning\MachineLearning\machine_learning-netcore5.vbproj" />
+    <ProjectReference Include="..\..\..\sciBASIC#\Data_science\MachineLearning\XGBoostDataSet\XGBoostDataSet.vbproj" />
     <ProjectReference Include="..\..\..\sciBASIC#\Data_science\MachineLearning\xgboost\xgboost.vbproj" />
     <ProjectReference Include="..\..\..\sciBASIC#\Data_science\Mathematica\Math\MathLambda\symbolic-netcore5.vbproj" />
     <ProjectReference Include="..\..\..\sciBASIC#\Data_science\Mathematica\Math\Math\Math.NET5.vbproj" />
@@ -26,5 +27,7 @@
   </ItemGroup>
 
   <Import Project="..\..\..\..\R-sharp\Library\shares\symbolic\symbolic.projitems" Label="Shared" />
+
+  <Import Project="..\..\..\..\R-sharp\Library\shares\xgboostDataSet_helper\xgboostDataSet_helper.projitems" Label="Shared" />
 
 </Project>
