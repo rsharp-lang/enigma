@@ -39,11 +39,19 @@ Public Module models
         Return New XGBoost
     End Function
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
     <ExportAPI("svm")>
     Public Function svmModel() As SVMModel
         Return New SVMModel
     End Function
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
     <ExportAPI("svr")>
     Public Function svrModel() As SVMModel
         Return New SVMModel
