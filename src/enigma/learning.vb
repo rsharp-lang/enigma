@@ -1,6 +1,9 @@
 ﻿
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.MachineLearning
 Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
+Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork
+Imports Microsoft.VisualBasic.MachineLearning.XGBoost.train
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Interpreter
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
@@ -42,9 +45,26 @@ Public Module learning
             Return enigma.models.readModelFile(model, env)
         ElseIf TypeOf model Is MLModel Then
             Return model
+        ElseIf TypeOf model Is Model Then
+            Return wrapModel(model, env)
         Else
             Return Message.InCompatibleType(GetType(String), model.GetType, env)
         End If
+    End Function
+
+    ''' <summary>
+    ''' wrap model object from other CLR function outputs
+    ''' </summary>
+    ''' <param name="model"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
+    Private Function wrapModel(model As Model, env As Environment) As Object
+        Select Case model.GetType
+            Case GetType(Network) : Return New ANN With {.Model = model}
+            Case GetType(GBM) : Return New XGBoost With {.Model = model}
+            Case Else
+                Return Internal.debug.stop(New NotImplementedException(model.GetType.FullName), env)
+        End Select
     End Function
 
     Private Function checkModel(model As Object, env As Environment) As Object
@@ -52,6 +72,8 @@ Public Module learning
             Return model
         ElseIf TypeOf model Is MLModel Then
             Return model
+        ElseIf TypeOf model Is Model Then
+            Return wrapModel(model, env)
         Else
             Return Internal.debug.stop("invalid model function, the function should be procude a new machine learning model object!", env)
         End If
