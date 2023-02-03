@@ -10,7 +10,6 @@ Imports REnv = SMRUCC.Rsharp.Runtime
 Public Class ANN : Inherits MLModel
 
     Public Property data As Object
-    Public Property input As String()
     Public Property hidden As HiddenLayerBuilderArgument
     Public Property output As OutputLayerBuilderArgument
 
@@ -21,7 +20,7 @@ Public Class ANN : Inherits MLModel
         }
         Dim learnRate As Double = args.getValue({"learn", "learn.rate"}, env, [default]:=0.01)
         Dim model As New Network(
-            inputSize:=input.Length,
+            inputSize:=Features.Length,
             hiddenSize:=hidden.size,
             outputSize:=output.labels.Length,
             active:=activate,
@@ -51,7 +50,7 @@ Public Class ANN : Inherits MLModel
     End Function
 
     Private Sub trainOnDataframe(trainer As TrainingUtils, data As dataframe, parallel As Boolean)
-        Dim inputs = DirectCast(data, dataframe).forEachRow(input).ToArray
+        Dim inputs = DirectCast(data, dataframe).forEachRow(Features).ToArray
         Dim outputs = DirectCast(data, dataframe).forEachRow(output.labels).ToArray
         Dim output_range As New Dictionary(Of String, DoubleRange)
         Dim std As DoubleRange = {0, 1}
@@ -84,7 +83,7 @@ Public Class ANN : Inherits MLModel
     Public Overrides Function Solve(data As Object, env As Environment) As Object
         If TypeOf data Is dataframe Then
             Dim df As dataframe = DirectCast(data, dataframe)
-            Dim inputs = df.forEachRow(input).ToArray
+            Dim inputs = df.forEachRow(Features).ToArray
             Dim rowNames As String() = df.getRowNames
             Dim outputs As New Dictionary(Of String, Double())
             Dim ANN As Network = Model

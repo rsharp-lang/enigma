@@ -22,6 +22,11 @@ Public Module models
         Return New ANN
     End Function
 
+    <ExportAPI("xgboost")>
+    Public Function xgboost() As XGBoost
+        Return New XGBoost
+    End Function
+
     <ExportAPI("ANN.regression")>
     Public Function ANNRegression() As ANNRegression
         Return New ANNRegression
@@ -40,6 +45,11 @@ Public Module models
         If TypeOf model Is ANN Then
             Using writer As New ANNPackFile(model.Model, file.Open(FileMode.OpenOrCreate, doClear:=True))
                 Call writer.Write()
+            End Using
+        ElseIf TypeOf model Is XGBoost Then
+            Using writer As New StreamPack(file.Open(FileMode.OpenOrCreate, doClear:=True))
+                Call writer.WriteText(DirectCast(model, XGBoost).GetModelFile, "/xgboost.txt")
+                Call writer.WriteText(model.Features, "/features.txt")
             End Using
         Else
             Return Message.InCompatibleType(GetType(MLModel), model.GetType, env)
@@ -69,6 +79,8 @@ Public Module models
             Select Case cls
                 Case "ANN"
                     Return New ANN With {.Model = ANNPackFile.OpenRead(buffer)}
+                Case "xgboost"
+                    Return Internal.debug.stop($"unsure how to parse the model file with class label: '{cls}'", env)
                 Case Else
                     Return Internal.debug.stop($"unsure how to parse the model file with class label: '{cls}'", env)
             End Select

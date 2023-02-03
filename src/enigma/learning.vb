@@ -81,7 +81,7 @@ Public Module learning
             Dim ANN As ANN = DirectCast(model, ANN)
 
             ANN.data = x
-            ANN.input = REnv.asVector(Of String)(features)
+            ANN.Features = REnv.asVector(Of String)(features)
 
             Return model
         Else

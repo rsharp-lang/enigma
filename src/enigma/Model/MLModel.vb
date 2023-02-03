@@ -14,6 +14,12 @@ Public MustInherit Class MLModel
     Public Property Model As Model
 
     ''' <summary>
+    ''' the input feature names to create input data
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Features As String()
+
+    ''' <summary>
     ''' 
     ''' </summary>
     ''' <returns>
