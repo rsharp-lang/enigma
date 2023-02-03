@@ -1,8 +1,8 @@
 Imports System.IO
+Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.CommandLine.Reflection
-Imports Microsoft.VisualBasic.DataStorage.HDSPack
 Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
-Imports Microsoft.VisualBasic.MachineLearning
+Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -43,20 +43,27 @@ Public Module models
     <ExportAPI("snapshot")>
     <RApiReturn(GetType(Boolean))>
     Public Function snapshot(model As MLModel, file As String, Optional env As Environment = Nothing) As Object
-        If TypeOf model Is ANN Then
-            Using writer As New ANNPackFile(model, file.Open(FileMode.OpenOrCreate, doClear:=True))
-                Call writer.Write()
-            End Using
-        ElseIf TypeOf model Is XGBoost Then
-            Using writer As New StreamPack(file.Open(FileMode.OpenOrCreate, doClear:=True))
-                Call writer.WriteText(DirectCast(model, XGBoost).GetModelFile, "/xgboost.txt")
-                Call writer.WriteText(model.Features, "/features.txt")
-            End Using
+        Dim writer = model.StorageProvider(file.Open(FileMode.OpenOrCreate, doClear:=True), env)
+
+        If writer Like GetType(Message) Then
+            Return writer.TryCast(Of Message)
         Else
-            Return Message.InCompatibleType(GetType(MLModel), model.GetType, env)
+            Call writer.TryCast(Of MLPackFile).Write()
+            Call writer.Dispose()
         End If
 
         Return True
+    End Function
+
+    <Extension>
+    Private Function StorageProvider(model As MLModel, file As Stream, env As Environment) As [Variant](Of Message, MLPackFile)
+        If TypeOf model Is ANN Then
+            Return New ANNPackFile(model, file)
+        ElseIf TypeOf model Is XGBoost Then
+            Return New XGBoostPackFile(model, file)
+        Else
+            Return Message.InCompatibleType(GetType(MLModel), model.GetType, env)
+        End If
     End Function
 
     ''' <summary>
@@ -79,7 +86,7 @@ Public Module models
 
             Select Case cls
                 Case "ANN" : Return ANNPackFile.OpenRead(buffer)
-                Case "xgboost" : Return Internal.debug.stop($"unsure how to parse the model file with class label: '{cls}'", env)
+                Case "xgboost" : Return XGBoostPackFile.OpenRead(buffer)
                 Case Else
                     Return Internal.debug.stop($"unsure how to parse the model file with class label: '{cls}'", env)
             End Select

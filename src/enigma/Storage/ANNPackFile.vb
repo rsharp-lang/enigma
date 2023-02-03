@@ -1,6 +1,5 @@
 ﻿Imports System.IO
 Imports System.Runtime.CompilerServices
-Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork.StoreProcedure
 
 Public Class ANNPackFile : Inherits MLPackFile(Of ANN)
@@ -25,13 +24,13 @@ Public Class ANNPackFile : Inherits MLPackFile(Of ANN)
     End Sub
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Public Sub Write()
+    Protected Overrides Sub WriteModel()
         Call CreateSnapshot _
             .TakeSnapshot(model.Model, {}) _
             .ScatteredStore(file)
     End Sub
 
-    Public Function Load() As Network
+    Protected Overrides Function Load() As MachineLearning.Model
         Return Scattered.ScatteredLoader(file).LoadModel
     End Function
 

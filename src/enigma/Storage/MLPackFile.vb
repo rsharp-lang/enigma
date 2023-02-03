@@ -2,38 +2,23 @@
 Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.DataStorage.HDSPack
 Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
+Imports Microsoft.VisualBasic.MachineLearning
 
-Public MustInherit Class MLPackFile(Of T As MLModel) : Implements IDisposable
+Public MustInherit Class MLPackFile : Implements IDisposable
+
+    Public Const Model_Class As String = "/etc/model.class"
 
     Protected ReadOnly file As StreamPack
-    Protected ReadOnly model As T
 
     Dim disposedValue As Boolean
 
-    Const Model_Class As String = "/etc/model.class"
-
     Public MustOverride ReadOnly Property [Class] As String
 
-    ''' <summary>
-    ''' model writer
-    ''' </summary>
-    ''' <param name="model"></param>
-    ''' <param name="file"></param>
-    Sub New(model As T, file As Stream)
-        Me.model = model
-        Me.file = New StreamPack(file, [readonly]:=False)
-        Me.file.WriteText(Me.Class, Model_Class)
+    Protected Sub New(file As StreamPack)
+        Me.file = file
     End Sub
 
-    ''' <summary>
-    ''' model reader
-    ''' </summary>
-    ''' <param name="file"></param>
-    ''' 
-    <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Sub New(file As Stream)
-        Me.file = New StreamPack(file, [readonly]:=True)
-    End Sub
+    Public MustOverride Sub Write()
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
     Public Function CheckClass() As Boolean
@@ -70,4 +55,43 @@ Public MustInherit Class MLPackFile(Of T As MLModel) : Implements IDisposable
         Dispose(disposing:=True)
         GC.SuppressFinalize(Me)
     End Sub
+End Class
+
+Public MustInherit Class MLPackFile(Of T As MLModel) : Inherits MLPackFile
+
+    Protected ReadOnly model As T
+
+    ''' <summary>
+    ''' model writer
+    ''' </summary>
+    ''' <param name="model"></param>
+    ''' <param name="file"></param>
+    Sub New(model As T, file As Stream)
+        Call MyBase.New(New StreamPack(file, [readonly]:=False))
+
+        Me.model = model
+        Me.file.WriteText(Me.Class, Model_Class)
+    End Sub
+
+    ''' <summary>
+    ''' model reader
+    ''' </summary>
+    ''' <param name="file"></param>
+    ''' 
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
+    Sub New(file As Stream)
+        Call MyBase.New(New StreamPack(file, [readonly]:=True))
+    End Sub
+
+    Public Overrides Sub Write()
+        Call WriteModel()
+
+        ' write the general model information
+        Call file.WriteText(model.Features, "/features.txt")
+        Call file.WriteText(model.Labels, "/labels.txt")
+    End Sub
+
+    Protected MustOverride Sub WriteModel()
+    Protected MustOverride Function Load() As Model
+
 End Class
