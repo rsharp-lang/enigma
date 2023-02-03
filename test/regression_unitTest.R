@@ -12,12 +12,8 @@ print(data, max.print = 6);
 
 tensor(model = model::xgboost)
 |> feed(data, features = ["x", "y"])
-|> hidden_layer([13, 51, 5, 5], activate = activateFunction::qlinear(truncate = -1))
-|> output_layer(labels = "z", activate = activateFunction::qlinear(truncate = -1))
-|> learn(truncate = 10, threshold = 1)
-# |> snapshot(file = "./model.hds")
-# ;
-# tensor(model = "./model.hds")
+|> output(labels = "z")
+|> learn()
 |> solve(data)
 |> print()
 ;
