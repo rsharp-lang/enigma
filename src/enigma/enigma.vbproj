@@ -27,4 +27,6 @@
 
   <Import Project="..\..\..\..\R-sharp\Library\shares\symbolic\symbolic.projitems" Label="Shared" />
 
+  <Import Project="..\..\..\..\R-sharp\Library\shares\xgboostDataSet_helper\xgboostDataSet_helper.projitems" Label="Shared" />
+
 </Project>

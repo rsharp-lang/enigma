@@ -18,6 +18,7 @@ Public MustInherit Class MLModel
     ''' </summary>
     ''' <returns></returns>
     Public Property Features As String()
+    Public Property InputData As Object
 
     ''' <summary>
     ''' 

@@ -9,7 +9,14 @@ Public Class XGBoost : Inherits MLModel
     End Function
 
     Public Overrides Function DoCallTraining(args As list, env As Environment) As MLModel
-        Throw New NotImplementedException()
+        Dim output As Double()
+        Dim trainData As TrainData = DirectCast(InputData, dataframe).trainingDataSet(output, featureNames:=Features)
+        Dim gb As New GBM()
+
+        Call gb.fit(trainData, Nothing)
+        Me.Model = gb
+
+        Return Me
     End Function
 
     Public Overrides Function Solve(data As Object, env As Environment) As Object
