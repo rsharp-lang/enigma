@@ -1,6 +1,5 @@
 ﻿Imports Microsoft.VisualBasic.ComponentModel.Ranges.Model
 Imports Microsoft.VisualBasic.Language
-Imports Microsoft.VisualBasic.MachineLearning
 Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork.Activations
@@ -20,11 +19,13 @@ Public Class ANN : Inherits MLModel
             .output = output.activate,
             .hiddens = hidden.activate
         }
+        Dim learnRate As Double = args.getValue({"learn", "learn.rate"}, env, [default]:=0.01)
         Dim model As New Network(
             inputSize:=input.Length,
             hiddenSize:=hidden.size,
             outputSize:=output.labels.Length,
-            active:=activate
+            active:=activate,
+            learnRate:=learnRate
         )
         Dim trainer As New TrainingUtils(model)
         Dim truncate As Double = args.getValue({"truncate", "Truncate"}, env, [default]:=-1.0)
@@ -128,38 +129,5 @@ Public Class OutputLayerBuilderArgument
     Public Property labels As String()
     Public Property activate As IActivationFunction
     Public Property range As Dictionary(Of String, Double())
-
-End Class
-
-''' <summary>
-''' the machine learning model
-''' </summary>
-Public MustInherit Class MLModel
-
-    ''' <summary>
-    ''' the trained machine learning model object
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property Model As Model
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns>
-    ''' this function just returns it self with 
-    ''' the <see cref="Model"/> property value 
-    ''' updated.
-    ''' </returns>
-    Public MustOverride Function DoCallTraining(args As list, env As Environment) As MLModel
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <param name="data"></param>
-    ''' <param name="env"></param>
-    ''' <returns>
-    ''' this function should returns a <see cref="dataframe"/> object.
-    ''' </returns>
-    Public MustOverride Function Solve(data As Object, env As Environment) As Object
 
 End Class
