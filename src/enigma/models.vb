@@ -2,6 +2,7 @@ Imports System.IO
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.DataStorage.HDSPack
 Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
+Imports Microsoft.VisualBasic.MachineLearning
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -74,13 +75,11 @@ Public Module models
 
         Using buffer As Stream = data.TryCast(Of Stream)
             Dim pack As New StreamPack(buffer, [readonly]:=True)
-            Dim cls As String = pack.ReadText("/etc/model.class").Trim
+            Dim cls As String = MLPackFile(Of MLModel).GetClass(pack)
 
             Select Case cls
-                Case "ANN"
-                    Return ANNPackFile.OpenRead(buffer)
-                Case "xgboost"
-                    Return Internal.debug.stop($"unsure how to parse the model file with class label: '{cls}'", env)
+                Case "ANN" : Return ANNPackFile.OpenRead(buffer)
+                Case "xgboost" : Return Internal.debug.stop($"unsure how to parse the model file with class label: '{cls}'", env)
                 Case Else
                     Return Internal.debug.stop($"unsure how to parse the model file with class label: '{cls}'", env)
             End Select

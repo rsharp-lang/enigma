@@ -37,7 +37,12 @@ Public MustInherit Class MLPackFile(Of T As MLModel) : Implements IDisposable
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
     Public Function CheckClass() As Boolean
-        Return [Class] = file.ReadText(Model_Class).Trim
+        Return [Class] = GetClass(file)
+    End Function
+
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
+    Public Shared Function GetClass(file As StreamPack) As String
+        Return file.ReadText(Model_Class).Trim
     End Function
 
     Protected Overridable Sub Dispose(disposing As Boolean)
