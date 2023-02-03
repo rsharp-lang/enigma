@@ -18,6 +18,36 @@
     <meta class="foundation-mq-medium" />
     <meta class="foundation-mq-small" />
     <meta class="foundation-mq-topbar" />
+    <style>
+
+.table-three-line {
+border-collapse:collapse; /* 关键属性：合并表格内外边框(其实表格边框有2px，外面1px，里面还有1px哦) */
+border:solid #000000; /* 设置边框属性；样式(solid=实线)、颜色(#999=灰) */
+border-width:2px 0 2px 0px; /* 设置边框状粗细：上 右 下 左 = 对应：1px 0 0 1px */
+}
+.left-1{
+    border:solid #000000;border-width:1px 1px 2px 0px;padding:2px;
+    font-weight:bolder;
+}
+.right-1{
+    border:solid #000000;border-width:1px 0px 2px 1px;padding:2px;
+    font-weight:bolder;
+}
+.mid-1{
+    border:solid #000000;border-width:1px 1px 2px 1px;padding:2px;
+    font-weight:bolder;
+}
+.left{
+    border:solid #000000;border-width:1px 1px 1px 0px;padding:2px;
+}
+.right{
+    border:solid #000000;border-width:1px 0px 1px 1px;padding:2px;
+}
+.mid{
+    border:solid #000000;border-width:1px 1px 1px 1px;padding:2px;
+}
+table caption {font-size:14px;font-weight:bolder;}
+</style>
   </head>
   <body>
     <table width="100%" summary="page for {activateFunction}">
@@ -30,29 +60,13 @@
     </table>
     <h1>activateFunction</h1>
     <hr />
-    <p>
+    <p style="     font-size: 1.125em;     line-height: .8em;     margin-left: 0.5%;     background-color: #fbfbfb;     padding: 24px; ">
       <code>
         <span style="color: blue;">require</span>(<span style="color: black; font-weight: bold;">activateFunction</span>);
-                               <br /><br /><span style="color: green;">#' the activate function handler An activation function is a function used in artificial neural
-#' networks which outputs a small value for small inputs, and a
-#' larger value if its inputs exceed a threshold. If the inputs
-#' are large enough, the activation function "fires", otherwise it
-#' does nothing. In other words, an activation function is like a
-#' gate that checks that an incoming value is greater than a
-#' critical number. Activation functions are useful because they add non-linearities
-#' into neural networks, allowing the neural networks To learn
-#' powerful operations. If the activation functions were To be removed
-#' from a feedforward neural network, the entire network could be
-#' re-factored To a simple linear operation Or matrix transformation
-#' On its input, And it would no longer be capable Of performing
-#' complex tasks such As image recognition. Well-known activation functions used in data science include the
-#' rectified linear unit (ReLU) function, And the family of sigmoid
-#' functions such as the logistic sigmoid function, the hyperbolic
-#' tangent, And the arctangent function.</span><br /><span style="color: blue;">imports</span><span style="color: brown"> "activateFunction"</span><span style="color: blue;"> from</span><span style="color: brown"> "enigma"</span>;
+                               <br /><br /><span style="color: green;">#' the activate function handler</span><br /><span style="color: blue;">imports</span><span style="color: brown"> "activateFunction"</span><span style="color: blue;"> from</span><span style="color: brown"> "enigma"</span>;
                            </code>
     </p>
-    <br />
-    <p><p>the activate function handler</p>
+    <p><h4>the activate function handler</h4>
 
 <p>An activation function is a function used in artificial neural<br />
  networks which outputs a small value for small inputs, and a<br />
@@ -74,7 +88,9 @@
  rectified linear unit (ReLU) function, And the family of sigmoid <br />
  functions such as the logistic sigmoid function, the hyperbolic<br />
  tangent, And the arctangent function.</p></p>
-    <p style="font-style: italic; font-size: 0.9em;"><p>Activation functions in computer science are inspired by the <br />
+    <blockquote>
+      <p style="font-style: italic; font-size: 0.9em;">
+                           <p>Activation functions in computer science are inspired by the <br />
  action potential in neuroscience. If the electrical potential<br />
  between a neuron's interior and exterior exceeds a value called <br />
  the action potential, the neuron undergoes a chain reaction <br />
@@ -82,9 +98,11 @@
  neurons. The resultant sequence of activations, called a 'spike <br />
  train', enables sensory neurons to transmit feeling from the <br />
  fingers to the brain, and allows motor neurons to transmit <br />
- instructions from the brain to the limbs.</p></p>
+ instructions from the brain to the limbs.</p>
+                           </p>
+    </blockquote>
     <div id="main-wrapper">
-      <table>
+      <table class="table-three-line">
         <tbody><tr>
   <td id="sigmoid">
     <a href="./activateFunction/sigmoid.html">sigmoid</a>

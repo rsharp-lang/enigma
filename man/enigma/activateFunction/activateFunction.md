@@ -1,6 +1,6 @@
 # activateFunction
 
-the activate function handler
+#### the activate function handler
  
  An activation function is a function used in artificial neural
  networks which outputs a small value for small inputs, and a
