@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.VisualBasic.DataMining.Evaluation
 Imports Microsoft.VisualBasic.MachineLearning.XGBoost.train
 Imports SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports REnv = SMRUCC.Rsharp.Runtime
 
@@ -28,6 +29,17 @@ Public Class XGBoost : Inherits MLModel
     End Function
 
     Public Overrides Function Solve(data As Object, env As Environment) As Object
-        Throw New NotImplementedException()
+        If TypeOf data Is dataframe Then
+            Dim df As dataframe = DirectCast(data, dataframe)
+            Dim test As TestData = df.testDataSet(Features)
+            Dim output As Double() = DirectCast(Model, GBM).predict(test.origin_feature)
+
+            df = New dataframe(df)
+            df.add($"{Labels(Scan0)}(predicts)", output)
+
+            Return df
+        Else
+            Return Message.InCompatibleType(GetType(dataframe), data.GetType, env)
+        End If
     End Function
 End Class
