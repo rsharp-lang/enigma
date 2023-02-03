@@ -7,7 +7,7 @@ Imports REnv = SMRUCC.Rsharp.Runtime
 Public Class ANNRegression : Inherits ANN
 
     Public Overrides Function DoCallTraining(args As list, env As Environment) As MLModel
-        Dim model As New Netz(Features.Length, 100, hidden.size.Length, output.labels.Length, activate:=AddressOf output.activate.Function)
+        Dim model As New Netz(Features.Length, 100, hidden.size.Length, Me.Labels.Length, activate:=AddressOf output.activate.Function)
 
         If TypeOf data Is dataframe Then
             Call trainOnDataframe(model, data)
@@ -21,7 +21,7 @@ Public Class ANNRegression : Inherits ANN
 
     Private Sub trainOnDataframe(model As Netz, data As dataframe)
         Dim inputs = DirectCast(data, dataframe).forEachRow(Features).ToArray
-        Dim outputs = DirectCast(data, dataframe).forEachRow(output.labels).ToArray
+        Dim outputs = DirectCast(data, dataframe).forEachRow(Me.Labels).ToArray
 
         For i As Integer = 0 To inputs.Length - 1
             Dim input As Double() = REnv.asVector(Of Double)(inputs(i).value)
@@ -39,7 +39,7 @@ Public Class ANNRegression : Inherits ANN
             Dim outputs As New Dictionary(Of String, Double())
             Dim ANN As Netz = Model
 
-            For Each label As String In output.labels
+            For Each label As String In Me.Labels
                 outputs.Add(label, New Double(rowNames.Length - 1) {})
             Next
 
@@ -48,7 +48,7 @@ Public Class ANNRegression : Inherits ANN
                 Dim o As Double() = ANN.predict(v)
                 Dim j As i32 = Scan0
 
-                For Each label As String In output.labels
+                For Each label As String In Me.Labels
                     outputs(label)(i) = o(++j)
                 Next
             Next

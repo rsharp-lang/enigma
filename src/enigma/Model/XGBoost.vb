@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.VisualBasic.MachineLearning.XGBoost.train
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
+Imports REnv = SMRUCC.Rsharp.Runtime
 
 Public Class XGBoost : Inherits MLModel
 
@@ -9,8 +10,8 @@ Public Class XGBoost : Inherits MLModel
     End Function
 
     Public Overrides Function DoCallTraining(args As list, env As Environment) As MLModel
-        Dim output As Double()
-        Dim trainData As TrainData = DirectCast(InputData, dataframe).trainingDataSet(output, featureNames:=Features)
+        Dim output As Double() = REnv.asVector(Of Double)(data(Me.Labels(Scan0)))
+        Dim trainData As TrainData = data.trainingDataSet(output, featureNames:=Features)
         Dim gb As New GBM()
 
         Call gb.fit(trainData, Nothing)

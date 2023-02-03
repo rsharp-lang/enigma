@@ -9,7 +9,6 @@ Imports REnv = SMRUCC.Rsharp.Runtime
 
 Public Class ANN : Inherits MLModel
 
-    Public Property data As Object
     Public Property hidden As HiddenLayerBuilderArgument
     Public Property output As OutputLayerBuilderArgument
 
@@ -22,7 +21,7 @@ Public Class ANN : Inherits MLModel
         Dim model As New Network(
             inputSize:=Features.Length,
             hiddenSize:=hidden.size,
-            outputSize:=output.labels.Length,
+            outputSize:=Me.Labels.Length,
             active:=activate,
             learnRate:=learnRate
         )
@@ -38,11 +37,7 @@ Public Class ANN : Inherits MLModel
 
         Helpers.MaxEpochs = args.getValue({"MaxEpochs", "max.epochs", "epochs"}, env, [default]:=10000)
 
-        If TypeOf data Is dataframe Then
-            Call trainOnDataframe(trainer, data, parallel)
-        Else
-            Throw New NotImplementedException
-        End If
+        Call trainOnDataframe(trainer, data, parallel)
 
         Me.Model = model
 
@@ -51,11 +46,11 @@ Public Class ANN : Inherits MLModel
 
     Private Sub trainOnDataframe(trainer As TrainingUtils, data As dataframe, parallel As Boolean)
         Dim inputs = DirectCast(data, dataframe).forEachRow(Features).ToArray
-        Dim outputs = DirectCast(data, dataframe).forEachRow(output.labels).ToArray
+        Dim outputs = DirectCast(data, dataframe).forEachRow(Me.Labels).ToArray
         Dim output_range As New Dictionary(Of String, DoubleRange)
         Dim std As DoubleRange = {0, 1}
 
-        For Each field As String In output.labels
+        For Each field As String In Me.Labels
             Dim v As Double() = REnv.asVector(Of Double)(data(field))
             Dim range As New DoubleRange(v)
 
@@ -68,7 +63,7 @@ Public Class ANN : Inherits MLModel
             Dim input As Double() = REnv.asVector(Of Double)(inputs(i).value)
             Dim output As Double() = REnv.asVector(Of Double)(outputs(i).value)
 
-            Call Me.output.labels _
+            Call Me.Labels _
                 .Select(Function(key, idx)
                             output(idx) = output_range(key).ScaleMapping(output(idx), std)
                             Return 1
@@ -89,7 +84,7 @@ Public Class ANN : Inherits MLModel
             Dim ANN As Network = Model
             Dim std As DoubleRange = {0, 1}
 
-            For Each label As String In output.labels
+            For Each label As String In Me.Labels
                 outputs.Add(label, New Double(rowNames.Length - 1) {})
             Next
 
@@ -98,7 +93,7 @@ Public Class ANN : Inherits MLModel
                 Dim o As Double() = ANN.Compute(v)
                 Dim j As i32 = Scan0
 
-                For Each label As String In output.labels
+                For Each label As String In Me.Labels
                     outputs(label)(i) = std.ScaleMapping(o(++j), output.range(label))
                 Next
             Next
@@ -125,7 +120,6 @@ End Class
 
 Public Class OutputLayerBuilderArgument
 
-    Public Property labels As String()
     Public Property activate As IActivationFunction
     Public Property range As Dictionary(Of String, Double())
 

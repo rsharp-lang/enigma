@@ -141,8 +141,8 @@ Public Module learning
             Return f.TryCast(Of Message)
         End If
 
+        model.Labels = labelStr
         model.output = New OutputLayerBuilderArgument With {
-            .labels = labelStr,
             .activate = f.TryCast(Of IActivationFunction)
         }
 
