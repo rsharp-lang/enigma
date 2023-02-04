@@ -117,7 +117,9 @@ Public Module models
                 Case "ANN" : Return ANNPackFile.OpenRead(buffer)
                 Case "xgboost" : Return XGBoostPackFile.OpenRead(buffer)
                 Case Else
-                    Return Internal.debug.stop($"unsure how to parse the model file with class label: '{cls}'", env)
+                    Return Internal.debug _
+                        .stop($"unsure how to parse the model file with class label: '{cls}'", env) _
+                        .CreateError
             End Select
         End Using
     End Function
