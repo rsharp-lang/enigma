@@ -1,11 +1,13 @@
 ﻿Imports Microsoft.VisualBasic.MachineLearning
 Imports SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Components
+Imports SMRUCC.Rsharp.Runtime.Components.Interface
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 
 ''' <summary>
 ''' the machine learning model
 ''' </summary>
-Public MustInherit Class MLModel
+Public MustInherit Class MLModel : Implements RPipeline
 
     ''' <summary>
     ''' the trained machine learning model object
@@ -24,6 +26,14 @@ Public MustInherit Class MLModel
     ''' <returns></returns>
     Public Property Labels As String()
     Public Property data As dataframe
+
+    Public ReadOnly Property isError As Boolean Implements RPipeline.isError
+        Get
+            Return Not err Is Nothing
+        End Get
+    End Property
+
+    Protected err As Message
 
     ''' <summary>
     ''' 
@@ -45,4 +55,7 @@ Public MustInherit Class MLModel
     ''' </returns>
     Public MustOverride Function Solve(data As Object, env As Environment) As Object
 
+    Public Function getError() As Message Implements RPipeline.getError
+        Return err
+    End Function
 End Class
