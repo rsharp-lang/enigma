@@ -19,7 +19,12 @@ data = bezdekIris
 
 print(data, max.print = 6);
 
-# stop();
+i = data[, "class.Iris-setosa"] == 1;
+v = rep("", length(i));
+v[i] = "Iris-setosa";
+v[!i] = "Other";
+
+data[, "class.Iris-setosa"] = v;
 
 tensor(model = model::svm)
 |> feed(data, features = ["D1","D2","D3","D4"])
@@ -30,7 +35,6 @@ tensor(model = model::svm)
 
 # tensor(model = "./model.hds")
 |> solve(data)
-|> json_encode()
-|> writeLines(con = "./bezdekIris_svm_class.json")
+|> write.csv(file = "./bezdekIris_svm_class.csv", row.names = TRUE)
 ;
 
