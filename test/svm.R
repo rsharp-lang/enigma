@@ -1,4 +1,5 @@
 require(enigma);
+require(JSON);
 
 imports ["learning", "model", "activateFunction"] from "enigma";
 imports "dataset" from "MLkit";
@@ -7,7 +8,9 @@ setwd(@dir);
 
 data("bezdekIris");
 
-dataset::description(bezdekIris);
+print(dataset::description(bezdekIris));
+
+rownames(bezdekIris) = unique.names(bezdekIris$class);
 
 data = bezdekIris 
 |> toFeatureSet() 
@@ -16,7 +19,7 @@ data = bezdekIris
 
 print(data, max.print = 6);
 
-stop();
+# stop();
 
 tensor(model = model::svm)
 |> feed(data, features = ["D1","D2","D3","D4"])
@@ -27,6 +30,7 @@ tensor(model = model::svm)
 
 # tensor(model = "./model.hds")
 |> solve(data)
-|> write.csv(file = "./bezdekIris_class.csv")
+|> json_encode()
+|> writeLines(con = "./bezdekIris_svm_class.json")
 ;
 

@@ -1,0 +1,752 @@
+{
+    "Iris-setosa": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_1": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_2": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_3": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_4": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_5": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_6": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_7": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_8": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_9": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_10": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_11": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_12": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_13": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_14": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_15": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_16": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_17": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_18": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_19": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_20": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_21": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_22": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_23": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_24": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_25": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_26": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_27": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_28": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_29": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_30": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_31": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_32": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_33": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_34": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_35": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_36": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_37": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_38": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_39": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_40": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_41": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_42": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_43": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_44": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_45": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_46": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_47": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_48": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-setosa_49": {
+        "color": "#000000",
+        "enumInt": 1,
+        "name": "1"
+    },
+    "Iris-versicolor": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_1": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_2": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_3": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_4": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_5": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_6": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_7": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_8": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_9": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_10": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_11": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_12": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_13": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_14": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_15": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_16": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_17": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_18": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_19": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_20": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_21": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_22": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_23": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_24": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_25": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_26": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_27": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_28": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_29": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_30": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_31": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_32": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_33": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_34": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_35": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_36": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_37": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_38": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_39": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_40": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_41": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_42": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_43": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_44": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_45": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_46": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_47": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_48": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-versicolor_49": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_1": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_2": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_3": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_4": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_5": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_6": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_7": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_8": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_9": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_10": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_11": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_12": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_13": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_14": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_15": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_16": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_17": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_18": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_19": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_20": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_21": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_22": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_23": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_24": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_25": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_26": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_27": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_28": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_29": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_30": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_31": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_32": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_33": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_34": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_35": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_36": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_37": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_38": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_39": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_40": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_41": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_42": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_43": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_44": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_45": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_46": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_47": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_48": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    },
+    "Iris-virginica_49": {
+        "color": "#000000",
+        "enumInt": 2,
+        "name": "0"
+    }
+}
