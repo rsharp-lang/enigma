@@ -20,9 +20,10 @@ Public Class XGBoost : Inherits MLModel
         ' for regression problem
         Dim loss As String = args.getValue({"loss", "Loss"}, env, [default]:="logloss")
         Dim cost As String = args.getValue({"cost", "eval_metric"}, env, [default]:="auc")
+        Dim num_boost_round As Integer = args.getValue({"num_boost_round", "num.boost.round"}, env, [default]:=10)
         Dim eval_metric As Metrics = Metric.Parse(cost)
 
-        Call gb.fit(trainData, Nothing, loss:=loss, eval_metric:=eval_metric)
+        Call gb.fit(trainData, Nothing, loss:=loss, eval_metric:=eval_metric, num_boost_round:=num_boost_round)
         Me.Model = gb
 
         Return Me

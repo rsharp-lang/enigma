@@ -8,7 +8,7 @@ imports ["learning", "model", "activateFunction"] from "enigma";
 
 ## Classification Example
 
-An example of solve a classification problem by use the svm classifier:
+Some examples of solve a classification problem, and inspect the dataset at first for the one class classification problem:
 
 ```r
 data("bezdekIris");
@@ -49,8 +49,23 @@ v[i] = "Iris-setosa";
 v[!i] = "Other";
 
 data[, "class.Iris-setosa"] = v;
+```
 
+For use the svm classifier:
+
+```r
 tensor(model = model::svm)
+|> feed(data, features = ["D1","D2","D3","D4"])
+|> output(labels = ["class.Iris-setosa"])
+|> learn()
+|> solve(data)
+;
+```
+
+For use the xgboost classifier:
+
+```r
+tensor(model = model::xgboost)
 |> feed(data, features = ["D1","D2","D3","D4"])
 |> output(labels = ["class.Iris-setosa"])
 |> learn()
