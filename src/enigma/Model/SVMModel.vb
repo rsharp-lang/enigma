@@ -31,7 +31,7 @@ Public Class SVMModel : Inherits MLModel
                 .GroupBy(Function(a) a.name) _
                 .Select(Function(a) a.First)
 
-                Call params.weights.Add(label.enumInt, 1)
+                Call params.weights.Add(label.factor, 1)
             Next
         End If
 
