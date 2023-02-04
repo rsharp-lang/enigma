@@ -54,7 +54,7 @@ Public Module models
     ''' <returns></returns>
     <ExportAPI("svr")>
     Public Function svrModel() As SVMModel
-        Return New SVMModel
+        Return New SVMModel With {.svr = True}
     End Function
 
     <ExportAPI("ANN.regression")>
