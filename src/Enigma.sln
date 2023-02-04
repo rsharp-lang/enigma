@@ -41,9 +41,9 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "msgpack-netcore5", "..\..\s
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "xgboost", "..\..\sciBASIC#\Data_science\MachineLearning\xgboost\xgboost.vbproj", "{B803B3E0-8F71-4A3C-965F-11F2A34C91E1}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "xgboostDataSet_helper", "..\..\..\R-sharp\Library\shares\xgboostDataSet_helper\xgboostDataSet_helper.shproj", "{78C60F4E-50F9-4A84-8290-2886728A4B34}"
-EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "XGBoostDataSet", "..\..\sciBASIC#\Data_science\MachineLearning\XGBoostDataSet\XGBoostDataSet.vbproj", "{B693FE91-BEF0-4B5E-81B2-8510493FC0A2}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "machineLearning_common", "..\..\..\R-sharp\Library\shares\xgboostDataSet_helper\machineLearning_common.shproj", "{78C60F4E-50F9-4A84-8290-2886728A4B34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -907,8 +907,8 @@ Global
 		{1C500449-C36C-4552-860D-8A9A8E113E94} = {60B0A608-BCE8-4700-A0C8-DCB32D9420FE}
 		{2A20FF1E-C6CE-4E44-9842-42259B185494} = {60B0A608-BCE8-4700-A0C8-DCB32D9420FE}
 		{B803B3E0-8F71-4A3C-965F-11F2A34C91E1} = {71825167-E383-48D5-9676-D949B933788B}
-		{78C60F4E-50F9-4A84-8290-2886728A4B34} = {E40DEA1D-E21B-4D94-8CE3-2D557EE5DAD7}
 		{B693FE91-BEF0-4B5E-81B2-8510493FC0A2} = {71825167-E383-48D5-9676-D949B933788B}
+		{78C60F4E-50F9-4A84-8290-2886728A4B34} = {E40DEA1D-E21B-4D94-8CE3-2D557EE5DAD7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF0FE9C8-037B-46E9-923A-67F1424F077A}
