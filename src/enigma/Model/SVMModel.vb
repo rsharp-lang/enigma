@@ -63,7 +63,7 @@ Public Class SVMModel : Inherits MLModel
             result = New dataframe With {
                 .rownames = fits.getNames,
                 .columns = New Dictionary(Of String, Array) From {
-                    {$"({Labels(Scan0)})predicts", ypredicts}
+                    {$"{Labels(Scan0)}(predicts)", ypredicts}
                 }
             }
         End If
