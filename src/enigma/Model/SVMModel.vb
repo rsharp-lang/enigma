@@ -1,4 +1,6 @@
-﻿Imports Microsoft.VisualBasic.MachineLearning
+﻿Imports Microsoft.VisualBasic.DataMining.ComponentModel.Encoder
+Imports Microsoft.VisualBasic.MachineLearning
+Imports Microsoft.VisualBasic.MachineLearning.SVM
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
@@ -10,12 +12,26 @@ Public Class SVMModel : Inherits MLModel
         Dim labels As String() = REnv.asVector(Of String)(data(Me.Labels(Scan0)))
         Dim problem = svmDataSet.svmProblem(Features, labels, data, env)
         Dim params As New SVM.Parameter
+        Dim weights As Dictionary(Of String, Double) = args.getValue("weights", env, New Dictionary(Of String, Double))
 
         If problem Like GetType(Message) Then
             Call problem.TryCast(Of Message).ThrowCLRError()
         End If
 
-        Me.Model = SVM.Train(problem, params)
+        If Not weights Is Nothing Then
+            For Each label In weights.AsEnumerable
+                Call params.weights.Add(CInt(label.Key), label.Value)
+            Next
+        Else
+            For Each label As ColorClass In problem.TryCast(Of Problem).Y _
+                .GroupBy(Function(a) a.name) _
+                .Select(Function(a) a.First)
+
+                Call params.weights.Add(label.enumInt, 1)
+            Next
+        End If
+
+        Me.Model = LibSVM.getSvmModel(problem, params)
 
         Return Me
     End Function
