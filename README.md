@@ -60,10 +60,10 @@ tensor(model = model::svm)
 
 ## Regression Example
 
-An example of solve a regression problem by use the xgboost regession from ``enigma`` package:
+By first of all, we prepares an example demo dataset for such regression modelling problem like:
 
 ```r
-# generate dataset
+# generate the demo test dataset
 let x = 1:1000;
 let y = x ^ 1.25 + runif(n = length(x));
 let z = y / x;
@@ -80,7 +80,13 @@ data = data.frame(x, y, z, row.names = as.character(x));
 # 6              6  10.1006  1.68343
 
 #  [ reached 'max' / getOption("max.print") -- omitted 994 rows ]
+```
 
+The some of the example for solve the regression problem by use the ``enigma`` package:
+
+### 1. xgboost regession 
+
+```r
 test = tensor(model = model::xgboost)
 |> feed(data, features = ["x", "y"])
 |> output(labels = "z")
@@ -104,7 +110,20 @@ test = test[i, ];
 #  [ reached 'max' / getOption("max.print") -- omitted 994 rows ]
 ```
 
-## Visual Regression Test Error
+### 2. SVR regression
+
+For solve a SVR regression problem, then we could just replace the tensor model to ``svr`` function:
+
+```r
+test = tensor(model = model::svr)
+|> feed(data, features = ["x", "y"])
+|> output(labels = "z")
+|> learn()
+|> solve(data)
+;
+```
+
+### Visual Regression Test Error
 
 ![](./test/xgboost_regression_test.png)
 
