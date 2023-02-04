@@ -40,6 +40,10 @@ Public Class SVMModel : Inherits MLModel
         Dim svm As SVM.SVMModel = Model
         Dim result = svm.svmClassify1(data, env)
 
+        If TypeOf result Is list Then
+
+        End If
+
         Return result
     End Function
 End Class
