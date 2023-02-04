@@ -7,6 +7,8 @@ setwd(@dir);
 
 data("bezdekIris");
 
+dataset::description(bezdekIris);
+
 data = bezdekIris 
 |> toFeatureSet() 
 |> dataset::encoding(class = to_factors) 
@@ -14,7 +16,7 @@ data = bezdekIris
 
 print(data, max.print = 6);
 
-# stop();
+stop();
 
 tensor(model = ANN)
 |> feed(data, features = ["D1","D2","D3","D4"])
