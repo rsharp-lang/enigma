@@ -37,6 +37,9 @@ Public Class SVMModel : Inherits MLModel
     End Function
 
     Public Overrides Function Solve(data As Object, env As Environment) As Object
+        Dim svm As SVM.SVMModel = Model
+        Dim result = svm.svmClassify1(data, env)
 
+        Return result
     End Function
 End Class
