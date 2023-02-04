@@ -18,10 +18,9 @@ print(data, max.print = 6);
 
 stop();
 
-tensor(model = ANN)
+tensor(model = model::svm)
 |> feed(data, features = ["D1","D2","D3","D4"])
-|> hidden_layer([50, 500, 5], activate = activateFunction::sigmoid(alpha = 2.0))
-|> output_layer(labels = ["class.Iris-setosa","class.Iris-versicolor","class.Iris-virginica"], activate = activateFunction::sigmoid(alpha = 2.0))
+|> output(labels = ["class.Iris-setosa"])
 |> learn()
 # |> snapshot(file = "./model.hds")
 # ;
