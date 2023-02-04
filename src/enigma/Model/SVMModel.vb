@@ -15,7 +15,7 @@ Public Class SVMModel : Inherits MLModel
         Dim weights As Dictionary(Of String, Double) = args.getValue("weights", env, New Dictionary(Of String, Double))
 
         If problem Like GetType(Message) Then
-            Call problem.TryCast(Of Message).ThrowCLRError()
+            Return New MLPipelineError(problem.TryCast(Of Message))
         End If
 
         If Not weights Is Nothing Then

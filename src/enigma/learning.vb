@@ -1,4 +1,5 @@
 ﻿
+Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.MachineLearning
 Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
@@ -33,9 +34,11 @@ Public Module learning
     ''' <returns></returns>
     <ExportAPI("tensor")>
     <RApiReturn(GetType(MLModel))>
-    Public Function tensorModel(model As Object, Optional env As Environment = Nothing) As Object
+    Public Function tensorModel(model As Object, Optional env As Environment = Nothing) As MLModel
         If model Is Nothing Then
-            Return Internal.debug.stop("a required of the machine learning model object could not be nothing!", env)
+            Return Internal.debug _
+                .stop("a required of the machine learning model object could not be nothing!", env) _
+                .CreateError
         ElseIf TypeOf model Is DeclareNewFunction Then
             Return checkModel(model:=DirectCast(model, Expression).Evaluate(env), env)
         ElseIf TypeOf model Is RMethodInfo Then
@@ -48,7 +51,9 @@ Public Module learning
         ElseIf TypeOf model Is Model Then
             Return wrapModel(model, env)
         Else
-            Return Message.InCompatibleType(GetType(String), model.GetType, env)
+            Return Message _
+                .InCompatibleType(GetType(String), model.GetType, env) _
+                .CreateError
         End If
     End Function
 
@@ -58,16 +63,18 @@ Public Module learning
     ''' <param name="model"></param>
     ''' <param name="env"></param>
     ''' <returns></returns>
-    Private Function wrapModel(model As Model, env As Environment) As Object
+    Private Function wrapModel(model As Model, env As Environment) As MLModel
         Select Case model.GetType
             Case GetType(Network) : Return New ANN With {.Model = model}
             Case GetType(GBM) : Return New XGBoost With {.Model = model}
             Case Else
-                Return Internal.debug.stop(New NotImplementedException(model.GetType.FullName), env)
+                Return Internal.debug _
+                    .stop(New NotImplementedException(model.GetType.FullName), env) _
+                    .CreateError
         End Select
     End Function
 
-    Private Function checkModel(model As Object, env As Environment) As Object
+    Private Function checkModel(model As Object, env As Environment) As MLModel
         If Program.isException(model) Then
             Return model
         ElseIf TypeOf model Is MLModel Then
@@ -75,7 +82,9 @@ Public Module learning
         ElseIf TypeOf model Is Model Then
             Return wrapModel(model, env)
         Else
-            Return Internal.debug.stop("invalid model function, the function should be procude a new machine learning model object!", env)
+            Return Internal.debug _
+                .stop("invalid model function, the function should be procude a new machine learning model object!", env) _
+                .CreateError
         End If
     End Function
 
@@ -93,12 +102,12 @@ Public Module learning
     ''' <returns></returns>
     <ExportAPI("feed")>
     <RApiReturn(GetType(MLModel))>
+    <Extension>
     Public Function feed(model As MLModel, x As Object,
                          <RRawVectorArgument> features As Object,
                          <RListObjectArgument>
                          Optional args As list = Nothing,
-                         Optional env As Environment = Nothing) As Object
-
+                         Optional env As Environment = Nothing) As MLModel
         model.data = x
         model.Features = REnv.asVector(Of String)(features)
 
@@ -115,15 +124,16 @@ Public Module learning
     ''' <returns></returns>
     <ExportAPI("hidden_layer")>
     <RApiReturn(GetType(MLModel))>
+    <Extension>
     Public Function hidden_layer(model As ANN, <RRawVectorArgument> size As Object,
                                  Optional activate As Object = Nothing,
-                                 Optional env As Environment = Nothing) As Object
+                                 Optional env As Environment = Nothing) As MLModel
 
         Dim f = activateFunction.getFunction(activate, env)
         Dim sizeVec As Integer() = REnv.asVector(Of Integer)(size)
 
         If f Like GetType(Message) Then
-            Return f.TryCast(Of Message)
+            Return f.TryCast(Of Message).CreateError
         End If
 
         model.hidden = New HiddenLayerBuilderArgument With {
@@ -144,17 +154,18 @@ Public Module learning
     ''' <returns></returns>
     <ExportAPI("output")>
     <RApiReturn(GetType(MLModel))>
+    <Extension>
     Public Function output_layer(model As MLModel,
                                  <RRawVectorArgument>
                                  Optional labels As Object = Nothing,
                                  Optional activate As Object = Nothing,
-                                 Optional env As Environment = Nothing) As Object
+                                 Optional env As Environment = Nothing) As MLModel
 
         Dim labelStr As String() = REnv.asVector(Of String)(labels)
         Dim f = activateFunction.getFunction(activate, env)
 
         If f Like GetType(Message) Then
-            Return f.TryCast(Of Message)
+            Return f.TryCast(Of Message).CreateError
         ElseIf TypeOf model Is ANN Then
             DirectCast(model, ANN).output = New OutputLayerBuilderArgument With {
                 .activate = f.TryCast(Of IActivationFunction)
@@ -185,10 +196,11 @@ Public Module learning
     ''' <returns></returns>
     <ExportAPI("learn")>
     <RApiReturn(GetType(MLModel))>
+    <Extension>
     Public Function learn(model As MLModel,
                           <RListObjectArgument>
                           Optional args As list = Nothing,
-                          Optional env As Environment = Nothing) As Object
+                          Optional env As Environment = Nothing) As MLModel
 
         Return model.DoCallTraining(args, env)
     End Function
@@ -201,6 +213,7 @@ Public Module learning
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("solve")>
+    <Extension>
     Public Function fitData(model As MLModel, data As Object, Optional env As Environment = Nothing) As Object
         Return model.Solve(data, env)
     End Function

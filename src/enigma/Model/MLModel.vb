@@ -33,7 +33,7 @@ Public MustInherit Class MLModel : Implements RPipeline
         End Get
     End Property
 
-    Protected err As Message
+    Protected Friend err As Message
 
     ''' <summary>
     ''' 
@@ -57,5 +57,24 @@ Public MustInherit Class MLModel : Implements RPipeline
 
     Public Function getError() As Message Implements RPipeline.getError
         Return err
+    End Function
+End Class
+
+Public Class MLPipelineError : Inherits MLModel
+
+    Sub New(err As Message)
+        Me.err = err
+    End Sub
+
+    Public Overrides Function DoCallTraining(args As list, env As Environment) As MLModel
+        Return Me
+    End Function
+
+    Public Overrides Function Solve(data As Object, env As Environment) As Object
+        Return getError()
+    End Function
+
+    Public Overrides Function ToString() As String
+        Return getError.ToString
     End Function
 End Class

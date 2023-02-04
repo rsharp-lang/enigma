@@ -102,11 +102,11 @@ Public Module models
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("readModelFile")>
-    Public Function readModelFile(<RRawVectorArgument> file As Object, Optional env As Environment = Nothing) As Object
+    Public Function readModelFile(<RRawVectorArgument> file As Object, Optional env As Environment = Nothing) As MLModel
         Dim data = SMRUCC.Rsharp.GetFileStream(file, FileAccess.Read, env)
 
         If data Like GetType(Message) Then
-            Return data.TryCast(Of Message)
+            Return New MLPipelineError(data.TryCast(Of Message))
         End If
 
         Using buffer As Stream = data.TryCast(Of Stream)
