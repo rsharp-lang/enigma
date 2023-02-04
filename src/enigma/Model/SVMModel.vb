@@ -50,6 +50,24 @@ Public Class SVMModel : Inherits MLModel
         Dim svm As SVM.SVMModel = Model
         Dim result = svm.svmClassify1(data, env)
 
+        If svm.SVR AndAlso TypeOf result Is list Then
+            Dim fits As list = DirectCast(result, list)
+            Dim ypredicts = New Double(fits.length - 1) {}
+            Dim i As Integer = 0
+
+            For Each name As String In fits.getNames
+                ypredicts(i) = fits.slots(name)
+                i += 1
+            Next
+
+            result = New dataframe With {
+                .rownames = fits.getNames,
+                .columns = New Dictionary(Of String, Array) From {
+                    {$"({Labels(Scan0)})predicts", ypredicts}
+                }
+            }
+        End If
+
         Return result
     End Function
 End Class
