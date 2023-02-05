@@ -14,18 +14,15 @@ data = bezdekIris
 
 print(data, max.print = 6);
 
-# stop();
-
 tensor(model = ANN)
 |> feed(data, features = ["D1","D2","D3","D4"])
 |> hidden_layer([50, 500, 5], activate = activateFunction::sigmoid(alpha = 2.0))
-|> output_layer(labels = ["class.Iris-setosa","class.Iris-versicolor","class.Iris-virginica"], activate = activateFunction::sigmoid(alpha = 2.0))
-|> learn()
-# |> snapshot(file = "./model.hds")
-# ;
-
-# tensor(model = "./model.hds")
+|> output(
+    labels = ["class.Iris-setosa","class.Iris-versicolor","class.Iris-virginica"], 
+    activate = activateFunction::sigmoid(alpha = 2.0)
+)
+|> learn(parallel = TRUE)
 |> solve(data)
-|> write.csv(file = "./bezdekIris_class.csv")
+|> write.csv(file = "./bezdekIris_ANN_class.csv")
 ;
 
