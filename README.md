@@ -73,6 +73,20 @@ tensor(model = model::xgboost)
 ;
 ```
 
+For use the ANN classifier, then you could:
+
+```r
+tensor(model = model::ANN)
+|> feed(data, features = ["D1","D2","D3","D4"])
+|> hidden_layer([50, 500, 5], activate = activateFunction::sigmoid(alpha = 2.0))
+|> output(
+    labels = ["class.Iris-setosa","class.Iris-versicolor","class.Iris-virginica"], 
+    activate = activateFunction::sigmoid(alpha = 2.0)
+)
+|> learn(parallel = TRUE)
+|> solve(data)
+```
+
 ## Regression Example
 
 By first of all, we prepares an example demo dataset for such regression modelling problem like:
