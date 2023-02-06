@@ -44,6 +44,11 @@ Public Module models
         Return New RandomForest
     End Function
 
+    <ExportAPI("randomForest.regression")>
+    Public Function randomForestRegression() As RandomForest
+        Return New RandomForest With {.regression = True}
+    End Function
+
     ''' <summary>
     ''' 
     ''' </summary>
