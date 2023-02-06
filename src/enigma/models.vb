@@ -39,6 +39,11 @@ Public Module models
         Return New XGBoost
     End Function
 
+    <ExportAPI("randomForest")>
+    Public Function randomForest() As RandomForest
+        Return New RandomForest
+    End Function
+
     ''' <summary>
     ''' 
     ''' </summary>
