@@ -2,6 +2,8 @@ require(enigma);
 
 imports ["learning", "model", "activateFunction"] from "enigma";
 
+setwd(@dir);
+
 let x = 1:1000;
 let y = x ^ 1.25 + runif(n = length(x));
 let z = y / x;
