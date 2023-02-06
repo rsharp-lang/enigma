@@ -40,8 +40,8 @@ Public Module models
     End Function
 
     <ExportAPI("randomForest")>
-    Public Function randomForest() As RandomForest
-        Return New RandomForest
+    Public Function randomForest(Optional regression As Boolean = False) As RandomForest
+        Return New RandomForest With {.regression = regression}
     End Function
 
     <ExportAPI("randomForest.regression")>
