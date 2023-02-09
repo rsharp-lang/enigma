@@ -244,7 +244,7 @@ Public Module learning
     <ExportAPI("trainTestSplit")>
     <RApiReturn("train", "test")>
     Public Function trainTestSplit(x As dataframe,
-                                   Optional train_ratio As Double = 0.7,
+                                   Optional train_ratio As Double = 0.8,
                                    Optional env As Environment = Nothing) As Object
 
         If train_ratio <= 0 OrElse train_ratio > 1 Then
