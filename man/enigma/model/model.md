@@ -4,6 +4,8 @@ Create the machine learning model
 
 + [ANN](model/ANN.1) function for create artificial neurol network
 + [xgboost](model/xgboost.1) ### XGBoost (eXtreme Gradient Boosting)
++ [randomForest](model/randomForest.1) 
++ [randomForest.regression](model/randomForest.regression.1) 
 + [svm](model/svm.1) 
 + [svr](model/svr.1) 
 + [ANN.regression](model/ANN.regression.1) 

@@ -8,3 +8,4 @@ machine learning toolkit
 + [output](learning/output.1) configs of the output layer of the ``@``T:enigma.ANN```` model
 + [learn](learning/learn.1) Do machine learning model training
 + [solve](learning/solve.1) Do data prediction
++ [trainTestSplit](learning/trainTestSplit.1) ### Split a Dataset into Train and Test Sets
