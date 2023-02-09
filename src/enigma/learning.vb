@@ -1,6 +1,7 @@
 ﻿
 Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.MachineLearning
 Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork
@@ -216,5 +217,59 @@ Public Module learning
     <Extension>
     Public Function fitData(model As MLModel, data As Object, Optional env As Environment = Nothing) As Object
         Return model.Solve(data, env)
+    End Function
+
+    ''' <summary>
+    ''' ### Split a Dataset into Train and Test Sets
+    ''' 
+    ''' The train-test split is used to estimate the performance
+    ''' of machine learning algorithms that are applicable for 
+    ''' prediction-based Algorithms/Applications. This method is 
+    ''' a fast and easy procedure to perform such that we can 
+    ''' compare our own machine learning model results to machine
+    ''' results. By default, the Test set is split into 30 % of 
+    ''' actual data and the training set is split into 70% of the 
+    ''' actual data.
+    ''' 
+    ''' We need To split a dataset into train And test sets To 
+    ''' evaluate how well our machine learning model performs. The
+    ''' train Set Is used To fit the model, And the statistics Of
+    ''' the train Set are known. The second Set Is called the test
+    ''' data Set, this Set Is solely used For predictions.
+    ''' </summary>
+    ''' <param name="x"></param>
+    ''' <param name="train_ratio"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
+    <ExportAPI("trainTestSplit")>
+    <RApiReturn("train", "test")>
+    Public Function trainTestSplit(x As dataframe,
+                                   Optional train_ratio As Double = 0.7,
+                                   Optional env As Environment = Nothing) As Object
+
+        If train_ratio <= 0 OrElse train_ratio > 1 Then
+            Return Internal.debug.stop($"invalid training set ratio, ratio value should be in range of (0,1], and you have set an invalid value '{train_ratio}' for parameter {NameOf(train_ratio)}!", env)
+        ElseIf x Is Nothing Then
+            Return New list() With {
+                .slots = New Dictionary(Of String, Object) From {
+                    {"train", Nothing},
+                    {"test", Nothing}
+                }
+            }
+        End If
+
+        Dim fields As String() = x.colnames
+        Dim rows As NamedCollection(Of Object)() = x.forEachRow(fields).Shuffles.ToArray
+        Dim train = rows.Take(CInt(train_ratio * rows.Length) + 1).ToArray
+        Dim test = rows.Skip(train.Length).ToArray
+        Dim df_train = dataframe.CreateDataFrame(train, fields)
+        Dim df_tests = dataframe.CreateDataFrame(test, fields)
+
+        Return New list With {
+            .slots = New Dictionary(Of String, Object) From {
+                {"train", df_train},
+                {"test", df_tests}
+            }
+        }
     End Function
 End Module
