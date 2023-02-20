@@ -9,13 +9,57 @@ Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Interop
 
 ''' <summary>
-''' Create the machine learning model
+''' ### Create the machine learning model
+''' 
+''' Performing machine learning involves creating a model, which is trained
+''' on some training data and then can process additional data to make predictions.
+''' Various types of models have been used and researched for machine 
+''' learning systems.
 ''' </summary>
 <Package("model")>
 Public Module models
 
     ''' <summary>
-    ''' function for create artificial neurol network
+    ''' ### create artificial neural network
+    ''' 
+    ''' Artificial neural networks (ANNs), or connectionist systems, are 
+    ''' computing systems vaguely inspired by the biological neural networks
+    ''' that constitute animal brains. Such systems "learn" to perform 
+    ''' tasks by considering examples, generally without being programmed 
+    ''' with any task-specific rules.
+    '''
+    ''' An ANN Is a model based On a collection Of connected units Or nodes
+    ''' called "artificial neurons", which loosely model the neurons In a 
+    ''' biological brain. Each connection, Like the synapses In a biological 
+    ''' brain, can transmit information, a "signal", from one artificial 
+    ''' neuron To another. An artificial neuron that receives a signal can
+    ''' process it And Then signal additional artificial neurons connected 
+    ''' To it. In common ANN implementations, the signal at a connection 
+    ''' between artificial neurons Is a real number, And the output Of Each 
+    ''' artificial neuron Is computed by some non-linear Function Of the sum 
+    ''' Of its inputs. The connections between artificial neurons are called 
+    ''' "edges". Artificial neurons And edges typically have a weight that 
+    ''' adjusts As learning proceeds. The weight increases Or decreases the
+    ''' strength Of the signal at a connection. Artificial neurons may have 
+    ''' a threshold such that the signal Is only sent If the aggregate signal
+    ''' crosses that threshold. Typically, artificial neurons are aggregated 
+    ''' into layers. Different layers may perform different kinds Of transformations 
+    ''' On their inputs. Signals travel from the first layer (the input layer)
+    ''' To the last layer (the output layer), possibly after traversing the
+    ''' layers multiple times.
+    '''
+    ''' The original goal Of the ANN approach was To solve problems In the
+    ''' same way that a human brain would. However, over time, attention 
+    ''' moved To performing specific tasks, leading To deviations from biology. 
+    ''' Artificial neural networks have been used On a variety Of tasks,
+    ''' including computer vision, speech recognition, machine translation,
+    ''' social network filtering, playing board And video games And medical 
+    ''' diagnosis.
+    '''
+    ''' Deep learning consists Of multiple hidden layers In an artificial 
+    ''' neural network. This approach tries To model the way the human brain 
+    ''' processes light And sound into vision And hearing. Some successful 
+    ''' applications Of deep learning are computer vision And speech recognition.
     ''' </summary>
     ''' <returns></returns>
     <ExportAPI("ANN")>
@@ -50,7 +94,21 @@ Public Module models
     End Function
 
     ''' <summary>
-    ''' 
+    ''' ### Support-vector machines
+    '''
+    ''' Support-vector machines (SVMs), also known as support-vector 
+    ''' networks, are a set of related supervised learning methods 
+    ''' used for classification And regression. Given a set of training 
+    ''' examples, each marked as belonging to one of two categories, 
+    ''' an SVM training algorithm builds a model that predicts whether 
+    ''' a New example falls into one category. An SVM training 
+    ''' algorithm Is a non-probabilistic, binary, linear classifier, 
+    ''' although methods such as Platt scaling exist to use SVM in a 
+    ''' probabilistic classification setting. In addition to performing
+    ''' linear classification, SVMs can efficiently perform a non-linear 
+    ''' classification using what Is called the kernel trick, 
+    ''' implicitly mapping their inputs into high-dimensional feature 
+    ''' spaces.
     ''' </summary>
     ''' <returns></returns>
     <ExportAPI("svm")>

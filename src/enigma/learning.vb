@@ -14,16 +14,58 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 Imports REnv = SMRUCC.Rsharp.Runtime
 
 ''' <summary>
-''' machine learning toolkit
+''' ## machine learning toolkit
+''' 
+''' Machine learning (ML) is a field of inquiry devoted to
+''' understanding and building methods that "learn" – that
+''' is, methods that leverage data to improve performance 
+''' on some set of tasks. It is seen as a part of artificial
+''' intelligence.
+'''
+''' Machine learning algorithms build a model based On sample
+''' data, known As training data, In order To make predictions
+''' Or decisions without being explicitly programmed To Do so.
+''' Machine learning algorithms are used In a wide variety Of 
+''' applications, such As In medicine, email filtering, speech 
+''' recognition, agriculture, And computer vision, where it Is
+''' difficult Or unfeasible To develop conventional algorithms 
+''' To perform the needed tasks.
+'''
+''' A subset Of machine learning Is closely related To computational 
+''' statistics, which focuses On making predictions Using computers,
+''' but Not all machine learning Is statistical learning. The 
+''' study Of mathematical optimization delivers methods, theory 
+''' And application domains To the field Of machine learning. Data
+''' mining Is a related field Of study, focusing On exploratory 
+''' data analysis through unsupervised learning.
+'''
+''' Some implementations Of machine learning use data And neural 
+''' networks In a way that mimics the working Of a biological 
+''' brain.
+'''
+''' In its application across business problems, machine learning 
+''' Is also referred to as predictive analytics.
 ''' </summary>
 <Package("learning")>
 Public Module learning
 
     ''' <summary>
-    ''' create a new machine learning model
+    ''' ### create a new machine learning model
+    ''' 
+    ''' In mathematics, a tensor is an algebraic object that describes
+    ''' a multilinear relationship between sets of algebraic objects 
+    ''' related to a vector space. Tensors may map between different 
+    ''' objects such as vectors, scalars, and even other tensors. There
+    ''' are many types of tensors, including scalars and vectors (which 
+    ''' are the simplest tensors), dual vectors, multilinear maps between 
+    ''' vector spaces, and even some operations such as the dot product.
+    ''' Tensors are defined independent of any basis, although they are 
+    ''' often referred to by their components in a basis related to a 
+    ''' particular coordinate system.
     ''' </summary>
     ''' <param name="model">
     ''' the source of the machine learning model where it comes from:
@@ -101,6 +143,22 @@ Public Module learning
     ''' usually a character vector to gets the training data fields
     ''' </param>
     ''' <returns></returns>
+    ''' <remarks>
+    ''' Typically, machine learning models require a high quantity of 
+    ''' reliable data in order for the models to perform accurate predictions. 
+    ''' When training a machine learning model, machine learning engineers
+    ''' need to target and collect a large and representative sample of 
+    ''' data. Data from the training set can be as varied as a corpus of 
+    ''' text, a collection of images, sensor data, and data collected from 
+    ''' individual users of a service. Overfitting is something to watch out
+    ''' for when training a machine learning model. Trained models derived 
+    ''' from biased or non-evaluated data can result in skewed or undesired 
+    ''' predictions. Bias models may result in detrimental outcomes thereby 
+    ''' furthering the negative impacts on society or objectives. Algorithmic
+    ''' bias is a potential result of data not being fully prepared for 
+    ''' training. Machine learning ethics is becoming a field of study and 
+    ''' notably be integrated within machine learning engineering teams.
+    ''' </remarks>
     <ExportAPI("feed")>
     <RApiReturn(GetType(MLModel))>
     <Extension>
@@ -110,7 +168,7 @@ Public Module learning
                          Optional args As list = Nothing,
                          Optional env As Environment = Nothing) As MLModel
         model.data = x
-        model.Features = REnv.asVector(Of String)(features)
+        model.Features = CLRVector.asCharacter(features)
 
         Return model
     End Function
@@ -146,28 +204,37 @@ Public Module learning
     End Function
 
     ''' <summary>
-    ''' configs of the output layer of the ``<see cref="ANN"/>`` model
+    ''' ### configs of the output labels 
+    ''' 
+    ''' configs of the output labels of the feeded training data 
+    ''' for machine learning model
     ''' </summary>
     ''' <param name="model"></param>
-    ''' <param name="labels"></param>
-    ''' <param name="activate"></param>
+    ''' <param name="labels">
+    ''' The data field name for get the actual label value from the input
+    ''' training data
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("output")>
     <RApiReturn(GetType(MLModel))>
     <Extension>
-    Public Function output_layer(model As MLModel,
-                                 <RRawVectorArgument>
-                                 Optional labels As Object = Nothing,
-                                 Optional activate As Object = Nothing,
-                                 Optional env As Environment = Nothing) As MLModel
+    Public Function config_output_labels(model As MLModel,
+                                         <RRawVectorArgument>
+                                         Optional labels As Object = Nothing,
+                                         <RListObjectArgument>
+                                         Optional args As list = Nothing,
+                                         Optional env As Environment = Nothing) As MLModel
 
-        Dim labelStr As String() = REnv.asVector(Of String)(labels)
-        Dim f = activateFunction.getFunction(activate, env)
+        Dim labelStr As String() = CLRVector.asCharacter(labels)
 
-        If f Like GetType(Message) Then
-            Return f.TryCast(Of Message).CreateError
-        ElseIf TypeOf model Is ANN Then
+        If TypeOf model Is ANN Then
+            Dim f = activateFunction.getFunction(args.getByName("activate"), env)
+
+            If f Like GetType(Message) Then
+                Return f.TryCast(Of Message).CreateError
+            End If
+
             DirectCast(model, ANN).output = New OutputLayerBuilderArgument With {
                 .activate = f.TryCast(Of IActivationFunction)
             }
@@ -181,17 +248,32 @@ Public Module learning
     ''' <summary>
     ''' Do machine learning model training
     ''' </summary>
-    ''' <param name="model"></param>
+    ''' <param name="model">
+    ''' A machine learning algorithm model which is generated from 
+    ''' the ``tensor`` function.
+    ''' </param>
     ''' <param name="args">
     ''' the additional arguments to the machine learning model trainer, it could be:
     ''' 
-    ''' 1. ANN model
+    ''' 1. Artificial neural networks model
     ''' 
     ''' + truncate, numeric
     ''' + threshold, numeric
     ''' + parallel, logical
     ''' + softmax, logical
     ''' + max.epochs, integer
+    ''' 
+    ''' 2. xgboost
+    ''' 
+    ''' + loss,Loss: logloss for classification and squareloss for regression
+    ''' + cost,eval_metric: auc for classification and mse for regression
+    ''' + gamma, numeric: default 0.0
+    ''' + lambda, numeric: default 1.0
+    ''' + learn_rate, eta, numeric: default 0.3
+    ''' + max_depth, integer: default 7
+    ''' + num_boost_round, integer, default 10
+    ''' + max, maximize, logical: default true
+    ''' 
     ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
@@ -209,8 +291,15 @@ Public Module learning
     ''' <summary>
     ''' Do data prediction
     ''' </summary>
-    ''' <param name="model"></param>
-    ''' <param name="data"></param>
+    ''' <param name="model">
+    ''' A machine learning model which is has been trained via the ``learn`` function.
+    ''' Or this machine learning algorithm model also could be loaded from the snapshot 
+    ''' file via the ``readModelFile``.
+    ''' </param>
+    ''' <param name="data">
+    ''' A dataframe object which should contains the same features fields with the 
+    ''' input training data
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("solve")>

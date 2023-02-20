@@ -1,25 +1,28 @@
 .\" man page create by R# package system.
 .TH LEARNING 1 2000-Jan "output" "output"
 .SH NAME
-output \- configs of the output layer of the \fB@\fRT:enigma.ANN```` model
+output \- configs of the output labels
 .SH SYNOPSIS
 \fIoutput(\fBmodel\fR as <generic> MLModel, 
 \fBlabels\fR as any = \fB<NULL>\fR, 
-\fBactivate\fR as any = \fB<NULL>\fR, 
+..., 
 [\fB<Environment>\fR]);\fR
 .SH DESCRIPTION
 .PP
-configs of the output layer of the \fB@\fRT:enigma.ANN```` model
+configs of the output labels 
+ 
+ configs of the output labels of the feeded training data 
+ for machine learning model
 .PP
 .SH OPTIONS
 .PP
 \fBmodel\fB \fR\- -. 
 .PP
 .PP
-\fBlabels\fB \fR\- -. 
-.PP
-.PP
-\fBactivate\fB \fR\- -. 
+\fBlabels\fB \fR\- 
+ The data field name for get the actual label value from the input
+ training data
+. 
 .PP
 .PP
 \fBenv\fB \fR\- -. 
