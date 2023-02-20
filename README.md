@@ -73,7 +73,7 @@ tensor(model = model::xgboost)
 ;
 ```
 
-For use the ANN classifier, then you could:
+For use the ANN(Back Propagation Neural Network) classifier, then you could:
 
 ```r
 tensor(model = model::ANN)
