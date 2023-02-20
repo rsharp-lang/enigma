@@ -14,6 +14,7 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 Imports REnv = SMRUCC.Rsharp.Runtime
 
 ''' <summary>
@@ -203,28 +204,34 @@ Public Module learning
     End Function
 
     ''' <summary>
-    ''' configs of the output layer of the ``<see cref="ANN"/>`` model
+    ''' ### configs of the output labels 
+    ''' 
+    ''' configs of the output labels of the feeded training data 
+    ''' for machine learning model
     ''' </summary>
     ''' <param name="model"></param>
     ''' <param name="labels"></param>
-    ''' <param name="activate"></param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("output")>
     <RApiReturn(GetType(MLModel))>
     <Extension>
-    Public Function output_layer(model As MLModel,
-                                 <RRawVectorArgument>
-                                 Optional labels As Object = Nothing,
-                                 Optional activate As Object = Nothing,
-                                 Optional env As Environment = Nothing) As MLModel
+    Public Function config_output_labels(model As MLModel,
+                                         <RRawVectorArgument>
+                                         Optional labels As Object = Nothing,
+                                         <RListObjectArgument>
+                                         Optional args As list = Nothing,
+                                         Optional env As Environment = Nothing) As MLModel
 
-        Dim labelStr As String() = REnv.asVector(Of String)(labels)
-        Dim f = activateFunction.getFunction(activate, env)
+        Dim labelStr As String() = CLRVector.asCharacter(labels)
 
-        If f Like GetType(Message) Then
-            Return f.TryCast(Of Message).CreateError
-        ElseIf TypeOf model Is ANN Then
+        If TypeOf model Is ANN Then
+            Dim f = activateFunction.getFunction(args.getByName("activate"), env)
+
+            If f Like GetType(Message) Then
+                Return f.TryCast(Of Message).CreateError
+            End If
+
             DirectCast(model, ANN).output = New OutputLayerBuilderArgument With {
                 .activate = f.TryCast(Of IActivationFunction)
             }
