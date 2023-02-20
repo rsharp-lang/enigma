@@ -166,14 +166,15 @@
         <table>
             
 <dt>model</dt>
-<dd><p><p>-</p></p></dd>
+<dd><p><p>A machine learning algorithm model which is generated from <br />
+ the <code>tensor</code> function.</p></p></dd>
 
 
 <dt>args</dt>
 <dd><p><p>the additional arguments to the machine learning model trainer, it could be:</p>
 
 <ol>
-<li><p>ANN model</p>
+<li><p>Artificial neural networks model</p>
 
 <ul>
 <li>truncate, numeric</li>
@@ -181,6 +182,18 @@
 <li>parallel, logical</li>
 <li>softmax, logical</li>
 <li>max.epochs, integer</li>
+</ul></li>
+<li><p>xgboost</p>
+
+<ul>
+<li>loss,Loss: logloss for classification and squareloss for regression</li>
+<li>cost,eval_metric: auc for classification and mse for regression</li>
+<li>gamma, numeric: default 0.0</li>
+<li>lambda, numeric: default 1.0</li>
+<li>learn_rate, eta, numeric: default 0.3</li>
+<li>max_depth, integer: default 7</li>
+<li>num_boost_round, integer, default 10</li>
+<li>max, maximize, logical: default true</li>
 </ul></li>
 </ol></p></dd>
 

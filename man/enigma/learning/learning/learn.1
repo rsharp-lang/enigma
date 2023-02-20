@@ -12,19 +12,34 @@ Do machine learning model training
 .PP
 .SH OPTIONS
 .PP
-\fBmodel\fB \fR\- -. 
+\fBmodel\fB \fR\- 
+ A machine learning algorithm model which is generated from 
+ the \fBtensor\fR function.
+. 
 .PP
 .PP
 \fBargs\fB \fR\- 
  the additional arguments to the machine learning model trainer, it could be:
  
- 1. ANN model
+ 1. Artificial neural networks model
  
  + truncate, numeric
  + threshold, numeric
  + parallel, logical
  + softmax, logical
  + max.epochs, integer
+ 
+ 2. xgboost
+ 
+ + loss,Loss: logloss for classification and squareloss for regression
+ + cost,eval_metric: auc for classification and mse for regression
+ + gamma, numeric: default 0.0
+ + lambda, numeric: default 1.0
+ + learn_rate, eta, numeric: default 0.3
+ + max_depth, integer: default 7
+ + num_boost_round, integer, default 10
+ + max, maximize, logical: default true
+ 
 . 
 .PP
 .PP
