@@ -168,7 +168,7 @@ Public Module learning
                          Optional args As list = Nothing,
                          Optional env As Environment = Nothing) As MLModel
         model.data = x
-        model.Features = REnv.asVector(Of String)(features)
+        model.Features = CLRVector.asCharacter(features)
 
         Return model
     End Function
@@ -210,7 +210,10 @@ Public Module learning
     ''' for machine learning model
     ''' </summary>
     ''' <param name="model"></param>
-    ''' <param name="labels"></param>
+    ''' <param name="labels">
+    ''' The data field name for get the actual label value from the input
+    ''' training data
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("output")>
@@ -245,17 +248,32 @@ Public Module learning
     ''' <summary>
     ''' Do machine learning model training
     ''' </summary>
-    ''' <param name="model"></param>
+    ''' <param name="model">
+    ''' A machine learning algorithm model which is generated from 
+    ''' the ``tensor`` function.
+    ''' </param>
     ''' <param name="args">
     ''' the additional arguments to the machine learning model trainer, it could be:
     ''' 
-    ''' 1. ANN model
+    ''' 1. Artificial neural networks model
     ''' 
     ''' + truncate, numeric
     ''' + threshold, numeric
     ''' + parallel, logical
     ''' + softmax, logical
     ''' + max.epochs, integer
+    ''' 
+    ''' 2. xgboost
+    ''' 
+    ''' + loss,Loss: logloss for classification and squareloss for regression
+    ''' + cost,eval_metric: auc for classification and mse for regression
+    ''' + gamma, numeric: default 0.0
+    ''' + lambda, numeric: default 1.0
+    ''' + learn_rate, eta, numeric: default 0.3
+    ''' + max_depth, integer: default 7
+    ''' + num_boost_round, integer, default 10
+    ''' + max, maximize, logical: default true
+    ''' 
     ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
@@ -273,8 +291,15 @@ Public Module learning
     ''' <summary>
     ''' Do data prediction
     ''' </summary>
-    ''' <param name="model"></param>
-    ''' <param name="data"></param>
+    ''' <param name="model">
+    ''' A machine learning model which is has been trained via the ``learn`` function.
+    ''' Or this machine learning algorithm model also could be loaded from the snapshot 
+    ''' file via the ``readModelFile``.
+    ''' </param>
+    ''' <param name="data">
+    ''' A dataframe object which should contains the same features fields with the 
+    ''' input training data
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("solve")>
