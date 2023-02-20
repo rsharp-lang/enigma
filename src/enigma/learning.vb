@@ -17,13 +17,54 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 Imports REnv = SMRUCC.Rsharp.Runtime
 
 ''' <summary>
-''' machine learning toolkit
+''' ## machine learning toolkit
+''' 
+''' Machine learning (ML) is a field of inquiry devoted to
+''' understanding and building methods that "learn" – that
+''' is, methods that leverage data to improve performance 
+''' on some set of tasks. It is seen as a part of artificial
+''' intelligence.
+'''
+''' Machine learning algorithms build a model based On sample
+''' data, known As training data, In order To make predictions
+''' Or decisions without being explicitly programmed To Do so.
+''' Machine learning algorithms are used In a wide variety Of 
+''' applications, such As In medicine, email filtering, speech 
+''' recognition, agriculture, And computer vision, where it Is
+''' difficult Or unfeasible To develop conventional algorithms 
+''' To perform the needed tasks.
+'''
+''' A subset Of machine learning Is closely related To computational 
+''' statistics, which focuses On making predictions Using computers,
+''' but Not all machine learning Is statistical learning. The 
+''' study Of mathematical optimization delivers methods, theory 
+''' And application domains To the field Of machine learning. Data
+''' mining Is a related field Of study, focusing On exploratory 
+''' data analysis through unsupervised learning.
+'''
+''' Some implementations Of machine learning use data And neural 
+''' networks In a way that mimics the working Of a biological 
+''' brain.
+'''
+''' In its application across business problems, machine learning 
+''' Is also referred to as predictive analytics.
 ''' </summary>
 <Package("learning")>
 Public Module learning
 
     ''' <summary>
-    ''' create a new machine learning model
+    ''' ### create a new machine learning model
+    ''' 
+    ''' In mathematics, a tensor is an algebraic object that describes
+    ''' a multilinear relationship between sets of algebraic objects 
+    ''' related to a vector space. Tensors may map between different 
+    ''' objects such as vectors, scalars, and even other tensors. There
+    ''' are many types of tensors, including scalars and vectors (which 
+    ''' are the simplest tensors), dual vectors, multilinear maps between 
+    ''' vector spaces, and even some operations such as the dot product.
+    ''' Tensors are defined independent of any basis, although they are 
+    ''' often referred to by their components in a basis related to a 
+    ''' particular coordinate system.
     ''' </summary>
     ''' <param name="model">
     ''' the source of the machine learning model where it comes from:
@@ -101,6 +142,22 @@ Public Module learning
     ''' usually a character vector to gets the training data fields
     ''' </param>
     ''' <returns></returns>
+    ''' <remarks>
+    ''' Typically, machine learning models require a high quantity of 
+    ''' reliable data in order for the models to perform accurate predictions. 
+    ''' When training a machine learning model, machine learning engineers
+    ''' need to target and collect a large and representative sample of 
+    ''' data. Data from the training set can be as varied as a corpus of 
+    ''' text, a collection of images, sensor data, and data collected from 
+    ''' individual users of a service. Overfitting is something to watch out
+    ''' for when training a machine learning model. Trained models derived 
+    ''' from biased or non-evaluated data can result in skewed or undesired 
+    ''' predictions. Bias models may result in detrimental outcomes thereby 
+    ''' furthering the negative impacts on society or objectives. Algorithmic
+    ''' bias is a potential result of data not being fully prepared for 
+    ''' training. Machine learning ethics is becoming a field of study and 
+    ''' notably be integrated within machine learning engineering teams.
+    ''' </remarks>
     <ExportAPI("feed")>
     <RApiReturn(GetType(MLModel))>
     <Extension>
