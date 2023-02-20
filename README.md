@@ -57,7 +57,18 @@ For use the svm classifier:
 tensor(model = model::svm)
 |> feed(data, features = ["D1","D2","D3","D4"])
 |> output(labels = ["class.Iris-setosa"])
-|> learn()
+|> learn(
+    degree = 3,
+    gamma = 0.5,
+    coefficient0 = 0,
+    nu = 0.5,
+    cacheSize = 40,
+    c = 1,
+    EPS = 0.001,
+    P = 0.1,
+    shrinking = TRUE,
+    probability = FALSE
+)
 |> solve(data)
 ;
 ```
@@ -68,7 +79,23 @@ For use the xgboost classifier:
 tensor(model = model::xgboost)
 |> feed(data, features = ["D1","D2","D3","D4"])
 |> output(labels = ["class.Iris-setosa"])
-|> learn()
+|> learn(
+    loss = "logloss",
+    cost = "auc",
+    num_boost_round = 10,
+    early_stopping_rounds = 10,
+    maximize = TRUE,
+    eta = 0.3,
+    max_depth = 7,
+    scale_pos_weight = 1,
+    rowsample = 0.8,
+    colsample = 0.8,
+    min_child_weight = 1,
+    min_sample_split = 5,
+    lambda = 1,
+    gamma = 0,
+    num_thread = 8
+)
 |> solve(data)
 ;
 ```
@@ -83,7 +110,14 @@ tensor(model = model::ANN)
     labels = ["class.Iris-setosa","class.Iris-versicolor","class.Iris-virginica"], 
     activate = activateFunction::sigmoid(alpha = 2.0)
 )
-|> learn(parallel = TRUE)
+|> learn(
+    parallel = TRUE,
+    learn.rate = 0.01,
+    truncate = -1,
+    threshold = 0.01,
+    softmax = FALSE,
+    max.epochs = 10000
+)
 |> solve(data)
 ```
 
@@ -119,7 +153,23 @@ The some of the example for solve the regression problem by use the ``enigma`` p
 test = tensor(model = model::xgboost)
 |> feed(data, features = ["x", "y"])
 |> output(labels = "z")
-|> learn(loss = "squareloss", cost = "mse")
+|> learn(
+    loss = "squareloss", 
+    cost = "mse",
+    num_boost_round = 10,
+    early_stopping_rounds = 10,
+    maximize = TRUE,
+    eta = 0.3,
+    max_depth = 7,
+    scale_pos_weight = 1,
+    rowsample = 0.8,
+    colsample = 0.8,
+    min_child_weight = 1,
+    min_sample_split = 5,
+    lambda = 1,
+    gamma = 0,
+    num_thread = 8
+)
 |> solve(data)
 ;
 
@@ -147,7 +197,18 @@ For solve a SVR regression problem, then we could just replace the tensor model 
 test = tensor(model = model::svr)
 |> feed(data, features = ["x", "y"])
 |> output(labels = "z")
-|> learn()
+|> learn(
+    degree = 3,
+    gamma = 0.5,
+    coefficient0 = 0,
+    nu = 0.5,
+    cacheSize = 40,
+    c = 1,
+    EPS = 0.001,
+    P = 0.1,
+    shrinking = TRUE,
+    probability = FALSE
+)
 |> solve(data)
 ;
 ```
