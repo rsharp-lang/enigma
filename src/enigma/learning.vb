@@ -2,6 +2,7 @@
 Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
+Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.MachineLearning
 Imports Microsoft.VisualBasic.MachineLearning.ComponentModel.Activations
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork
@@ -189,7 +190,7 @@ Public Module learning
                                  Optional env As Environment = Nothing) As MLModel
 
         Dim f = activateFunction.getFunction(activate, env)
-        Dim sizeVec As Integer() = REnv.asVector(Of Integer)(size)
+        Dim sizeVec As Integer() = CLRVector.asInteger(size)
 
         If f Like GetType(Message) Then
             Return f.TryCast(Of Message).CreateError
@@ -331,9 +332,10 @@ Public Module learning
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("trainTestSplit")>
-    <RApiReturn("train", "test")>
+    <RApiReturn("train", "test", "validate")>
     Public Function trainTestSplit(x As dataframe,
                                    Optional train_ratio As Double = 0.8,
+                                   Optional cross As Double = 0.2,
                                    Optional env As Environment = Nothing) As Object
 
         If train_ratio <= 0 OrElse train_ratio > 1 Then
@@ -350,14 +352,18 @@ Public Module learning
         Dim fields As String() = x.colnames
         Dim rows As NamedCollection(Of Object)() = x.forEachRow(fields).Shuffles.ToArray
         Dim train = rows.Take(CInt(train_ratio * rows.Length) + 1).ToArray
+        Dim trainCross = train.Shuffles.Take(CInt(train.Length * cross) + 1).ToArray
         Dim test = rows.Skip(train.Length).ToArray
-        Dim df_train = dataframe.CreateDataFrame(train, fields)
-        Dim df_tests = dataframe.CreateDataFrame(test, fields)
+        Dim testCross = test.Shuffles.Take(CInt(test.Length * cross) + 1).ToArray
+        Dim df_train = dataframe.CreateDataFrame(train.JoinIterates(testCross).ToArray, fields)
+        Dim df_tests = dataframe.CreateDataFrame(test.JoinIterates(trainCross).ToArray, fields)
+        Dim validates = dataframe.CreateDataFrame(trainCross.JoinIterates(testCross).ToArray, fields)
 
         Return New list With {
             .slots = New Dictionary(Of String, Object) From {
                 {"train", df_train},
-                {"test", df_tests}
+                {"test", df_tests},
+                {"validate", validates}
             }
         }
     End Function
