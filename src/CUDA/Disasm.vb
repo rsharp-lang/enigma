@@ -8,7 +8,14 @@ Imports System.Runtime.CompilerServices
 
 Namespace CudaSharp
     Friend Module Disasm
-        Private ReadOnly OpcodeLookupTable As Dictionary(Of Short, OpCode) = GetType(OpCodes).GetFields().[Select](Function(f) CType(f.GetValue(Nothing), OpCode)).ToDictionary(Function(op) op.Value)
+        Private ReadOnly OpcodeLookupTable As Dictionary(Of Short, OpCode) = GetType(OpCodes) _
+            .GetFields() _
+            .[Select](Function(f)
+                          Return CType(f.GetValue(Nothing), OpCode)
+                      End Function) _
+            .ToDictionary(Function(op)
+                              Return op.Value
+                          End Function)
 
         <Extension()>
         Public Iterator Function Disassemble(ByVal method As MethodBase) As IEnumerable(Of OpCodeInstruction)

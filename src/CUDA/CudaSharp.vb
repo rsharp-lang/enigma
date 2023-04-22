@@ -40,7 +40,7 @@ Namespace CudaSharp
         ''' <param name="methods">Methods to translate</param>
         ''' <returns>PTX object to be loaded into the GPU or written to a .ptx file on disk</returns>
         Public Function Translate(ParamArray methods As MethodInfo()) As Byte()
-            Dim dummy As String()
+            Dim dummy As String() = Nothing
             Return Translate(dummy, methods)
         End Function
 

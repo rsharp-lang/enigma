@@ -116,7 +116,8 @@ Namespace CudaSharp
                 If opCodes(CInt((insert))).Opcode = System.Reflection.Emit.OpCodes.Nop AndAlso opCodes(CInt((insert))).Parameter IsNot Nothing Then
                     block = CType(opCodes(CInt((insert))).Parameter, LLVM.Block)
                 Else
-                    opCodes.Insert(insert, New OpCodeInstruction(target, System.Reflection.Emit.OpCodes.Nop, CSharpImpl.__Assign(block, New LLVM.Block("", context, [function]))))
+                    block = New LLVM.Block("", context, [function])
+                    opCodes.Insert(insert, New OpCodeInstruction(target, Emit.OpCodes.Nop, block))
                     If insert < i Then i += 1
                 End If
                 opCodes(i) = New OpCodeInstruction(op.InstructionStart, op.Opcode, If(contBlock Is Nothing, CObj(block), System.Tuple.Create(contBlock, block)))
@@ -653,13 +654,5 @@ Namespace CudaSharp
             End If
             __.Stack.Push(value)
         End Sub
-
-        Private Class CSharpImpl
-            <System.Obsolete("Please refactor calling code to use normal Visual Basic assignment")>
-            Shared Function __Assign(Of T)(ByRef target As T, value As T) As T
-                target = value
-                Return value
-            End Function
-        End Class
     End Module
 End Namespace
