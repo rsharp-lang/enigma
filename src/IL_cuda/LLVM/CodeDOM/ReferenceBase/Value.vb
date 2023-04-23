@@ -11,7 +11,7 @@ Namespace LLVM
 
 		' Token: 0x17000020 RID: 32
 		' (get) Token: 0x0600011D RID: 285 RVA: 0x0000392B File Offset: 0x00001B2B
-		Public ReadOnly Property Type As Type
+		Public Overridable ReadOnly Property Type As Type
 			Get
 				Return Type.DetectType(llvm.[TypeOf](Me))
 			End Get

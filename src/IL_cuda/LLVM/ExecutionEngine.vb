@@ -117,7 +117,7 @@ Namespace LLVM
         Private loader As LazyFunctionLoader
 
         '' Token: 0x0400000F RID: 15
-        '<Runtime.CompilerServices.CompilerGenerated()>
+        '<CompilerGenerated()>
         'Private _LazyLoad As LazyFunctionLoader
     End Class
 End Namespace

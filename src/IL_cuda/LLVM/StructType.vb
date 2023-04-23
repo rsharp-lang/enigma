@@ -137,7 +137,7 @@ Namespace LLVM
 		End Function
 
 		' Token: 0x02000038 RID: 56
-		<Runtime.CompilerServices.CompilerGenerated()>
+		<CompilerGenerated()>
 		<Serializable()>
 		Private NotInheritable Class c
 			' Token: 0x06000152 RID: 338 RVA: 0x00003D9B File Offset: 0x00001F9B

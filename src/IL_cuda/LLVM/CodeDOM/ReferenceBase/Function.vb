@@ -1,4 +1,5 @@
-﻿Imports Enigma.LLVM.GarbageCollection
+﻿Imports System.Runtime.CompilerServices
+Imports Enigma.LLVM.GarbageCollection
 
 Namespace LLVM
 	' Token: 0x02000011 RID: 17
@@ -10,8 +11,8 @@ Namespace LLVM
 		End Sub
 
 		' Token: 0x17000005 RID: 5
-		<Runtime.CompilerServices.IndexerName("Arguments")>
-		Public ReadOnly Default Property Item(index As Integer) As Argument
+		<IndexerName("Arguments")>
+		Default Public ReadOnly Property Item(index As Integer) As Argument
 			Get
 				If index < 0 Then
 					Throw New ArgumentOutOfRangeException("index")
@@ -41,6 +42,7 @@ Namespace LLVM
 		End Property
 
 		' Token: 0x0600002A RID: 42 RVA: 0x00002521 File Offset: 0x00000721
+		<MethodImpl(MethodImplOptions.AggressiveInlining)>
 		Private Sub SetShadowStackGC()
 			llvm.SetGC(Me, "shadow-stack")
 		End Sub

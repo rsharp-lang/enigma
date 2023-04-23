@@ -2,8 +2,7 @@
 
 Namespace LLVM
 	' Token: 0x02000023 RID: 35
-	Public Class StackAlloc
-		Inherits Unary
+	Public Class StackAlloc : Inherits Unary
 
 		' Token: 0x060000F9 RID: 249 RVA: 0x00003594 File Offset: 0x00001794
 		Friend Sub New(valueref As IntPtr)
