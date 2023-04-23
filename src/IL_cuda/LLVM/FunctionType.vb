@@ -78,8 +78,6 @@
 			Return functionType IsNot Nothing AndAlso functionType.ReturnType.Equals(Me.ReturnType) AndAlso Me.ArgumentTypes.SequenceEqual(functionType.ArgumentTypes)
 		End Function
 
-		' Token: 0x02000036 RID: 54
-		<CompilerGenerated()>
 		<Serializable()>
 		Private NotInheritable Class c
 			' Token: 0x06000149 RID: 329 RVA: 0x00003D73 File Offset: 0x00001F73

@@ -125,8 +125,6 @@ Namespace LLVM.GarbageCollection
         ' Token: 0x0400003C RID: 60
         Private Shared constructors As New Dictionary(Of String, GarbageCollection.NativeGlue.GCStrategyConstructor)()
 
-        ' Token: 0x0200003B RID: 59
-        <CompilerGenerated()>
         <Serializable()>
         Private NotInheritable Class c__21(Of GC As {GarbageCollection.GarbageCollector, New})
             ' Token: 0x06000169 RID: 361 RVA: 0x0000441E File Offset: 0x0000261E

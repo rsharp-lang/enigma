@@ -433,8 +433,6 @@
             llvm.PointToEnd(Me, block)
         End Sub
 
-        ' Token: 0x02000037 RID: 55
-        <CompilerGenerated()>
         <Serializable()>
         Private NotInheritable Class c
             ' Token: 0x0600014D RID: 333 RVA: 0x00003D8F File Offset: 0x00001F8F
