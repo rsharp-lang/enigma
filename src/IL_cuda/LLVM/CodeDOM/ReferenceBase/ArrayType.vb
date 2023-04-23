@@ -12,7 +12,7 @@ Namespace LLVM
 
 		' Token: 0x06000004 RID: 4 RVA: 0x0000207C File Offset: 0x0000027C
 		Public Sub New(elementType As Type, Optional elementCount As Integer = 0)
-			Me.New(ArrayType.arrayType(elementType, elementCount))
+			Me.New(arrayType(elementType, elementCount))
 		End Sub
 
 		' Token: 0x06000005 RID: 5 RVA: 0x0000208B File Offset: 0x0000028B

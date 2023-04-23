@@ -1,19 +1,22 @@
-﻿Imports System
-Imports System.Diagnostics.Contracts
-Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.InteropServices
 
 Namespace LLVM.GarbageCollection
+
+	' Token: 0x0200003C RID: 60
+	' (Invoke) Token: 0x0600016D RID: 365
+	<UnmanagedFunctionPointer(Runtime.InteropServices.CallingConvention.Cdecl)>
+	Public Delegate Sub RootVisitor(root As IntPtr, meta As IntPtr)
+
 	' Token: 0x02000030 RID: 48
-	Public Class ShadowStack
-		Inherits GarbageCollection.GarbageCollector
+	Public Class ShadowStack : Inherits GarbageCollector
 
 		' Token: 0x06000130 RID: 304 RVA: 0x00003BF4 File Offset: 0x00001DF4
-		Public Sub New(engine As ExecutionEngine, [module] As [Module], rootVisitor As GarbageCollection.ShadowStack.RootVisitor)
+		Public Sub New(engine As ExecutionEngine, [module] As [Module], rootVisitor As RootVisitor)
 			Diagnostics.Contracts.Contract.Requires(Of ArgumentNullException)(rootVisitor IsNot Nothing)
 			Diagnostics.Contracts.Contract.Requires(Of ArgumentNullException)(engine IsNot Nothing)
 			Diagnostics.Contracts.Contract.Requires(Of ArgumentNullException)([module] IsNot Nothing)
 			Me.rootVisitor = rootVisitor
-			Me.[module] = [module]
+			Me.[Module] = [module]
 			Me.engine = engine
 			Me.rootPointer = [module].AddGlobal(Type.GetVoid([module].Context), "llvm_gc_root_chain", Nothing)
 		End Sub
@@ -33,7 +36,7 @@ Namespace LLVM.GarbageCollection
 		End Function
 
 		' Token: 0x06000133 RID: 307 RVA: 0x00003CAC File Offset: 0x00001EAC
-		Public Sub VisitRoots(visitor As GarbageCollection.ShadowStack.RootVisitor)
+		Public Sub VisitRoots(visitor As RootVisitor)
 			Diagnostics.Contracts.Contract.Requires(Of ArgumentNullException)(visitor IsNot Nothing)
 			Dim stackEntry As GarbageCollection.ShadowStack.StackEntry = Me.GetRoot()
 			While stackEntry.FrameMap <> IntPtr.Zero
@@ -56,10 +59,6 @@ Namespace LLVM.GarbageCollection
 		' Token: 0x17000023 RID: 35
 		' (get) Token: 0x06000134 RID: 308 RVA: 0x00003D5D File Offset: 0x00001F5D
 		Public ReadOnly Property [Module] As [Module]
-			Get
-				Return Me.[module]
-			End Get
-		End Property
 
 		' Token: 0x06000135 RID: 309 RVA: 0x00003D65 File Offset: 0x00001F65
 		Protected Overrides Function InitializeCustomLowering([module] As [Module]) As Boolean
@@ -88,21 +87,13 @@ Namespace LLVM.GarbageCollection
 		Private Const rootName As String = "llvm_gc_root_chain"
 
 		' Token: 0x04000044 RID: 68
-		Private rootVisitor As GarbageCollection.ShadowStack.RootVisitor
+		Private rootVisitor As RootVisitor
 
 		' Token: 0x04000045 RID: 69
 		Private rootPointer As GlobalValue
 
 		' Token: 0x04000046 RID: 70
 		Private engine As ExecutionEngine
-
-		' Token: 0x04000047 RID: 71
-		Private [module] As [Module]
-
-		' Token: 0x0200003C RID: 60
-		' (Invoke) Token: 0x0600016D RID: 365
-		<Runtime.InteropServices.UnmanagedFunctionPointer(Runtime.InteropServices.CallingConvention.Cdecl)>
-		Public Delegate Sub RootVisitor(root As IntPtr, meta As IntPtr)
 
 		' Token: 0x0200003D RID: 61
 		Private Structure FrameMap
