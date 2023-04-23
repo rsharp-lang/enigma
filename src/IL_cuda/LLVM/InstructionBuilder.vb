@@ -130,12 +130,12 @@ Namespace LLVM
 			Dim ibuilder As IntPtr = Me
 			Dim func As IntPtr = target
 			Dim source As Collections.Generic.IEnumerable(Of Value) = args
-			Dim <>9__11_ As Func(Of Value, IntPtr) = InstructionBuilder.<>c.<>9__11_0
-			Dim selector As Func(Of Value, IntPtr) = <>9__11_
-			If <>9__11_ Is Nothing Then
+			Dim Hx0___11_ As Func(Of Value, IntPtr) = InstructionBuilder.<>c.Hx0___11_0
+			Dim selector As Func(Of Value, IntPtr) = Hx0___11_
+			If Hx0___11_ Is Nothing Then
 				Dim func2 As Func(Of Value, IntPtr) = Function(val As Value) val
 				selector = func2
-				InstructionBuilder.<>c.<>9__11_0 = func2
+				InstructionBuilder.<>c.Hx0___11_0 = func2
 			End If
 			Return New [Call](llvm.EmitCall(ibuilder, func, source.[Select](selector).ToArray(), args.Length, name))
 		End Function
@@ -154,12 +154,12 @@ Namespace LLVM
 
 		' Token: 0x06000044 RID: 68 RVA: 0x00002AA4 File Offset: 0x00000CA4
 		Public Function [Call](target As [Function], ParamArray args As Value()) As [Call]
-			Dim <>9__13_ As Func(Of Value, IntPtr) = InstructionBuilder.<>c.<>9__13_0
-			Dim selector As Func(Of Value, IntPtr) = <>9__13_
-			If <>9__13_ Is Nothing Then
+			Dim Hx0___13_ As Func(Of Value, IntPtr) = InstructionBuilder.<>c.Hx0___13_0
+			Dim selector As Func(Of Value, IntPtr) = Hx0___13_
+			If Hx0___13_ Is Nothing Then
 				Dim func As Func(Of Value, IntPtr) = Function(val As Value) val
 				selector = func
-				InstructionBuilder.<>c.<>9__13_0 = func
+				InstructionBuilder.<>c.Hx0___13_0 = func
 			End If
 			Dim args2 As IntPtr() = args.[Select](selector).ToArray()
 			InstructionBuilder.CheckArgumentTypes(args, target.Type.ArgumentTypes)
@@ -309,12 +309,12 @@ Namespace LLVM
 			If indexes Is Nothing Then
 				Throw New ArgumentNullException("indexes")
 			End If
-			Dim <>9__35_ As Func(Of Value, IntPtr) = InstructionBuilder.<>c.<>9__35_0
-			Dim selector As Func(Of Value, IntPtr) = <>9__35_
-			If <>9__35_ Is Nothing Then
+			Dim Hx0___35_ As Func(Of Value, IntPtr) = InstructionBuilder.<>c.Hx0___35_0
+			Dim selector As Func(Of Value, IntPtr) = Hx0___35_
+			If Hx0___35_ Is Nothing Then
 				Dim func As Func(Of Value, IntPtr) = Function(i As Value) i
 				selector = func
-				InstructionBuilder.<>c.<>9__35_0 = func
+				InstructionBuilder.<>c.Hx0___35_0 = func
 			End If
 			Dim offsets As IntPtr() = indexes.[Select](selector).ToArray()
 			Return New Value(llvm.EmitGetElementPointer(Me, pointer, offsets, indexes.Length, name))
@@ -467,16 +467,16 @@ Namespace LLVM
 			End Function
 
 			' Token: 0x04000055 RID: 85
-			Public Shared <>9 As InstructionBuilder.<>c = New InstructionBuilder.<>c()
+			Public Shared Hx0_ As InstructionBuilder.<>c = New InstructionBuilder.<>c()
 
 			' Token: 0x04000056 RID: 86
-			Public Shared <>9__11_0 As Func(Of Value, IntPtr)
+			Public Shared Hx0___11_0 As Func(Of Value, IntPtr)
 
 			' Token: 0x04000057 RID: 87
-			Public Shared <>9__13_0 As Func(Of Value, IntPtr)
+			Public Shared Hx0___13_0 As Func(Of Value, IntPtr)
 
 			' Token: 0x04000058 RID: 88
-			Public Shared <>9__35_0 As Func(Of Value, IntPtr)
+			Public Shared Hx0___35_0 As Func(Of Value, IntPtr)
 		End Class
 	End Class
 End Namespace

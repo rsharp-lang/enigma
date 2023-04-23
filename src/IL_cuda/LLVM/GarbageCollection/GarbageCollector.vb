@@ -44,9 +44,9 @@ Namespace LLVM.GarbageCollection
 
 		' Token: 0x0600012E RID: 302 RVA: 0x00003B34 File Offset: 0x00001D34
 		Public Shared Sub Register(Of GC As{GarbageCollection.GarbageCollector, New})()
-			Dim <>9__21_ As GarbageCollection.NativeGlue.GCStrategyConstructor = GarbageCollection.GarbageCollector.<>c__21(Of !!0).<>9__21_0
-			Dim gcstrategyConstructor As GarbageCollection.NativeGlue.GCStrategyConstructor = <>9__21_
-			If <>9__21_ Is Nothing Then
+			Dim Hx0___21_ As GarbageCollection.NativeGlue.GCStrategyConstructor = GarbageCollection.GarbageCollector.<>c__21(Of !!0).Hx0___21_0
+			Dim gcstrategyConstructor As GarbageCollection.NativeGlue.GCStrategyConstructor = Hx0___21_
+			If Hx0___21_ Is Nothing Then
 				Dim gcstrategyConstructor2 As GarbageCollection.NativeGlue.GCStrategyConstructor = Function()
 					Dim obj2 As Collections.Generic.List(Of GarbageCollection.GarbageCollector) = GarbageCollection.GarbageCollector.collectors
 					Dim result As IntPtr
@@ -59,7 +59,7 @@ Namespace LLVM.GarbageCollection
 					Return result
 				End Function
 				gcstrategyConstructor = gcstrategyConstructor2
-				GarbageCollection.GarbageCollector.<>c__21(Of !!0).<>9__21_0 = gcstrategyConstructor2
+				GarbageCollection.GarbageCollector.<>c__21(Of !!0).Hx0___21_0 = gcstrategyConstructor2
 			End If
 			Dim gcstrategyConstructor3 As GarbageCollection.NativeGlue.GCStrategyConstructor = gcstrategyConstructor
 			Dim fullName As String = GetType(!!0).FullName
@@ -144,10 +144,10 @@ Namespace LLVM.GarbageCollection
 			End Function
 
 			' Token: 0x04000060 RID: 96
-			Public Shared <>9 As GarbageCollection.GarbageCollector.<>c__21(Of GC) = New GarbageCollection.GarbageCollector.<>c__21(Of !0)()
+			Public Shared Hx0_ As GarbageCollection.GarbageCollector.<>c__21(Of GC) = New GarbageCollection.GarbageCollector.<>c__21(Of !0)()
 
 			' Token: 0x04000061 RID: 97
-			Public Shared <>9__21_0 As GarbageCollection.NativeGlue.GCStrategyConstructor
+			Public Shared Hx0___21_0 As GarbageCollection.NativeGlue.GCStrategyConstructor
 		End Class
 	End Class
 End Namespace

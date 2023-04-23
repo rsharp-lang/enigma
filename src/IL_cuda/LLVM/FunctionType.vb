@@ -20,12 +20,12 @@ Namespace LLVM
 			End If
 			Dim ret2 As IntPtr = ret
 			Dim source As Collections.Generic.IEnumerable(Of Type) = args
-			Dim <>9__1_ As Func(Of Type, IntPtr) = FunctionType.<>c.<>9__1_0
-			Dim selector As Func(Of Type, IntPtr) = <>9__1_
-			If <>9__1_ Is Nothing Then
+			Dim Hx0___1_ As Func(Of Type, IntPtr) = FunctionType.<>c.Hx0___1_0
+			Dim selector As Func(Of Type, IntPtr) = Hx0___1_
+			If Hx0___1_ Is Nothing Then
 				Dim func As Func(Of Type, IntPtr) = Function(arg As Type) arg
 				selector = func
-				FunctionType.<>c.<>9__1_0 = func
+				FunctionType.<>c.Hx0___1_0 = func
 			End If
 			Return llvm.FunctionType(ret2, source.[Select](selector).ToArray(), args.Length, vararg)
 		End Function
@@ -68,12 +68,12 @@ Namespace LLVM
 			End If
 			Dim separator As String = " * "
 			Dim argumentTypes As Collections.Generic.IEnumerable(Of Type) = Me.ArgumentTypes
-			Dim <>9__9_ As Func(Of Type, String) = FunctionType.<>c.<>9__9_0
-			Dim selector As Func(Of Type, String) = <>9__9_
-			If <>9__9_ Is Nothing Then
+			Dim Hx0___9_ As Func(Of Type, String) = FunctionType.<>c.Hx0___9_0
+			Dim selector As Func(Of Type, String) = Hx0___9_
+			If Hx0___9_ Is Nothing Then
 				Dim func As Func(Of Type, String) = Function(t As Type) t.ToString()
 				selector = func
-				FunctionType.<>c.<>9__9_0 = func
+				FunctionType.<>c.Hx0___9_0 = func
 			End If
 			Return String.Join(separator, argumentTypes.[Select](selector)) + " -> " + Me.ReturnType
 		End Function
@@ -108,13 +108,13 @@ Namespace LLVM
 			End Function
 
 			' Token: 0x04000052 RID: 82
-			Public Shared <>9 As FunctionType.<>c = New FunctionType.<>c()
+			Public Shared Hx0_ As FunctionType.<>c = New FunctionType.<>c()
 
 			' Token: 0x04000053 RID: 83
-			Public Shared <>9__1_0 As Func(Of Type, IntPtr)
+			Public Shared Hx0___1_0 As Func(Of Type, IntPtr)
 
 			' Token: 0x04000054 RID: 84
-			Public Shared <>9__9_0 As Func(Of Type, String)
+			Public Shared Hx0___9_0 As Func(Of Type, String)
 		End Class
 	End Class
 End Namespace

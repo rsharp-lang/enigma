@@ -20,12 +20,12 @@ Namespace LLVM
 				elementTypes = New Type(-1) {}
 			End If
 			Dim source As Collections.Generic.IEnumerable(Of Type) = elementTypes
-			Dim <>9__1_ As Func(Of Type, IntPtr) = StructType.<>c.<>9__1_0
-			Dim selector As Func(Of Type, IntPtr) = <>9__1_
-			If <>9__1_ Is Nothing Then
+			Dim Hx0___1_ As Func(Of Type, IntPtr) = StructType.<>c.Hx0___1_0
+			Dim selector As Func(Of Type, IntPtr) = Hx0___1_
+			If Hx0___1_ Is Nothing Then
 				Dim func As Func(Of Type, IntPtr) = Function(type As Type) type
 				selector = func
-				StructType.<>c.<>9__1_0 = func
+				StructType.<>c.Hx0___1_0 = func
 			End If
 			Dim array As IntPtr() = source.[Select](selector).ToArray()
 			Return llvm.StructType(context, array, array.Length, packed)
@@ -105,12 +105,12 @@ Namespace LLVM
 				fieldTypes = New Type(-1) {}
 			End If
 			Dim source As Collections.Generic.IEnumerable(Of Type) = fieldTypes
-			Dim <>9__17_ As Func(Of Type, IntPtr) = StructType.<>c.<>9__17_0
-			Dim selector As Func(Of Type, IntPtr) = <>9__17_
-			If <>9__17_ Is Nothing Then
+			Dim Hx0___17_ As Func(Of Type, IntPtr) = StructType.<>c.Hx0___17_0
+			Dim selector As Func(Of Type, IntPtr) = Hx0___17_
+			If Hx0___17_ Is Nothing Then
 				Dim func As Func(Of Type, IntPtr) = Function(type As Type) type
 				selector = func
-				StructType.<>c.<>9__17_0 = func
+				StructType.<>c.Hx0___17_0 = func
 			End If
 			Dim array As IntPtr() = source.[Select](selector).ToArray()
 			llvm.StructSetBody(Me, array, array.Length, packed)
@@ -163,13 +163,13 @@ Namespace LLVM
 			End Function
 
 			' Token: 0x04000059 RID: 89
-			Public Shared <>9 As StructType.<>c = New StructType.<>c()
+			Public Shared Hx0_ As StructType.<>c = New StructType.<>c()
 
 			' Token: 0x0400005A RID: 90
-			Public Shared <>9__1_0 As Func(Of Type, IntPtr)
+			Public Shared Hx0___1_0 As Func(Of Type, IntPtr)
 
 			' Token: 0x0400005B RID: 91
-			Public Shared <>9__17_0 As Func(Of Type, IntPtr)
+			Public Shared Hx0___17_0 As Func(Of Type, IntPtr)
 		End Class
 	End Class
 End Namespace

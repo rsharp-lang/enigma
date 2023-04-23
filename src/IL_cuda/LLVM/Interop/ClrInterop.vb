@@ -69,12 +69,12 @@ Namespace LLVM.Interop
 				Dim method As Reflection.MethodInfo = delegateType.GetMethod("Invoke")
 				Dim parameters As Collections.Generic.IEnumerable(Of Reflection.ParameterInfo) = method.GetParameters()
 				Dim parameterExpression As Linq.Expressions.ParameterExpression = If(Interop.ClrInterop.Managed.NeedsReturnWrapping(method.ReturnType), Linq.Expressions.Expression.Variable(method.ReturnType, "retval"), Nothing)
-				Dim <>9__4_ As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression) = Interop.ClrInterop.Managed.<>c.<>9__4_0
-				Dim selector As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression) = <>9__4_
-				If <>9__4_ Is Nothing Then
+				Dim Hx0___4_ As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression) = Interop.ClrInterop.Managed.<>c.Hx0___4_0
+				Dim selector As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression) = Hx0___4_
+				If Hx0___4_ Is Nothing Then
 					Dim func As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression) = Function(p As Reflection.ParameterInfo) Linq.Expressions.Expression.Parameter(p.ParameterType, p.Name)
 					selector = func
-					Interop.ClrInterop.Managed.<>c.<>9__4_0 = func
+					Interop.ClrInterop.Managed.<>c.Hx0___4_0 = func
 				End If
 				Dim array As Linq.Expressions.ParameterExpression() = parameters.[Select](selector).ToArray()
 				Dim list As Collections.Generic.List(Of Linq.Expressions.ParameterExpression) = array.ToList()
@@ -105,17 +105,17 @@ Namespace LLVM.Interop
 				typeBuilder.SetCustomAttribute(Interop.ClrInterop.Managed.callingConventionAttribute)
 				typeBuilder.DefineConstructor(Reflection.MethodAttributes.FamANDAssem Or Reflection.MethodAttributes.Family Or Reflection.MethodAttributes.HideBySig Or Reflection.MethodAttributes.RTSpecialName, Reflection.CallingConventions.Standard, New Type() { GetType(Object), GetType(IntPtr) }).SetImplementationFlags(Reflection.MethodImplAttributes.CodeTypeMask)
 				Dim parameters As Collections.Generic.IEnumerable(Of Reflection.ParameterInfo) = method.GetParameters()
-				Dim <>9__5_ As Func(Of Reflection.ParameterInfo, Type) = Interop.ClrInterop.Managed.<>c.<>9__5_0
-				Dim selector As Func(Of Reflection.ParameterInfo, Type) = <>9__5_
-				If <>9__5_ Is Nothing Then
+				Dim Hx0___5_ As Func(Of Reflection.ParameterInfo, Type) = Interop.ClrInterop.Managed.<>c.Hx0___5_0
+				Dim selector As Func(Of Reflection.ParameterInfo, Type) = Hx0___5_
+				If Hx0___5_ Is Nothing Then
 					Dim func As Func(Of Reflection.ParameterInfo, Type) = Function(p As Reflection.ParameterInfo) p.ParameterType
 					selector = func
-					Interop.ClrInterop.Managed.<>c.<>9__5_0 = func
+					Interop.ClrInterop.Managed.<>c.Hx0___5_0 = func
 				End If
 				Dim source As Collections.Generic.IEnumerable(Of Type) = parameters.[Select](selector)
-				Dim <>9__5_2 As Func(Of Type, Type) = Interop.ClrInterop.Managed.<>c.<>9__5_1
-				Dim selector2 As Func(Of Type, Type) = <>9__5_2
-				If <>9__5_2 Is Nothing Then
+				Dim Hx0___5_2 As Func(Of Type, Type) = Interop.ClrInterop.Managed.<>c.Hx0___5_1
+				Dim selector2 As Func(Of Type, Type) = Hx0___5_2
+				If Hx0___5_2 Is Nothing Then
 					Dim func2 As Func(Of Type, Type) = Function(t As Type)
 						If Not t.IsValueType Then
 							Return t
@@ -123,7 +123,7 @@ Namespace LLVM.Interop
 						Return t.MakeByRefType()
 					End Function
 					selector2 = func2
-					Interop.ClrInterop.Managed.<>c.<>9__5_1 = func2
+					Interop.ClrInterop.Managed.<>c.Hx0___5_1 = func2
 				End If
 				Dim list As Collections.Generic.List(Of Type) = source.[Select](selector2).ToList()
 				Dim returnByRef As Boolean
@@ -227,16 +227,16 @@ Namespace LLVM.Interop
 				End Function
 
 				' Token: 0x04000068 RID: 104
-				Public Shared <>9 As Interop.ClrInterop.Managed.<>c = New Interop.ClrInterop.Managed.<>c()
+				Public Shared Hx0_ As Interop.ClrInterop.Managed.<>c = New Interop.ClrInterop.Managed.<>c()
 
 				' Token: 0x04000069 RID: 105
-				Public Shared <>9__4_0 As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression)
+				Public Shared Hx0___4_0 As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression)
 
 				' Token: 0x0400006A RID: 106
-				Public Shared <>9__5_0 As Func(Of Reflection.ParameterInfo, Type)
+				Public Shared Hx0___5_0 As Func(Of Reflection.ParameterInfo, Type)
 
 				' Token: 0x0400006B RID: 107
-				Public Shared <>9__5_1 As Func(Of Type, Type)
+				Public Shared Hx0___5_1 As Func(Of Type, Type)
 			End Class
 		End Class
 
