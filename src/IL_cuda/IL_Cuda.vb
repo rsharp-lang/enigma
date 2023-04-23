@@ -10,7 +10,7 @@ Imports Enigma.MSIL
 ''' Main CudaSharp class
 ''' </summary>
 ''' <remarks>
-''' based on the project: 
+''' based on the project: https://github.com/khyperia/CudaSharp
 ''' </remarks>
 Public Module IL_Cuda
 
