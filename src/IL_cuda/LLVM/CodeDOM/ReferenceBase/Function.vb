@@ -1,11 +1,8 @@
-﻿Imports System
-Imports System.Runtime.CompilerServices
-Imports Enigma.LLVM.GarbageCollection
+﻿Imports Enigma.LLVM.GarbageCollection
 
 Namespace LLVM
 	' Token: 0x02000011 RID: 17
-	Public Class [Function]
-		Inherits GlobalValue
+	Public Class [Function] : Inherits GlobalValue
 
 		' Token: 0x06000025 RID: 37 RVA: 0x000024C4 File Offset: 0x000006C4
 		Friend Sub New(valueref As IntPtr)
@@ -49,12 +46,12 @@ Namespace LLVM
 		End Sub
 
 		' Token: 0x0600002B RID: 43 RVA: 0x00002533 File Offset: 0x00000733
-		Public Sub SetGC(Of GC As GarbageCollection.GarbageCollector)()
-			If GetType(!!0) = GetType(GarbageCollection.ShadowStack) Then
+		Public Sub SetGC(Of GC As GarbageCollector)()
+			If GetType(GC) = GetType(GarbageCollection.ShadowStack) Then
 				Me.SetShadowStackGC()
 				Return
 			End If
-			llvm.SetGC(Me, GetType(!!0).FullName)
+			llvm.SetGC(Me, GetType(GC).FullName)
 		End Sub
 
 		' Token: 0x0600002C RID: 44 RVA: 0x00002571 File Offset: 0x00000771

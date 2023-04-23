@@ -1,8 +1,4 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.Runtime.CompilerServices
-Imports System.Runtime.InteropServices
-Imports Enigma.LLVM.GarbageCollection.NativeGlue
+﻿Imports Enigma.LLVM.GarbageCollection.NativeGlue
 
 Namespace LLVM.GarbageCollection
 	' Token: 0x0200002E RID: 46
@@ -38,8 +34,8 @@ Namespace LLVM.GarbageCollection
 		Public MustOverride ReadOnly Property Name As String
 
 		' Token: 0x0600012D RID: 301 RVA: 0x00003A9C File Offset: 0x00001C9C
-		Private Function GetExternalGCInfo() As GarbageCollection.NativeGlue.ExternalGCInfo
-			Return New GarbageCollection.NativeGlue.ExternalGCInfo() With {
+		Private Function GetExternalGCInfo() As ExternalGCInfo
+			Return New ExternalGCInfo() With {
 				.CustomReadBarriers = Me.CustomReadBarriers,
 				.CustomRoots = Me.CustomRoots,
 				.CustomSafePoints = Me.CustomSafePoints,
@@ -142,7 +138,7 @@ Namespace LLVM.GarbageCollection
 			End Sub
 
 			' Token: 0x0600016B RID: 363 RVA: 0x0000442C File Offset: 0x0000262C
-			Friend Function <Register>b__21_0() As IntPtr
+			Friend Function b__21_0() As IntPtr
 				Dim collectors As Collections.Generic.List(Of GarbageCollection.GarbageCollector) = GarbageCollection.GarbageCollector.collectors
 				Dim result As IntPtr
 				SyncLock collectors

@@ -2,8 +2,7 @@
 
 Namespace LLVM
 	' Token: 0x0200001F RID: 31
-	Public Class PointerType
-		Inherits SequentialType
+	Public Class PointerType : Inherits SequentialType
 
 		' Token: 0x060000EC RID: 236 RVA: 0x0000346E File Offset: 0x0000166E
 		Friend Sub New(typeref As IntPtr)

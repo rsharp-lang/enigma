@@ -30,8 +30,8 @@ Namespace LLVM
 
         ' Token: 0x0600001B RID: 27 RVA: 0x00002295 File Offset: 0x00000495
         Public Function GetValue(Of T As Structure)([global] As GlobalValue) As T
-            Return CType(CObj(Marshal.PtrToStructure(Me.GetPointer([global]), GetType(!!0))), !!0)
-		End Function
+            Return CType(CObj(Marshal.PtrToStructure(Me.GetPointer([global]), GetType(T))), T)
+        End Function
 
         ' Token: 0x0600001C RID: 28 RVA: 0x000022B2 File Offset: 0x000004B2
         Private Shared Function Align(value As Integer, alignment As Integer) As Integer
