@@ -2,8 +2,7 @@
 
 Namespace LLVM
 	' Token: 0x0200002C RID: 44
-	Public Class Value
-		Inherits ReferenceBase
+	Public Class Value : Inherits ReferenceBase
 
 		' Token: 0x0600011C RID: 284 RVA: 0x00002205 File Offset: 0x00000405
 		Friend Sub New(valueref As IntPtr)

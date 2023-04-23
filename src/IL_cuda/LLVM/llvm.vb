@@ -1,10 +1,11 @@
 ﻿Imports System
 Imports System.Runtime.InteropServices
-Imports LLVM.GarbageCollection.NativeGlue
+Imports Enigma.LLVM.GarbageCollection.NativeGlue
 
 Namespace LLVM
 	' Token: 0x0200001B RID: 27
 	Friend Module llvm
+
 		' Token: 0x06000078 RID: 120
 		Public Declare Function GetInt32 Lib "LLVM-3.3" Alias "LLVMInt32TypeInContext" (context As IntPtr) As IntPtr
 
@@ -111,7 +112,7 @@ Namespace LLVM
 		Public Declare Function GetGlobalContext Lib "LLVM-3.3" Alias "LLVMGetGlobalContext" () As IntPtr
 
 		' Token: 0x0600009B RID: 155
-		Public Declare Function CreateExecutionEngine Lib "LLVM-3.3" Alias "LLVMCreateExecutionEngineForModule" (<System.Runtime.InteropServices.OutAttribute()> ByRef engine As IntPtr, [module] As IntPtr, <System.Runtime.InteropServices.OutAttribute()> ByRef [error] As String) As Boolean
+		Public Declare Function CreateExecutionEngine Lib "LLVM-3.3" Alias "LLVMCreateExecutionEngineForModule" (<Out()> ByRef engine As IntPtr, [module] As IntPtr, <Out()> ByRef [error] As String) As Boolean
 
 		' Token: 0x0600009C RID: 156
 		Public Declare Function CreateBlock Lib "LLVM-3.3" Alias "LLVMAppendBasicBlockInContext" (context As IntPtr, func As IntPtr, name As String) As IntPtr
@@ -312,6 +313,7 @@ Namespace LLVM
 		Public Declare Function EmitInsert Lib "LLVM-3.3" Alias "LLVMBuildInsertValue" (ibuilder As IntPtr, into As IntPtr, what As IntPtr, index As Integer, name As String) As IntPtr
 
 		' Token: 0x0400001D RID: 29
-		Private Const llvmdll As String = "LLVM-3.3"
+		Public Const llvmdll As String = "LLVM-3.3"
+
 	End Module
 End Namespace
