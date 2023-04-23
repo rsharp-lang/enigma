@@ -5,8 +5,7 @@ Imports System.Runtime.CompilerServices
 
 Namespace LLVM
 	' Token: 0x02000015 RID: 21
-	Public Class InstructionBuilder
-		Inherits ReferenceBase
+	Public Class InstructionBuilder : Inherits ReferenceBase
 
 		' Token: 0x06000037 RID: 55 RVA: 0x00002205 File Offset: 0x00000405
 		Friend Sub New(builderref As IntPtr)
