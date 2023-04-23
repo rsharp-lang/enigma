@@ -1,14 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>enigma</RootNamespace>
+    <RootNamespace>Enigma</RootNamespace>
     <TargetFrameworks>net6.0-windows;net6.0;net48</TargetFrameworks>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Rsharp_app_release</Configurations>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <OutputPath>../../assembly</OutputPath>
     <DocumentationFile>enigma.xml</DocumentationFile>
+    <Title>GPU computing toolkit for R# language based on LLVM/Cuda</Title>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="LLVM\AssemblyInfo.vb" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="LLVM" Version="0.1.1" />

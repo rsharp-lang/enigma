@@ -1,8 +1,8 @@
 ﻿''' <summary>
 ''' Generic exception from CudaSharp
 ''' </summary>
-Public Class CudaSharpException
-    Inherits Exception
+Public Class CudaSharpException : Inherits Exception
+
     ''' <summary>
     ''' Creates a CudaSharp exception
     ''' </summary>
