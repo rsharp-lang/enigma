@@ -70,37 +70,3 @@ Friend Module Disasm
         End While
     End Function
 End Module
-
-Friend Structure OpCodeInstruction
-    Private ReadOnly _instructionStart As Long
-    Private ReadOnly _opcode As OpCode
-    Private ReadOnly _parameter As Object
-
-    Public Sub New(ByVal instructionStart As Long, ByVal opcode As OpCode, ByVal parameter As Object)
-        _instructionStart = instructionStart
-        _opcode = opcode
-        _parameter = parameter
-    End Sub
-
-    Public ReadOnly Property InstructionStart As Long
-        Get
-            Return _instructionStart
-        End Get
-    End Property
-
-    Public ReadOnly Property Opcode As OpCode
-        Get
-            Return _opcode
-        End Get
-    End Property
-
-    Public ReadOnly Property Parameter As Object
-        Get
-            Return _parameter
-        End Get
-    End Property
-
-    Public Overrides Function ToString() As String
-        Return String.Format("{0}: {1} - {2}", _instructionStart, _opcode, _parameter)
-    End Function
-End Structure

@@ -3,7 +3,7 @@ Imports System.Reflection
 Imports System.Reflection.Emit
 Imports System.Runtime.InteropServices
 Imports System.Text
-Imports LLVM
+Imports Enigma.LLVM
 
 ''' <summary>
 ''' Main CudaSharp class
