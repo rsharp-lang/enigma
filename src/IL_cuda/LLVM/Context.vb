@@ -6,7 +6,7 @@ Namespace LLVM
 		Inherits ReferenceBase
 
 		' Token: 0x06000015 RID: 21 RVA: 0x00002205 File Offset: 0x00000405
-		Friend Sub New(contextRef As Global.System.IntPtr)
+		Friend Sub New(contextRef As IntPtr)
 			MyBase.New(contextRef)
 		End Sub
 

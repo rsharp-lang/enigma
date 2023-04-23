@@ -6,7 +6,7 @@ Namespace LLVM
 		Inherits Constant
 
 		' Token: 0x060000EB RID: 235 RVA: 0x000026FF File Offset: 0x000008FF
-		Friend Sub New(valueref As Global.System.IntPtr)
+		Friend Sub New(valueref As IntPtr)
 			MyBase.New(valueref)
 		End Sub
 	End Class

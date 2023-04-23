@@ -3,18 +3,18 @@
 Namespace LLVM
 	' Token: 0x02000020 RID: 32
 	Public MustInherit Class ReferenceBase
-		Implements Global.System.IEquatable(Of ReferenceBase)
+		Implements IEquatable(Of ReferenceBase)
 
 		' Token: 0x060000F1 RID: 241 RVA: 0x0000350A File Offset: 0x0000170A
-		Protected Friend Sub New(reference As Global.System.IntPtr)
-			If reference = Global.System.IntPtr.Zero Then
-				Throw New Global.System.ArgumentNullException("reference")
+		Protected Friend Sub New(reference As IntPtr)
+			If reference = IntPtr.Zero Then
+				Throw New ArgumentNullException("reference")
 			End If
 			Me.reference = reference
 		End Sub
 
 		' Token: 0x060000F2 RID: 242 RVA: 0x00003531 File Offset: 0x00001731
-		Public Shared Widening Operator CType(reference As ReferenceBase) As Global.System.IntPtr
+		Public Shared Widening Operator CType(reference As ReferenceBase) As IntPtr
 			Return reference.reference
 		End Operator
 
@@ -39,6 +39,6 @@ Namespace LLVM
 		End Function
 
 		' Token: 0x0400001E RID: 30
-		Private reference As Global.System.IntPtr
+		Private reference As IntPtr
 	End Class
 End Namespace

@@ -10,44 +10,44 @@ Namespace LLVM
 		Inherits CompositeType
 
 		' Token: 0x060000FC RID: 252 RVA: 0x00002073 File Offset: 0x00000273
-		Friend Sub New(typeref As Global.System.IntPtr)
+		Friend Sub New(typeref As IntPtr)
 			MyBase.New(typeref)
 		End Sub
 
 		' Token: 0x060000FD RID: 253 RVA: 0x000035AC File Offset: 0x000017AC
-		Private Shared Function structType(context As Context, elementTypes As Global.System.Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False) As Global.System.IntPtr
+		Private Shared Function structType(context As Context, elementTypes As Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False) As IntPtr
 			If elementTypes Is Nothing Then
 				elementTypes = New Type(-1) {}
 			End If
-			Dim source As Global.System.Collections.Generic.IEnumerable(Of Type) = elementTypes
-			Dim <>9__1_ As Global.System.Func(Of Type, Global.System.IntPtr) = StructType.<>c.<>9__1_0
-			Dim selector As Global.System.Func(Of Type, Global.System.IntPtr) = <>9__1_
+			Dim source As Collections.Generic.IEnumerable(Of Type) = elementTypes
+			Dim <>9__1_ As Func(Of Type, IntPtr) = StructType.<>c.<>9__1_0
+			Dim selector As Func(Of Type, IntPtr) = <>9__1_
 			If <>9__1_ Is Nothing Then
-				Dim func As Global.System.Func(Of Type, Global.System.IntPtr) = Function(type As Type) type
+				Dim func As Func(Of Type, IntPtr) = Function(type As Type) type
 				selector = func
 				StructType.<>c.<>9__1_0 = func
 			End If
-			Dim array As Global.System.IntPtr() = source.[Select](selector).ToArray()
+			Dim array As IntPtr() = source.[Select](selector).ToArray()
 			Return llvm.StructType(context, array, array.Length, packed)
 		End Function
 
 		' Token: 0x060000FE RID: 254 RVA: 0x000035FF File Offset: 0x000017FF
-		Private Shared Function structType(context As Context) As Global.System.IntPtr
+		Private Shared Function structType(context As Context) As IntPtr
 			Return llvm.StructCreateEmptyType(context)
 		End Function
 
 		' Token: 0x060000FF RID: 255 RVA: 0x0000360C File Offset: 0x0000180C
-		Private Shared Function structType(context As Context, name As String) As Global.System.IntPtr
+		Private Shared Function structType(context As Context, name As String) As IntPtr
 			Return llvm.StructType(context, name)
 		End Function
 
 		' Token: 0x06000100 RID: 256 RVA: 0x0000361A File Offset: 0x0000181A
-		Public Sub New(context As Context, elementTypes As Global.System.Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False)
+		Public Sub New(context As Context, elementTypes As Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False)
 			MyBase.New(StructType.structType(context, elementTypes, packed))
 		End Sub
 
 		' Token: 0x06000101 RID: 257 RVA: 0x0000362A File Offset: 0x0000182A
-		Public Sub New(context As Context, name As String, elementTypes As Global.System.Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False)
+		Public Sub New(context As Context, name As String, elementTypes As Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False)
 			MyBase.New(StructType.structType(context, name))
 			Me.SetBody(elementTypes, packed)
 		End Sub
@@ -91,7 +91,7 @@ Namespace LLVM
 		' (set) Token: 0x06000108 RID: 264 RVA: 0x000036C4 File Offset: 0x000018C4
 		Public Property FieldTypes As Type()
 			Get
-				Dim array As Global.System.IntPtr() = New Global.System.IntPtr(Me.FieldCount - 1) {}
+				Dim array As IntPtr() = New IntPtr(Me.FieldCount - 1) {}
 				llvm.StructElements(Me, array)
 				Return array.[Select](AddressOf Type.DetectType).ToArray()
 			End Get
@@ -100,19 +100,19 @@ Namespace LLVM
 		End Property
 
 		' Token: 0x06000109 RID: 265 RVA: 0x000036C8 File Offset: 0x000018C8
-		Public Sub SetBody(fieldTypes As Global.System.Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False)
+		Public Sub SetBody(fieldTypes As Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False)
 			If fieldTypes Is Nothing Then
 				fieldTypes = New Type(-1) {}
 			End If
-			Dim source As Global.System.Collections.Generic.IEnumerable(Of Type) = fieldTypes
-			Dim <>9__17_ As Global.System.Func(Of Type, Global.System.IntPtr) = StructType.<>c.<>9__17_0
-			Dim selector As Global.System.Func(Of Type, Global.System.IntPtr) = <>9__17_
+			Dim source As Collections.Generic.IEnumerable(Of Type) = fieldTypes
+			Dim <>9__17_ As Func(Of Type, IntPtr) = StructType.<>c.<>9__17_0
+			Dim selector As Func(Of Type, IntPtr) = <>9__17_
 			If <>9__17_ Is Nothing Then
-				Dim func As Global.System.Func(Of Type, Global.System.IntPtr) = Function(type As Type) type
+				Dim func As Func(Of Type, IntPtr) = Function(type As Type) type
 				selector = func
 				StructType.<>c.<>9__17_0 = func
 			End If
-			Dim array As Global.System.IntPtr() = source.[Select](selector).ToArray()
+			Dim array As IntPtr() = source.[Select](selector).ToArray()
 			llvm.StructSetBody(Me, array, array.Length, packed)
 		End Sub
 
@@ -122,7 +122,7 @@ Namespace LLVM
 			If fieldTypes.Length = 0 Then
 				Return "{}"
 			End If
-			Dim stringBuilder As Global.System.Text.StringBuilder = New Global.System.Text.StringBuilder("{ " + fieldTypes(0))
+			Dim stringBuilder As Text.StringBuilder = New Text.StringBuilder("{ " + fieldTypes(0))
 			For i As Integer = 1 To fieldTypes.Length - 1
 				stringBuilder.Append(" * " + fieldTypes(i))
 			Next
@@ -140,8 +140,8 @@ Namespace LLVM
 		End Function
 
 		' Token: 0x02000038 RID: 56
-		<Global.System.Runtime.CompilerServices.CompilerGenerated()>
-		<Global.System.Serializable()>
+		<Runtime.CompilerServices.CompilerGenerated()>
+		<Serializable()>
 		Private NotInheritable Class <>c
 			' Token: 0x06000152 RID: 338 RVA: 0x00003D9B File Offset: 0x00001F9B
 			' Note: this type is marked as 'beforefieldinit'.
@@ -153,12 +153,12 @@ Namespace LLVM
 			End Sub
 
 			' Token: 0x06000154 RID: 340 RVA: 0x00003D7F File Offset: 0x00001F7F
-			Friend Function <structType>b__1_0(type As Type) As Global.System.IntPtr
+			Friend Function <structType>b__1_0(type As Type) As IntPtr
 				Return type
 			End Function
 
 			' Token: 0x06000155 RID: 341 RVA: 0x00003D7F File Offset: 0x00001F7F
-			Friend Function <SetBody>b__17_0(type As Type) As Global.System.IntPtr
+			Friend Function <SetBody>b__17_0(type As Type) As IntPtr
 				Return type
 			End Function
 
@@ -166,10 +166,10 @@ Namespace LLVM
 			Public Shared <>9 As StructType.<>c = New StructType.<>c()
 
 			' Token: 0x0400005A RID: 90
-			Public Shared <>9__1_0 As Global.System.Func(Of Type, Global.System.IntPtr)
+			Public Shared <>9__1_0 As Func(Of Type, IntPtr)
 
 			' Token: 0x0400005B RID: 91
-			Public Shared <>9__17_0 As Global.System.Func(Of Type, Global.System.IntPtr)
+			Public Shared <>9__17_0 As Func(Of Type, IntPtr)
 		End Class
 	End Class
 End Namespace

@@ -6,7 +6,7 @@ Namespace LLVM
 		Inherits Terminator
 
 		' Token: 0x06000001 RID: 1 RVA: 0x00002050 File Offset: 0x00000250
-		Friend Sub New(valueref As Global.System.IntPtr)
+		Friend Sub New(valueref As IntPtr)
 			MyBase.New(valueref)
 		End Sub
 

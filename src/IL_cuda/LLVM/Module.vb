@@ -9,7 +9,7 @@
 		End Sub
 
 		' Token: 0x060000E0 RID: 224 RVA: 0x00002205 File Offset: 0x00000405
-		Friend Sub New(moduleRef As Global.System.IntPtr)
+		Friend Sub New(moduleRef As IntPtr)
 			MyBase.New(moduleRef)
 		End Sub
 
@@ -20,7 +20,7 @@
 
 		' Token: 0x060000E2 RID: 226 RVA: 0x00003360 File Offset: 0x00001560
 		Public Function GetFunction(name As String) As [Function]
-			Dim [function] As Global.System.IntPtr = llvm.GetFunction(Me, name)
+			Dim [function] As IntPtr = llvm.GetFunction(Me, name)
 			If [function].IsNull() Then
 				Return Nothing
 			End If
@@ -29,11 +29,11 @@
 
 		' Token: 0x060000E3 RID: 227 RVA: 0x0000338C File Offset: 0x0000158C
 		Public Function AddGlobal(type As Type, name As String, Optional value As Constant = Nothing) As GlobalValue
-			Dim valueref As Global.System.IntPtr
+			Dim valueref As IntPtr
 			If value Is Nothing Then
 				valueref = llvm.AddGlobal(Me, type, name)
 			Else
-				Dim constant As Global.System.IntPtr = value
+				Dim constant As IntPtr = value
 				valueref = llvm.AddGlobal(Me, type, name, constant)
 			End If
 			Return New GlobalValue(valueref)
@@ -41,7 +41,7 @@
 
 		' Token: 0x060000E4 RID: 228 RVA: 0x000033D4 File Offset: 0x000015D4
 		Public Function GetGlobal(name As String) As Value
-			Dim namedGlobal As Global.System.IntPtr = llvm.GetNamedGlobal(Me, name)
+			Dim namedGlobal As IntPtr = llvm.GetNamedGlobal(Me, name)
 			If Not namedGlobal.IsNull() Then
 				Return New Value(namedGlobal)
 			End If

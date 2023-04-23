@@ -25,12 +25,12 @@ Namespace LLVM.GarbageCollection.NativeGlue
 		Public UsesMetadata As Boolean
 
 		' Token: 0x0400004F RID: 79
-		Public InitializeCustomLowering As Global.System.IntPtr
+		Public InitializeCustomLowering As IntPtr
 
 		' Token: 0x04000050 RID: 80
-		Public PerformCustomLowering As Global.System.IntPtr
+		Public PerformCustomLowering As IntPtr
 
 		' Token: 0x04000051 RID: 81
-		Public FindCustomSafePoints As Global.System.IntPtr
+		Public FindCustomSafePoints As IntPtr
 	End Structure
 End Namespace

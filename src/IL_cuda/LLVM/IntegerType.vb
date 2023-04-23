@@ -6,7 +6,7 @@ Namespace LLVM
 		Inherits DerivedType
 
 		' Token: 0x06000069 RID: 105 RVA: 0x000020FD File Offset: 0x000002FD
-		Friend Sub New(typeref As Global.System.IntPtr)
+		Friend Sub New(typeref As IntPtr)
 			MyBase.New(typeref)
 		End Sub
 

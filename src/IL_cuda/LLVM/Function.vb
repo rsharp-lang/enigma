@@ -8,16 +8,16 @@ Namespace LLVM
 		Inherits GlobalValue
 
 		' Token: 0x06000025 RID: 37 RVA: 0x000024C4 File Offset: 0x000006C4
-		Friend Sub New(valueref As Global.System.IntPtr)
+		Friend Sub New(valueref As IntPtr)
 			MyBase.New(valueref)
 		End Sub
 
 		' Token: 0x17000005 RID: 5
-		<Global.System.Runtime.CompilerServices.IndexerName("Arguments")>
+		<Runtime.CompilerServices.IndexerName("Arguments")>
 		Public ReadOnly Default Property Item(index As Integer) As Argument
 			Get
 				If index < 0 Then
-					Throw New Global.System.ArgumentOutOfRangeException("index")
+					Throw New ArgumentOutOfRangeException("index")
 				End If
 				Return New Argument(llvm.GetParameter(Me, index))
 			End Get

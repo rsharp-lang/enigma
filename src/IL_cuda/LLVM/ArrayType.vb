@@ -6,7 +6,7 @@ Namespace LLVM
 		Inherits CompositeType
 
 		' Token: 0x06000003 RID: 3 RVA: 0x00002073 File Offset: 0x00000273
-		Friend Sub New(typeref As Global.System.IntPtr)
+		Friend Sub New(typeref As IntPtr)
 			MyBase.New(typeref)
 		End Sub
 
@@ -16,7 +16,7 @@ Namespace LLVM
 		End Sub
 
 		' Token: 0x06000005 RID: 5 RVA: 0x0000208B File Offset: 0x0000028B
-		Private Shared Function arrayType(elemType As Type, elementCount As Integer) As Global.System.IntPtr
+		Private Shared Function arrayType(elemType As Type, elementCount As Integer) As IntPtr
 			Return llvm.ArrayType(elemType, elementCount)
 		End Function
 

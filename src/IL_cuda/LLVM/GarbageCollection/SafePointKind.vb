@@ -2,7 +2,7 @@
 
 Namespace LLVM.GarbageCollection
 	' Token: 0x0200002F RID: 47
-	<Global.System.Flags()>
+	<Flags()>
 	Public Enum SafePointKind As UInteger
 		' Token: 0x0400003E RID: 62
 		None = 0UI

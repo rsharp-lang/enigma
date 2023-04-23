@@ -6,12 +6,12 @@ Namespace LLVM
 		Inherits ReferenceBase
 
 		' Token: 0x0600010F RID: 271 RVA: 0x00002205 File Offset: 0x00000405
-		Friend Sub New(typeref As Global.System.IntPtr)
+		Friend Sub New(typeref As IntPtr)
 			MyBase.New(typeref)
 		End Sub
 
 		' Token: 0x06000110 RID: 272 RVA: 0x000037E4 File Offset: 0x000019E4
-		Friend Shared Function DetectType(typeref As Global.System.IntPtr) As Type
+		Friend Shared Function DetectType(typeref As IntPtr) As Type
 			Dim kind As TypeKind = New Type(typeref).Kind
 			If kind = TypeKind.Void Then
 				Return New Type(typeref)

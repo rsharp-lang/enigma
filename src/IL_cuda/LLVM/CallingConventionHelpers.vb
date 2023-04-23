@@ -6,18 +6,18 @@ Namespace LLVM
 	Public Module CallingConventionHelpers
 		' Token: 0x06000012 RID: 18 RVA: 0x000021C0 File Offset: 0x000003C0
 		<System.Runtime.CompilerServices.ExtensionAttribute()>
-		Public Function ToLLVM(convention As Global.System.Runtime.InteropServices.CallingConvention) As CallingConvention
+		Public Function ToLLVM(convention As Runtime.InteropServices.CallingConvention) As CallingConvention
 			Select Case convention
-				Case Global.System.Runtime.InteropServices.CallingConvention.Cdecl
+				Case Runtime.InteropServices.CallingConvention.Cdecl
 					Return CallingConvention.C
-				Case Global.System.Runtime.InteropServices.CallingConvention.StdCall
+				Case Runtime.InteropServices.CallingConvention.StdCall
 					Return CallingConvention.StdCallX86
-				Case Global.System.Runtime.InteropServices.CallingConvention.ThisCall
-					Throw New Global.System.NotSupportedException()
-				Case Global.System.Runtime.InteropServices.CallingConvention.FastCall
+				Case Runtime.InteropServices.CallingConvention.ThisCall
+					Throw New NotSupportedException()
+				Case Runtime.InteropServices.CallingConvention.FastCall
 					Return CallingConvention.FastCallX86
 				Case Else
-					Throw New Global.System.NotImplementedException(convention.ToString())
+					Throw New NotImplementedException(convention.ToString())
 			End Select
 		End Function
 	End Module

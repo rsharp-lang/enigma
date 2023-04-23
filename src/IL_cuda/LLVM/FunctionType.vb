@@ -9,21 +9,21 @@ Namespace LLVM
 		Inherits DerivedType
 
 		' Token: 0x0600002D RID: 45 RVA: 0x000020FD File Offset: 0x000002FD
-		Friend Sub New(typeref As Global.System.IntPtr)
+		Friend Sub New(typeref As IntPtr)
 			MyBase.New(typeref)
 		End Sub
 
 		' Token: 0x0600002E RID: 46 RVA: 0x00002594 File Offset: 0x00000794
-		Private Shared Function functionType(ret As Type, Optional args As Type() = Nothing, Optional vararg As Boolean = False) As Global.System.IntPtr
+		Private Shared Function functionType(ret As Type, Optional args As Type() = Nothing, Optional vararg As Boolean = False) As IntPtr
 			If args Is Nothing Then
 				args = New Type(-1) {}
 			End If
-			Dim ret2 As Global.System.IntPtr = ret
-			Dim source As Global.System.Collections.Generic.IEnumerable(Of Type) = args
-			Dim <>9__1_ As Global.System.Func(Of Type, Global.System.IntPtr) = FunctionType.<>c.<>9__1_0
-			Dim selector As Global.System.Func(Of Type, Global.System.IntPtr) = <>9__1_
+			Dim ret2 As IntPtr = ret
+			Dim source As Collections.Generic.IEnumerable(Of Type) = args
+			Dim <>9__1_ As Func(Of Type, IntPtr) = FunctionType.<>c.<>9__1_0
+			Dim selector As Func(Of Type, IntPtr) = <>9__1_
 			If <>9__1_ Is Nothing Then
-				Dim func As Global.System.Func(Of Type, Global.System.IntPtr) = Function(arg As Type) arg
+				Dim func As Func(Of Type, IntPtr) = Function(arg As Type) arg
 				selector = func
 				FunctionType.<>c.<>9__1_0 = func
 			End If
@@ -47,7 +47,7 @@ Namespace LLVM
 		' (get) Token: 0x06000031 RID: 49 RVA: 0x00002604 File Offset: 0x00000804
 		Public ReadOnly Property ArgumentTypes As Type()
 			Get
-				Dim array As Global.System.IntPtr() = New Global.System.IntPtr(Me.ArgumentCount - 1) {}
+				Dim array As IntPtr() = New IntPtr(Me.ArgumentCount - 1) {}
 				llvm.GetArgumentTypes(Me, array)
 				Return array.[Select](AddressOf Type.DetectType).ToArray()
 			End Get
@@ -67,11 +67,11 @@ Namespace LLVM
 				Return "void -> " + Me.ReturnType
 			End If
 			Dim separator As String = " * "
-			Dim argumentTypes As Global.System.Collections.Generic.IEnumerable(Of Type) = Me.ArgumentTypes
-			Dim <>9__9_ As Global.System.Func(Of Type, String) = FunctionType.<>c.<>9__9_0
-			Dim selector As Global.System.Func(Of Type, String) = <>9__9_
+			Dim argumentTypes As Collections.Generic.IEnumerable(Of Type) = Me.ArgumentTypes
+			Dim <>9__9_ As Func(Of Type, String) = FunctionType.<>c.<>9__9_0
+			Dim selector As Func(Of Type, String) = <>9__9_
 			If <>9__9_ Is Nothing Then
-				Dim func As Global.System.Func(Of Type, String) = Function(t As Type) t.ToString()
+				Dim func As Func(Of Type, String) = Function(t As Type) t.ToString()
 				selector = func
 				FunctionType.<>c.<>9__9_0 = func
 			End If
@@ -85,8 +85,8 @@ Namespace LLVM
 		End Function
 
 		' Token: 0x02000036 RID: 54
-		<Global.System.Runtime.CompilerServices.CompilerGenerated()>
-		<Global.System.Serializable()>
+		<Runtime.CompilerServices.CompilerGenerated()>
+		<Serializable()>
 		Private NotInheritable Class <>c
 			' Token: 0x06000149 RID: 329 RVA: 0x00003D73 File Offset: 0x00001F73
 			' Note: this type is marked as 'beforefieldinit'.
@@ -98,7 +98,7 @@ Namespace LLVM
 			End Sub
 
 			' Token: 0x0600014B RID: 331 RVA: 0x00003D7F File Offset: 0x00001F7F
-			Friend Function <functionType>b__1_0(arg As Type) As Global.System.IntPtr
+			Friend Function <functionType>b__1_0(arg As Type) As IntPtr
 				Return arg
 			End Function
 
@@ -111,10 +111,10 @@ Namespace LLVM
 			Public Shared <>9 As FunctionType.<>c = New FunctionType.<>c()
 
 			' Token: 0x04000053 RID: 83
-			Public Shared <>9__1_0 As Global.System.Func(Of Type, Global.System.IntPtr)
+			Public Shared <>9__1_0 As Func(Of Type, IntPtr)
 
 			' Token: 0x04000054 RID: 84
-			Public Shared <>9__9_0 As Global.System.Func(Of Type, String)
+			Public Shared <>9__9_0 As Func(Of Type, String)
 		End Class
 	End Class
 End Namespace

@@ -9,9 +9,9 @@ Namespace LLVM.GarbageCollection
 
 		' Token: 0x06000130 RID: 304 RVA: 0x00003BF4 File Offset: 0x00001DF4
 		Public Sub New(engine As ExecutionEngine, [module] As [Module], rootVisitor As GarbageCollection.ShadowStack.RootVisitor)
-			Global.System.Diagnostics.Contracts.Contract.Requires(Of Global.System.ArgumentNullException)(rootVisitor IsNot Nothing)
-			Global.System.Diagnostics.Contracts.Contract.Requires(Of Global.System.ArgumentNullException)(engine IsNot Nothing)
-			Global.System.Diagnostics.Contracts.Contract.Requires(Of Global.System.ArgumentNullException)([module] IsNot Nothing)
+			Diagnostics.Contracts.Contract.Requires(Of ArgumentNullException)(rootVisitor IsNot Nothing)
+			Diagnostics.Contracts.Contract.Requires(Of ArgumentNullException)(engine IsNot Nothing)
+			Diagnostics.Contracts.Contract.Requires(Of ArgumentNullException)([module] IsNot Nothing)
 			Me.rootVisitor = rootVisitor
 			Me.[module] = [module]
 			Me.engine = engine
@@ -25,28 +25,28 @@ Namespace LLVM.GarbageCollection
 
 		' Token: 0x06000132 RID: 306 RVA: 0x00003C64 File Offset: 0x00001E64
 		Private Function GetRoot() As GarbageCollection.ShadowStack.StackEntry
-			Dim value As Global.System.IntPtr = Me.engine.GetValue(Of Global.System.IntPtr)(Me.rootPointer)
+			Dim value As IntPtr = Me.engine.GetValue(Of IntPtr)(Me.rootPointer)
 			If Not value.IsNull() Then
-				Return CType(Global.System.Runtime.InteropServices.Marshal.PtrToStructure(value, GetType(GarbageCollection.ShadowStack.StackEntry)), GarbageCollection.ShadowStack.StackEntry)
+				Return CType(Runtime.InteropServices.Marshal.PtrToStructure(value, GetType(GarbageCollection.ShadowStack.StackEntry)), GarbageCollection.ShadowStack.StackEntry)
 			End If
 			Return Nothing
 		End Function
 
 		' Token: 0x06000133 RID: 307 RVA: 0x00003CAC File Offset: 0x00001EAC
 		Public Sub VisitRoots(visitor As GarbageCollection.ShadowStack.RootVisitor)
-			Global.System.Diagnostics.Contracts.Contract.Requires(Of Global.System.ArgumentNullException)(visitor IsNot Nothing)
+			Diagnostics.Contracts.Contract.Requires(Of ArgumentNullException)(visitor IsNot Nothing)
 			Dim stackEntry As GarbageCollection.ShadowStack.StackEntry = Me.GetRoot()
-			While stackEntry.FrameMap <> Global.System.IntPtr.Zero
+			While stackEntry.FrameMap <> IntPtr.Zero
 				Dim i As Integer = 0
 				Dim frameMap As GarbageCollection.ShadowStack.FrameMap = stackEntry.GetFrameMap()
 				Dim metaCount As Integer = frameMap.MetaCount
 				While i < metaCount
-					visitor(stackEntry.Roots + i * Global.System.IntPtr.Size, frameMap.Meta + i * Global.System.IntPtr.Size)
+					visitor(stackEntry.Roots + i * IntPtr.Size, frameMap.Meta + i * IntPtr.Size)
 					i += 1
 				End While
 				Dim rootCount As Integer = frameMap.RootCount
 				While i < rootCount
-					visitor(stackEntry.Roots + i * Global.System.IntPtr.Size, Global.System.IntPtr.Zero)
+					visitor(stackEntry.Roots + i * IntPtr.Size, IntPtr.Zero)
 					i += 1
 				End While
 				stackEntry = stackEntry.GetNext()
@@ -63,17 +63,17 @@ Namespace LLVM.GarbageCollection
 
 		' Token: 0x06000135 RID: 309 RVA: 0x00003D65 File Offset: 0x00001F65
 		Protected Overrides Function InitializeCustomLowering([module] As [Module]) As Boolean
-			Throw New Global.System.NotSupportedException()
+			Throw New NotSupportedException()
 		End Function
 
 		' Token: 0x06000136 RID: 310 RVA: 0x00003D65 File Offset: 0x00001F65
 		Protected Overrides Function PerformCustomLowering([function] As [Function]) As Boolean
-			Throw New Global.System.NotSupportedException()
+			Throw New NotSupportedException()
 		End Function
 
 		' Token: 0x06000137 RID: 311 RVA: 0x00003D65 File Offset: 0x00001F65
-		Protected Overrides Function FindCustomSafePoints(functionInfo As Global.System.IntPtr, machineFunction As Global.System.IntPtr) As Boolean
-			Throw New Global.System.NotSupportedException()
+		Protected Overrides Function FindCustomSafePoints(functionInfo As IntPtr, machineFunction As IntPtr) As Boolean
+			Throw New NotSupportedException()
 		End Function
 
 		' Token: 0x17000024 RID: 36
@@ -101,8 +101,8 @@ Namespace LLVM.GarbageCollection
 
 		' Token: 0x0200003C RID: 60
 		' (Invoke) Token: 0x0600016D RID: 365
-		<Global.System.Runtime.InteropServices.UnmanagedFunctionPointer(Global.System.Runtime.InteropServices.CallingConvention.Cdecl)>
-		Public Delegate Sub RootVisitor(root As Global.System.IntPtr, meta As Global.System.IntPtr)
+		<Runtime.InteropServices.UnmanagedFunctionPointer(Runtime.InteropServices.CallingConvention.Cdecl)>
+		Public Delegate Sub RootVisitor(root As IntPtr, meta As IntPtr)
 
 		' Token: 0x0200003D RID: 61
 		Private Structure FrameMap
@@ -113,31 +113,31 @@ Namespace LLVM.GarbageCollection
 			Public MetaCount As Integer
 
 			' Token: 0x04000064 RID: 100
-			Public Meta As Global.System.IntPtr
+			Public Meta As IntPtr
 		End Structure
 
 		' Token: 0x0200003E RID: 62
 		Private Structure StackEntry
 			' Token: 0x06000170 RID: 368 RVA: 0x00004490 File Offset: 0x00002690
 			Public Function GetNext() As GarbageCollection.ShadowStack.StackEntry
-				Global.System.Diagnostics.Contracts.Contract.Requires(Of Global.System.InvalidOperationException)(Me.[Next] <> Global.System.IntPtr.Zero)
-				Return CType(Global.System.Runtime.InteropServices.Marshal.PtrToStructure(Me.[Next], GetType(GarbageCollection.ShadowStack.StackEntry)), GarbageCollection.ShadowStack.StackEntry)
+				Diagnostics.Contracts.Contract.Requires(Of InvalidOperationException)(Me.[Next] <> IntPtr.Zero)
+				Return CType(Runtime.InteropServices.Marshal.PtrToStructure(Me.[Next], GetType(GarbageCollection.ShadowStack.StackEntry)), GarbageCollection.ShadowStack.StackEntry)
 			End Function
 
 			' Token: 0x06000171 RID: 369 RVA: 0x000044C1 File Offset: 0x000026C1
 			Public Function GetFrameMap() As GarbageCollection.ShadowStack.FrameMap
-				Global.System.Diagnostics.Contracts.Contract.Requires(Of Global.System.InvalidOperationException)(Me.FrameMap <> Global.System.IntPtr.Zero)
-				Return CType(Global.System.Runtime.InteropServices.Marshal.PtrToStructure(Me.FrameMap, GetType(GarbageCollection.ShadowStack.FrameMap)), GarbageCollection.ShadowStack.FrameMap)
+				Diagnostics.Contracts.Contract.Requires(Of InvalidOperationException)(Me.FrameMap <> IntPtr.Zero)
+				Return CType(Runtime.InteropServices.Marshal.PtrToStructure(Me.FrameMap, GetType(GarbageCollection.ShadowStack.FrameMap)), GarbageCollection.ShadowStack.FrameMap)
 			End Function
 
 			' Token: 0x04000065 RID: 101
-			Public [Next] As Global.System.IntPtr
+			Public [Next] As IntPtr
 
 			' Token: 0x04000066 RID: 102
-			Public FrameMap As Global.System.IntPtr
+			Public FrameMap As IntPtr
 
 			' Token: 0x04000067 RID: 103
-			Public Roots As Global.System.IntPtr
+			Public Roots As IntPtr
 		End Structure
 	End Class
 End Namespace

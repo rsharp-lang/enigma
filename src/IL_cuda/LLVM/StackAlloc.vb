@@ -6,7 +6,7 @@ Namespace LLVM
 		Inherits Unary
 
 		' Token: 0x060000F9 RID: 249 RVA: 0x00003594 File Offset: 0x00001794
-		Friend Sub New(valueref As Global.System.IntPtr)
+		Friend Sub New(valueref As IntPtr)
 			MyBase.New(valueref)
 		End Sub
 

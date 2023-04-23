@@ -6,7 +6,7 @@ Namespace LLVM
 		Inherits SequentialType
 
 		' Token: 0x060000EC RID: 236 RVA: 0x0000346E File Offset: 0x0000166E
-		Friend Sub New(typeref As Global.System.IntPtr)
+		Friend Sub New(typeref As IntPtr)
 			MyBase.New(typeref)
 		End Sub
 

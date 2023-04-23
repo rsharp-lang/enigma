@@ -9,7 +9,7 @@ Namespace LLVM
 		Inherits ReferenceBase
 
 		' Token: 0x06000037 RID: 55 RVA: 0x00002205 File Offset: 0x00000405
-		Friend Sub New(builderref As Global.System.IntPtr)
+		Friend Sub New(builderref As IntPtr)
 			MyBase.New(builderref)
 		End Sub
 
@@ -27,10 +27,10 @@ Namespace LLVM
 		' Token: 0x0600003A RID: 58 RVA: 0x00002735 File Offset: 0x00000935
 		Private Shared Sub CheckBinaryIntegerOpArguments(left As Value, right As Value)
 			If left Is Nothing Then
-				Throw New Global.System.ArgumentNullException("left")
+				Throw New ArgumentNullException("left")
 			End If
 			If right Is Nothing Then
-				Throw New Global.System.ArgumentNullException("right")
+				Throw New ArgumentNullException("right")
 			End If
 			InstructionBuilder.CheckIntegerType(left.Type, "left")
 			InstructionBuilder.CheckIntegerType(right.Type, "right")
@@ -39,33 +39,33 @@ Namespace LLVM
 		' Token: 0x0600003B RID: 59 RVA: 0x00002773 File Offset: 0x00000973
 		Private Shared Sub CheckIntegerType(type As Type, value As String)
 			If Not(TypeOf type Is IntegerType) Then
-				Throw New Global.System.ArgumentException("Value must be of integer type", value)
+				Throw New ArgumentException("Value must be of integer type", value)
 			End If
 		End Sub
 
 		' Token: 0x0600003C RID: 60 RVA: 0x00002789 File Offset: 0x00000989
 		Private Shared Sub CheckPointerType(value As Value, valueName As String)
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			If Not(TypeOf value.Type Is PointerType) Then
-				Throw New Global.System.ArgumentException("Value must be of pointer type", valueName)
+				Throw New ArgumentException("Value must be of pointer type", valueName)
 			End If
 		End Sub
 
 		' Token: 0x0600003D RID: 61 RVA: 0x000027B4 File Offset: 0x000009B4
 		Public Function Compare(comparison As IntegerComparison, left As Value, right As Value, Optional name As String = "") As Value
 			If left Is Nothing Then
-				Throw New Global.System.ArgumentNullException("left")
+				Throw New ArgumentNullException("left")
 			End If
 			If right Is Nothing Then
-				Throw New Global.System.ArgumentNullException("right")
+				Throw New ArgumentNullException("right")
 			End If
 			If left.Type.Kind <> TypeKind.Pointer AndAlso right.Type.Kind <> TypeKind.Pointer Then
 				InstructionBuilder.CheckBinaryIntegerOpArguments(left, right)
 			End If
 			If Not left.Type.Equals(right.Type) Then
-				Throw New Global.System.ArgumentException(String.Concat(New Object() { "Type mismatch: ", left.Type, " vs ", right.Type }))
+				Throw New ArgumentException(String.Concat(New Object() { "Type mismatch: ", left.Type, " vs ", right.Type }))
 			End If
 			Return New Value(llvm.EmitCompare(Me, comparison, left, right, name))
 		End Function
@@ -73,7 +73,7 @@ Namespace LLVM
 		' Token: 0x0600003E RID: 62 RVA: 0x00002867 File Offset: 0x00000A67
 		Public Function IsNull(value As Value, Optional name As String = "") As Value
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			Return New Value(llvm.EmitIsNull(Me, value, name))
 		End Function
@@ -81,33 +81,33 @@ Namespace LLVM
 		' Token: 0x0600003F RID: 63 RVA: 0x00002890 File Offset: 0x00000A90
 		Public Function [If](condition As Value, ontrue As Block, onfalse As Block) As Branch
 			If condition Is Nothing Then
-				Throw New Global.System.ArgumentNullException("condition")
+				Throw New ArgumentNullException("condition")
 			End If
 			If ontrue Is Nothing Then
-				Throw New Global.System.ArgumentNullException("ontrue")
+				Throw New ArgumentNullException("ontrue")
 			End If
 			If onfalse Is Nothing Then
-				Throw New Global.System.ArgumentNullException("onfalse")
+				Throw New ArgumentNullException("onfalse")
 			End If
 			If condition.Type.Kind <> TypeKind.[Integer] OrElse TryCast(condition.Type, IntegerType).Width <> 1 Then
-				Throw New Global.System.ArgumentException("Invalid condition type. Must be i1")
+				Throw New ArgumentException("Invalid condition type. Must be i1")
 			End If
 			Return New Branch(llvm.EmitIf(Me, condition, ontrue, onfalse))
 		End Function
 
 		' Token: 0x06000040 RID: 64 RVA: 0x00002918 File Offset: 0x00000B18
-		Public Function Switch(value As Value, elseCase As Block, branches As Global.System.Tuple(Of Value, Block)()) As Switch
+		Public Function Switch(value As Value, elseCase As Block, branches As Tuple(Of Value, Block)()) As Switch
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			If elseCase Is Nothing Then
-				Throw New Global.System.ArgumentNullException("elseCase")
+				Throw New ArgumentNullException("elseCase")
 			End If
 			If branches Is Nothing Then
-				Throw New Global.System.ArgumentNullException("branches")
+				Throw New ArgumentNullException("branches")
 			End If
 			Dim switch As Switch = New Switch(llvm.EmitSwitch(Me, value, elseCase, branches.Length))
-			For Each tuple As Global.System.Tuple(Of Value, Block) In branches
+			For Each tuple As Tuple(Of Value, Block) In branches
 				switch.Add(tuple.Item1, tuple.Item2)
 			Next
 			Return switch
@@ -116,7 +116,7 @@ Namespace LLVM
 		' Token: 0x06000041 RID: 65 RVA: 0x00002996 File Offset: 0x00000B96
 		Public Function [GoTo](dest As Block) As Branch
 			If dest Is Nothing Then
-				Throw New Global.System.ArgumentNullException("dest")
+				Throw New ArgumentNullException("dest")
 			End If
 			Return New Branch(llvm.EmitGoTo(Me, dest))
 		End Function
@@ -128,13 +128,13 @@ Namespace LLVM
 			End If
 			Dim argumentTypes As Type() = target.Type.ArgumentTypes
 			InstructionBuilder.CheckArgumentTypes(args, argumentTypes)
-			Dim ibuilder As Global.System.IntPtr = Me
-			Dim func As Global.System.IntPtr = target
-			Dim source As Global.System.Collections.Generic.IEnumerable(Of Value) = args
-			Dim <>9__11_ As Global.System.Func(Of Value, Global.System.IntPtr) = InstructionBuilder.<>c.<>9__11_0
-			Dim selector As Global.System.Func(Of Value, Global.System.IntPtr) = <>9__11_
+			Dim ibuilder As IntPtr = Me
+			Dim func As IntPtr = target
+			Dim source As Collections.Generic.IEnumerable(Of Value) = args
+			Dim <>9__11_ As Func(Of Value, IntPtr) = InstructionBuilder.<>c.<>9__11_0
+			Dim selector As Func(Of Value, IntPtr) = <>9__11_
 			If <>9__11_ Is Nothing Then
-				Dim func2 As Global.System.Func(Of Value, Global.System.IntPtr) = Function(val As Value) val
+				Dim func2 As Func(Of Value, IntPtr) = Function(val As Value) val
 				selector = func2
 				InstructionBuilder.<>c.<>9__11_0 = func2
 			End If
@@ -144,25 +144,25 @@ Namespace LLVM
 		' Token: 0x06000043 RID: 67 RVA: 0x00002A2C File Offset: 0x00000C2C
 		Private Shared Sub CheckArgumentTypes(args As Value(), argtypes As Type())
 			If argtypes.Length <> args.Length Then
-				Throw New Global.System.InvalidProgramException(String.Format("Incorrect number of arguments. Expecting: {0}, given: {1}", argtypes.Length, args.Length))
+				Throw New InvalidProgramException(String.Format("Incorrect number of arguments. Expecting: {0}, given: {1}", argtypes.Length, args.Length))
 			End If
 			For i As Integer = 0 To argtypes.Length - 1
 				If Not argtypes(i).Equals(args(i).Type) Then
-					Throw New Global.System.InvalidProgramException(String.Format("Incorrect argument {0} type. Expecting: {1}, given: {2}", i, argtypes(i), args(i).Type))
+					Throw New InvalidProgramException(String.Format("Incorrect argument {0} type. Expecting: {1}, given: {2}", i, argtypes(i), args(i).Type))
 				End If
 			Next
 		End Sub
 
 		' Token: 0x06000044 RID: 68 RVA: 0x00002AA4 File Offset: 0x00000CA4
 		Public Function [Call](target As [Function], ParamArray args As Value()) As [Call]
-			Dim <>9__13_ As Global.System.Func(Of Value, Global.System.IntPtr) = InstructionBuilder.<>c.<>9__13_0
-			Dim selector As Global.System.Func(Of Value, Global.System.IntPtr) = <>9__13_
+			Dim <>9__13_ As Func(Of Value, IntPtr) = InstructionBuilder.<>c.<>9__13_0
+			Dim selector As Func(Of Value, IntPtr) = <>9__13_
 			If <>9__13_ Is Nothing Then
-				Dim func As Global.System.Func(Of Value, Global.System.IntPtr) = Function(val As Value) val
+				Dim func As Func(Of Value, IntPtr) = Function(val As Value) val
 				selector = func
 				InstructionBuilder.<>c.<>9__13_0 = func
 			End If
-			Dim args2 As Global.System.IntPtr() = args.[Select](selector).ToArray()
+			Dim args2 As IntPtr() = args.[Select](selector).ToArray()
 			InstructionBuilder.CheckArgumentTypes(args, target.Type.ArgumentTypes)
 			Return New [Call](llvm.EmitCall(Me, target, args2, args.Length, "")) With { .CallingConvention = target.CallingConvention }
 		End Function
@@ -234,7 +234,7 @@ Namespace LLVM
 		' Token: 0x06000051 RID: 81 RVA: 0x00002CCC File Offset: 0x00000ECC
 		Public Function [Not](value As Value, Optional name As String = "") As Value
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			InstructionBuilder.CheckIntegerType(value.Type, "value")
 			Return New Value(llvm.EmitNot(Me, value, name))
@@ -249,11 +249,11 @@ Namespace LLVM
 		' Token: 0x06000053 RID: 83 RVA: 0x00002D29 File Offset: 0x00000F29
 		Private Shared Sub CheckShiftArguments(value As Value, shiftBy As Value)
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			InstructionBuilder.CheckIntegerType(value.Type, "value")
 			If shiftBy Is Nothing Then
-				Throw New Global.System.ArgumentNullException("shiftBy")
+				Throw New ArgumentNullException("shiftBy")
 			End If
 			InstructionBuilder.CheckIntegerType(shiftBy.Type, "shiftBy")
 		End Sub
@@ -277,17 +277,17 @@ Namespace LLVM
 		' Token: 0x06000057 RID: 87 RVA: 0x00002DF0 File Offset: 0x00000FF0
 		Public Function Store(value As Value, pointer As Value) As Store
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			If pointer Is Nothing Then
-				Throw New Global.System.ArgumentNullException("pointer")
+				Throw New ArgumentNullException("pointer")
 			End If
 			Dim pointerType As PointerType = TryCast(pointer.Type, PointerType)
 			If pointerType Is Nothing Then
-				Throw New Global.System.ArgumentException("Value must be of pointer type", "pointer")
+				Throw New ArgumentException("Value must be of pointer type", "pointer")
 			End If
 			If Not value.Type.Equals(pointerType.ElementType) Then
-				Throw New Global.System.InvalidProgramException(String.Format("Can't store {0} to {1} location", value.Type, pointerType.ElementType))
+				Throw New InvalidProgramException(String.Format("Can't store {0} to {1} location", value.Type, pointerType.ElementType))
 			End If
 			Return New Store(llvm.EmitStore(Me, value, pointer))
 		End Function
@@ -308,16 +308,16 @@ Namespace LLVM
 		Public Function Element(pointer As Value, indexes As Value(), Optional name As String = "") As Value
 			InstructionBuilder.CheckPointerType(pointer, "pointer")
 			If indexes Is Nothing Then
-				Throw New Global.System.ArgumentNullException("indexes")
+				Throw New ArgumentNullException("indexes")
 			End If
-			Dim <>9__35_ As Global.System.Func(Of Value, Global.System.IntPtr) = InstructionBuilder.<>c.<>9__35_0
-			Dim selector As Global.System.Func(Of Value, Global.System.IntPtr) = <>9__35_
+			Dim <>9__35_ As Func(Of Value, IntPtr) = InstructionBuilder.<>c.<>9__35_0
+			Dim selector As Func(Of Value, IntPtr) = <>9__35_
 			If <>9__35_ Is Nothing Then
-				Dim func As Global.System.Func(Of Value, Global.System.IntPtr) = Function(i As Value) i
+				Dim func As Func(Of Value, IntPtr) = Function(i As Value) i
 				selector = func
 				InstructionBuilder.<>c.<>9__35_0 = func
 			End If
-			Dim offsets As Global.System.IntPtr() = indexes.[Select](selector).ToArray()
+			Dim offsets As IntPtr() = indexes.[Select](selector).ToArray()
 			Return New Value(llvm.EmitGetElementPointer(Me, pointer, offsets, indexes.Length, name))
 		End Function
 
@@ -339,13 +339,13 @@ Namespace LLVM
 		' Token: 0x0600005E RID: 94 RVA: 0x00002F98 File Offset: 0x00001198
 		Public Function PointerCast(value As Value, destType As PointerType, Optional name As String = "") As Value
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			If value.Type.Kind <> TypeKind.Pointer Then
-				Throw New Global.System.ArgumentException("value must be of pointer type", "value")
+				Throw New ArgumentException("value must be of pointer type", "value")
 			End If
 			If destType Is Nothing Then
-				Throw New Global.System.ArgumentNullException("destType")
+				Throw New ArgumentNullException("destType")
 			End If
 			Return New Value(llvm.EmitPointerCast(Me, value, destType, name))
 		End Function
@@ -353,13 +353,13 @@ Namespace LLVM
 		' Token: 0x0600005F RID: 95 RVA: 0x00003000 File Offset: 0x00001200
 		Public Function IntToPointer(value As Value, destType As PointerType, Optional name As String = "") As Value
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			If destType Is Nothing Then
-				Throw New Global.System.ArgumentNullException("destType")
+				Throw New ArgumentNullException("destType")
 			End If
 			If value.Type.Kind <> TypeKind.[Integer] Then
-				Throw New Global.System.ArgumentException("Value must be of integer type", "value")
+				Throw New ArgumentException("Value must be of integer type", "value")
 			End If
 			Return New Value(llvm.EmitIntToPtr(Me, value, destType, name))
 		End Function
@@ -367,13 +367,13 @@ Namespace LLVM
 		' Token: 0x06000060 RID: 96 RVA: 0x00003064 File Offset: 0x00001264
 		Public Function PointerToInt(value As Value, destType As IntegerType, Optional name As String = "") As Value
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			If destType Is Nothing Then
-				Throw New Global.System.ArgumentNullException("destType")
+				Throw New ArgumentNullException("destType")
 			End If
 			If value.Type.Kind <> TypeKind.Pointer Then
-				Throw New Global.System.ArgumentException("Value must be of pointer type", "value")
+				Throw New ArgumentException("Value must be of pointer type", "value")
 			End If
 			Return New Value(llvm.EmitPtrToInt(Me, value, destType, name))
 		End Function
@@ -381,10 +381,10 @@ Namespace LLVM
 		' Token: 0x06000061 RID: 97 RVA: 0x000030C9 File Offset: 0x000012C9
 		Public Function BitCast(value As Value, destType As Type, Optional name As String = "") As Value
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			If destType Is Nothing Then
-				Throw New Global.System.ArgumentNullException("destType")
+				Throw New ArgumentNullException("destType")
 			End If
 			Return New Value(llvm.EmitBitCast(Me, value, destType, name))
 		End Function
@@ -392,10 +392,10 @@ Namespace LLVM
 		' Token: 0x06000062 RID: 98 RVA: 0x00003104 File Offset: 0x00001304
 		Public Function Insert(into As Value, what As Value, index As Integer, Optional name As String = "") As Value
 			If into Is Nothing Then
-				Throw New Global.System.ArgumentNullException("into")
+				Throw New ArgumentNullException("into")
 			End If
 			If what Is Nothing Then
-				Throw New Global.System.ArgumentNullException("what")
+				Throw New ArgumentNullException("what")
 			End If
 			Return New Value(llvm.EmitInsert(Me, into, what, index, name))
 		End Function
@@ -403,7 +403,7 @@ Namespace LLVM
 		' Token: 0x06000063 RID: 99 RVA: 0x00003141 File Offset: 0x00001341
 		Public Function Extract(from As Value, index As Integer, Optional name As String = "") As Value
 			If from Is Nothing Then
-				Throw New Global.System.ArgumentNullException("from")
+				Throw New ArgumentNullException("from")
 			End If
 			Return New Value(llvm.EmitExtract(Me, from, index, name))
 		End Function
@@ -411,10 +411,10 @@ Namespace LLVM
 		' Token: 0x06000064 RID: 100 RVA: 0x0000316C File Offset: 0x0000136C
 		Public Function GCRoot(value As StackAlloc, [module] As [Module]) As [Call]
 			If value Is Nothing Then
-				Throw New Global.System.ArgumentNullException("value")
+				Throw New ArgumentNullException("value")
 			End If
 			If value.Type Is Nothing Then
-				Throw New Global.System.ArgumentException()
+				Throw New ArgumentException()
 			End If
 			Dim pointerType As PointerType = PointerType.[Get](IntegerType.[Get](Me.Context, 8), 0)
 			Dim pointerType2 As PointerType = PointerType.[Get](pointerType, 0)
@@ -440,8 +440,8 @@ Namespace LLVM
 		End Sub
 
 		' Token: 0x02000037 RID: 55
-		<Global.System.Runtime.CompilerServices.CompilerGenerated()>
-		<Global.System.Serializable()>
+		<Runtime.CompilerServices.CompilerGenerated()>
+		<Serializable()>
 		Private NotInheritable Class <>c
 			' Token: 0x0600014D RID: 333 RVA: 0x00003D8F File Offset: 0x00001F8F
 			' Note: this type is marked as 'beforefieldinit'.
@@ -453,17 +453,17 @@ Namespace LLVM
 			End Sub
 
 			' Token: 0x0600014F RID: 335 RVA: 0x00003D7F File Offset: 0x00001F7F
-			Friend Function <Call>b__11_0(val As Value) As Global.System.IntPtr
+			Friend Function <Call>b__11_0(val As Value) As IntPtr
 				Return val
 			End Function
 
 			' Token: 0x06000150 RID: 336 RVA: 0x00003D7F File Offset: 0x00001F7F
-			Friend Function <Call>b__13_0(val As Value) As Global.System.IntPtr
+			Friend Function <Call>b__13_0(val As Value) As IntPtr
 				Return val
 			End Function
 
 			' Token: 0x06000151 RID: 337 RVA: 0x00003D7F File Offset: 0x00001F7F
-			Friend Function <Element>b__35_0(i As Value) As Global.System.IntPtr
+			Friend Function <Element>b__35_0(i As Value) As IntPtr
 				Return i
 			End Function
 
@@ -471,13 +471,13 @@ Namespace LLVM
 			Public Shared <>9 As InstructionBuilder.<>c = New InstructionBuilder.<>c()
 
 			' Token: 0x04000056 RID: 86
-			Public Shared <>9__11_0 As Global.System.Func(Of Value, Global.System.IntPtr)
+			Public Shared <>9__11_0 As Func(Of Value, IntPtr)
 
 			' Token: 0x04000057 RID: 87
-			Public Shared <>9__13_0 As Global.System.Func(Of Value, Global.System.IntPtr)
+			Public Shared <>9__13_0 As Func(Of Value, IntPtr)
 
 			' Token: 0x04000058 RID: 88
-			Public Shared <>9__35_0 As Global.System.Func(Of Value, Global.System.IntPtr)
+			Public Shared <>9__35_0 As Func(Of Value, IntPtr)
 		End Class
 	End Class
 End Namespace

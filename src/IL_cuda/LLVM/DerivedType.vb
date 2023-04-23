@@ -6,7 +6,7 @@ Namespace LLVM
 		Inherits Type
 
 		' Token: 0x06000017 RID: 23 RVA: 0x0000221A File Offset: 0x0000041A
-		Friend Sub New(typeptr As Global.System.IntPtr)
+		Friend Sub New(typeptr As IntPtr)
 			MyBase.New(typeptr)
 		End Sub
 	End Class
