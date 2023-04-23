@@ -1,13 +1,9 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.Linq
-Imports System.Runtime.CompilerServices
+﻿Imports System.Runtime.CompilerServices
 Imports System.Text
 
 Namespace LLVM
 	' Token: 0x02000025 RID: 37
-	Public Class StructType
-		Inherits CompositeType
+	Public Class StructType : Inherits CompositeType
 
 		' Token: 0x060000FC RID: 252 RVA: 0x00002073 File Offset: 0x00000273
 		Friend Sub New(typeref As IntPtr)
@@ -15,23 +11,24 @@ Namespace LLVM
 		End Sub
 
 		' Token: 0x060000FD RID: 253 RVA: 0x000035AC File Offset: 0x000017AC
-		Private Shared Function structType(context As Context, elementTypes As Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False) As IntPtr
+		Private Shared Function structType(context As Context, elementTypes As IEnumerable(Of Type), Optional packed As Boolean = False) As IntPtr
 			If elementTypes Is Nothing Then
 				elementTypes = New Type(-1) {}
 			End If
-			Dim source As Collections.Generic.IEnumerable(Of Type) = elementTypes
-			Dim Hx0___1_ As Func(Of Type, IntPtr) = StructType.<>c.Hx0___1_0
+			Dim source As IEnumerable(Of Type) = elementTypes
+			Dim Hx0___1_ As Func(Of Type, IntPtr) = c.Hx0___1_0
 			Dim selector As Func(Of Type, IntPtr) = Hx0___1_
 			If Hx0___1_ Is Nothing Then
 				Dim func As Func(Of Type, IntPtr) = Function(type As Type) type
 				selector = func
-				StructType.<>c.Hx0___1_0 = func
+				c.Hx0___1_0 = func
 			End If
 			Dim array As IntPtr() = source.[Select](selector).ToArray()
 			Return llvm.StructType(context, array, array.Length, packed)
 		End Function
 
 		' Token: 0x060000FE RID: 254 RVA: 0x000035FF File Offset: 0x000017FF
+		<MethodImpl(MethodImplOptions.AggressiveInlining)>
 		Private Shared Function structType(context As Context) As IntPtr
 			Return llvm.StructCreateEmptyType(context)
 		End Function
@@ -43,23 +40,23 @@ Namespace LLVM
 
 		' Token: 0x06000100 RID: 256 RVA: 0x0000361A File Offset: 0x0000181A
 		Public Sub New(context As Context, elementTypes As Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False)
-			MyBase.New(StructType.structType(context, elementTypes, packed))
+			MyBase.New(structType(context, elementTypes, packed))
 		End Sub
 
 		' Token: 0x06000101 RID: 257 RVA: 0x0000362A File Offset: 0x0000182A
 		Public Sub New(context As Context, name As String, elementTypes As Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False)
-			MyBase.New(StructType.structType(context, name))
+			MyBase.New(structType(context, name))
 			Me.SetBody(elementTypes, packed)
 		End Sub
 
 		' Token: 0x06000102 RID: 258 RVA: 0x00003642 File Offset: 0x00001842
 		Public Sub New(context As Context)
-			MyBase.New(StructType.structType(context))
+			MyBase.New(structType(context))
 		End Sub
 
 		' Token: 0x06000103 RID: 259 RVA: 0x00003650 File Offset: 0x00001850
 		Public Sub New(context As Context, name As String)
-			MyBase.New(StructType.structType(context, name))
+			MyBase.New(structType(context, name))
 		End Sub
 
 		' Token: 0x17000016 RID: 22
@@ -100,17 +97,17 @@ Namespace LLVM
 		End Property
 
 		' Token: 0x06000109 RID: 265 RVA: 0x000036C8 File Offset: 0x000018C8
-		Public Sub SetBody(fieldTypes As Collections.Generic.IEnumerable(Of Type), Optional packed As Boolean = False)
+		Public Sub SetBody(fieldTypes As IEnumerable(Of Type), Optional packed As Boolean = False)
 			If fieldTypes Is Nothing Then
 				fieldTypes = New Type(-1) {}
 			End If
-			Dim source As Collections.Generic.IEnumerable(Of Type) = fieldTypes
-			Dim Hx0___17_ As Func(Of Type, IntPtr) = StructType.<>c.Hx0___17_0
+			Dim source As IEnumerable(Of Type) = fieldTypes
+			Dim Hx0___17_ As Func(Of Type, IntPtr) = c.Hx0___17_0
 			Dim selector As Func(Of Type, IntPtr) = Hx0___17_
 			If Hx0___17_ Is Nothing Then
 				Dim func As Func(Of Type, IntPtr) = Function(type As Type) type
 				selector = func
-				StructType.<>c.Hx0___17_0 = func
+				c.Hx0___17_0 = func
 			End If
 			Dim array As IntPtr() = source.[Select](selector).ToArray()
 			llvm.StructSetBody(Me, array, array.Length, packed)
@@ -122,7 +119,7 @@ Namespace LLVM
 			If fieldTypes.Length = 0 Then
 				Return "{}"
 			End If
-			Dim stringBuilder As Text.StringBuilder = New Text.StringBuilder("{ " + fieldTypes(0))
+			Dim stringBuilder As New StringBuilder("{ " + fieldTypes(0))
 			For i As Integer = 1 To fieldTypes.Length - 1
 				stringBuilder.Append(" * " + fieldTypes(i))
 			Next
@@ -142,7 +139,7 @@ Namespace LLVM
 		' Token: 0x02000038 RID: 56
 		<Runtime.CompilerServices.CompilerGenerated()>
 		<Serializable()>
-		Private NotInheritable Class <>c
+		Private NotInheritable Class c
 			' Token: 0x06000152 RID: 338 RVA: 0x00003D9B File Offset: 0x00001F9B
 			' Note: this type is marked as 'beforefieldinit'.
 			Shared Sub New()
@@ -153,17 +150,17 @@ Namespace LLVM
 			End Sub
 
 			' Token: 0x06000154 RID: 340 RVA: 0x00003D7F File Offset: 0x00001F7F
-			Friend Function <structType>b__1_0(type As Type) As IntPtr
+			Friend Function b__1_0(type As Type) As IntPtr
 				Return type
 			End Function
 
 			' Token: 0x06000155 RID: 341 RVA: 0x00003D7F File Offset: 0x00001F7F
-			Friend Function <SetBody>b__17_0(type As Type) As IntPtr
+			Friend Function b__17_0(type As Type) As IntPtr
 				Return type
 			End Function
 
 			' Token: 0x04000059 RID: 89
-			Public Shared Hx0_ As StructType.<>c = New StructType.<>c()
+			Public Shared Hx0_ As c = New c()
 
 			' Token: 0x0400005A RID: 90
 			Public Shared Hx0___1_0 As Func(Of Type, IntPtr)

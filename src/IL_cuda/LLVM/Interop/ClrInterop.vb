@@ -23,11 +23,11 @@ Namespace LLVM.Interop
 
 		' Token: 0x06000124 RID: 292 RVA: 0x000039C2 File Offset: 0x00001BC2
 		Public Function GetDelegate(Of T As Class)([function] As [Function], [module] As [Module], Optional debug As Boolean = False) As T
-			Return TryCast(Me.GetDelegate([function], GetType(!!0), [module], debug), !!0)
+			Return TryCast(Me.GetDelegate([function], GetType(T), [module], debug), T)
 		End Function
 
 		' Token: 0x06000125 RID: 293 RVA: 0x000039E4 File Offset: 0x00001BE4
-		Public Function GetDelegate([function] As [Function], delegateType As Type, [module] As [Module], Optional debug As Boolean = False) As [Delegate]
+		Public Function GetDelegate([function] As [Function], delegateType As System.Type, [module] As [Module], Optional debug As Boolean = False) As [Delegate]
 			Dim [global] As [Function] = Me.nativeWrapper.Wrap([function], [module], debug)
 			Dim pointer As IntPtr = Me.executionEngine.GetPointer([global])
 			Return Me.managedWrapper.Unwrap(pointer, delegateType, debug)
@@ -58,23 +58,23 @@ Namespace LLVM.Interop
 			End Sub
 
 			' Token: 0x06000158 RID: 344 RVA: 0x00003E0C File Offset: 0x0000200C
-			Public Function Unwrap(wrapperEntryPoint As IntPtr, delegateType As Type, debug As Boolean) As [Delegate]
-				Dim t As Type = Me.WrapDelegateType(delegateType)
+			Public Function Unwrap(wrapperEntryPoint As IntPtr, delegateType As System.Type, debug As Boolean) As [Delegate]
+				Dim t As System.Type = Me.WrapDelegateType(delegateType)
 				Dim delegateForFunctionPointer As [Delegate] = Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer(wrapperEntryPoint, t)
 				Return Me.Unwrap(delegateForFunctionPointer, delegateType, debug)
 			End Function
 
 			' Token: 0x06000159 RID: 345 RVA: 0x00003E34 File Offset: 0x00002034
-			Friend Function Unwrap(wrapped As [Delegate], delegateType As Type, debug As Boolean) As [Delegate]
+			Friend Function Unwrap(wrapped As [Delegate], delegateType As System.Type, debug As Boolean) As [Delegate]
 				Dim method As Reflection.MethodInfo = delegateType.GetMethod("Invoke")
 				Dim parameters As Collections.Generic.IEnumerable(Of Reflection.ParameterInfo) = method.GetParameters()
 				Dim parameterExpression As Linq.Expressions.ParameterExpression = If(Interop.ClrInterop.Managed.NeedsReturnWrapping(method.ReturnType), Linq.Expressions.Expression.Variable(method.ReturnType, "retval"), Nothing)
-				Dim Hx0___4_ As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression) = Interop.ClrInterop.Managed.<>c.Hx0___4_0
+				Dim Hx0___4_ As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression) = c.Hx0___4_0
 				Dim selector As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression) = Hx0___4_
 				If Hx0___4_ Is Nothing Then
 					Dim func As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression) = Function(p As Reflection.ParameterInfo) Linq.Expressions.Expression.Parameter(p.ParameterType, p.Name)
 					selector = func
-					Interop.ClrInterop.Managed.<>c.Hx0___4_0 = func
+					c.Hx0___4_0 = func
 				End If
 				Dim array As Linq.Expressions.ParameterExpression() = parameters.[Select](selector).ToArray()
 				Dim list As Collections.Generic.List(Of Linq.Expressions.ParameterExpression) = array.ToList()
@@ -99,35 +99,35 @@ Namespace LLVM.Interop
 			End Function
 
 			' Token: 0x0600015A RID: 346 RVA: 0x00003F3C File Offset: 0x0000213C
-			Public Function WrapDelegateType(delegateType As Type) As Type
+			Public Function WrapDelegateType(delegateType As System.Type) As System.Type
 				Dim method As Reflection.MethodInfo = delegateType.GetMethod("Invoke")
 				Dim typeBuilder As Reflection.Emit.TypeBuilder = Me.[module].DefineType("DELEGATE_" + Interop.ClrInterop.Managed.GenerateIdentifier(), Reflection.TypeAttributes.[Public] Or Reflection.TypeAttributes.Sealed Or Reflection.TypeAttributes.AutoClass, GetType(MulticastDelegate))
 				typeBuilder.SetCustomAttribute(Interop.ClrInterop.Managed.callingConventionAttribute)
-				typeBuilder.DefineConstructor(Reflection.MethodAttributes.FamANDAssem Or Reflection.MethodAttributes.Family Or Reflection.MethodAttributes.HideBySig Or Reflection.MethodAttributes.RTSpecialName, Reflection.CallingConventions.Standard, New Type() { GetType(Object), GetType(IntPtr) }).SetImplementationFlags(Reflection.MethodImplAttributes.CodeTypeMask)
+				typeBuilder.DefineConstructor(Reflection.MethodAttributes.FamANDAssem Or Reflection.MethodAttributes.Family Or Reflection.MethodAttributes.HideBySig Or Reflection.MethodAttributes.RTSpecialName, Reflection.CallingConventions.Standard, New System.Type() {GetType(Object), GetType(IntPtr)}).SetImplementationFlags(Reflection.MethodImplAttributes.CodeTypeMask)
 				Dim parameters As Collections.Generic.IEnumerable(Of Reflection.ParameterInfo) = method.GetParameters()
-				Dim Hx0___5_ As Func(Of Reflection.ParameterInfo, Type) = Interop.ClrInterop.Managed.<>c.Hx0___5_0
-				Dim selector As Func(Of Reflection.ParameterInfo, Type) = Hx0___5_
+				Dim Hx0___5_ As Func(Of Reflection.ParameterInfo, System.Type) = c.Hx0___5_0
+				Dim selector As Func(Of Reflection.ParameterInfo, System.Type) = Hx0___5_
 				If Hx0___5_ Is Nothing Then
-					Dim func As Func(Of Reflection.ParameterInfo, Type) = Function(p As Reflection.ParameterInfo) p.ParameterType
+					Dim func As Func(Of Reflection.ParameterInfo, System.Type) = Function(p As Reflection.ParameterInfo) p.ParameterType
 					selector = func
-					Interop.ClrInterop.Managed.<>c.Hx0___5_0 = func
+					c.Hx0___5_0 = func
 				End If
-				Dim source As Collections.Generic.IEnumerable(Of Type) = parameters.[Select](selector)
-				Dim Hx0___5_2 As Func(Of Type, Type) = Interop.ClrInterop.Managed.<>c.Hx0___5_1
-				Dim selector2 As Func(Of Type, Type) = Hx0___5_2
+				Dim source As IEnumerable(Of System.Type) = parameters.[Select](selector)
+				Dim Hx0___5_2 As Func(Of System.Type, System.Type) = c.Hx0___5_1
+				Dim selector2 As Func(Of System.Type, System.Type) = Hx0___5_2
 				If Hx0___5_2 Is Nothing Then
-					Dim func2 As Func(Of Type, Type) = Function(t As Type)
-						If Not t.IsValueType Then
-							Return t
-						End If
-						Return t.MakeByRefType()
-					End Function
+					Dim func2 As Func(Of System.Type, System.Type) = Function(t As System.Type)
+																		 If Not t.IsValueType Then
+																			 Return t
+																		 End If
+																		 Return t.MakeByRefType()
+																	 End Function
 					selector2 = func2
-					Interop.ClrInterop.Managed.<>c.Hx0___5_1 = func2
+					c.Hx0___5_1 = func2
 				End If
-				Dim list As Collections.Generic.List(Of Type) = source.[Select](selector2).ToList()
+				Dim list As List(Of System.Type) = source.[Select](selector2).ToList()
 				Dim returnByRef As Boolean
-				Dim returnType As Type = Interop.ClrInterop.Managed.WrapDelegateReturnType(method.ReturnType, list, returnByRef)
+				Dim returnType As System.Type = Interop.ClrInterop.Managed.WrapDelegateReturnType(method.ReturnType, list, returnByRef)
 				Dim methodBuilder As Reflection.Emit.MethodBuilder = typeBuilder.DefineMethod("Invoke", Reflection.MethodAttributes.FamANDAssem Or Reflection.MethodAttributes.Family Or Reflection.MethodAttributes.Virtual Or Reflection.MethodAttributes.HideBySig Or Reflection.MethodAttributes.VtableLayoutMask)
 				methodBuilder.SetSignature(returnType, Nothing, Nothing, list.ToArray(), Nothing, Nothing)
 				methodBuilder.SetImplementationFlags(Reflection.MethodImplAttributes.CodeTypeMask)
@@ -158,18 +158,18 @@ Namespace LLVM.Interop
 			End Function
 
 			' Token: 0x0600015D RID: 349 RVA: 0x000040DC File Offset: 0x000022DC
-			Private Shared Function WrapDelegateReturnType(originalType As Type, parameters As Collections.Generic.ICollection(Of Type), <System.Runtime.InteropServices.OutAttribute()> ByRef returnByRef As Boolean) As Type
+			Private Shared Function WrapDelegateReturnType(originalType As System.Type, parameters As ICollection(Of System.Type), <OutAttribute()> ByRef returnByRef As Boolean) As System.Type
 				returnByRef = Interop.ClrInterop.Managed.NeedsReturnWrapping(originalType)
 				If Not returnByRef Then
 					Return originalType
 				End If
-				Dim item As Type = originalType.MakeByRefType()
+				Dim item As System.Type = originalType.MakeByRefType()
 				parameters.Add(item)
 				Return GetType(Void)
 			End Function
 
 			' Token: 0x0600015E RID: 350 RVA: 0x0000410F File Offset: 0x0000230F
-			Private Shared Function NeedsReturnWrapping(type As Type) As Boolean
+			Private Shared Function NeedsReturnWrapping(type As System.Type) As Boolean
 				Return type.IsValueType AndAlso Not GetType(Void).Equals(type)
 			End Function
 
@@ -187,7 +187,9 @@ Namespace LLVM.Interop
 			Private [module] As Reflection.Emit.ModuleBuilder
 
 			' Token: 0x0400005D RID: 93
-			Private Shared callingConventionAttribute As Reflection.Emit.CustomAttributeBuilder = New Reflection.Emit.CustomAttributeBuilder(GetType(Runtime.InteropServices.UnmanagedFunctionPointerAttribute).GetConstructor(New Type() { GetType(Runtime.InteropServices.CallingConvention) }), New Object() { Runtime.InteropServices.CallingConvention.Cdecl })
+			Private Shared callingConventionAttribute As New CustomAttributeBuilder(
+				GetType(Runtime.InteropServices.UnmanagedFunctionPointerAttribute).GetConstructor(New System.Type() {
+				GetType(Runtime.InteropServices.CallingConvention)}), New Object() {Runtime.InteropServices.CallingConvention.Cdecl})
 
 			' Token: 0x0400005E RID: 94
 			Private Const InvokeAttributes As Reflection.MethodAttributes = Reflection.MethodAttributes.FamANDAssem Or Reflection.MethodAttributes.Family Or Reflection.MethodAttributes.Virtual Or Reflection.MethodAttributes.HideBySig Or Reflection.MethodAttributes.VtableLayoutMask
@@ -196,9 +198,8 @@ Namespace LLVM.Interop
 			Private Const RuntimeMethod As Reflection.MethodImplAttributes = Reflection.MethodImplAttributes.CodeTypeMask
 
 			' Token: 0x0200003F RID: 63
-			<Runtime.CompilerServices.CompilerGenerated()>
 			<Serializable()>
-			Private NotInheritable Class <>c
+			Private NotInheritable Class c
 				' Token: 0x06000172 RID: 370 RVA: 0x000044F2 File Offset: 0x000026F2
 				' Note: this type is marked as 'beforefieldinit'.
 				Shared Sub New()
@@ -209,17 +210,17 @@ Namespace LLVM.Interop
 				End Sub
 
 				' Token: 0x06000174 RID: 372 RVA: 0x000044FE File Offset: 0x000026FE
-				Friend Function <Unwrap>b__4_0(p As Reflection.ParameterInfo) As Linq.Expressions.ParameterExpression
+				Friend Function b__4_0(p As Reflection.ParameterInfo) As Linq.Expressions.ParameterExpression
 					Return Linq.Expressions.Expression.Parameter(p.ParameterType, p.Name)
 				End Function
 
 				' Token: 0x06000175 RID: 373 RVA: 0x00004511 File Offset: 0x00002711
-				Friend Function <WrapDelegateType>b__5_0(p As Reflection.ParameterInfo) As Type
+				Friend Function b__5_0(p As Reflection.ParameterInfo) As System.Type
 					Return p.ParameterType
 				End Function
 
 				' Token: 0x06000176 RID: 374 RVA: 0x00004519 File Offset: 0x00002719
-				Friend Function <WrapDelegateType>b__5_1(t As Type) As Type
+				Friend Function b__5_1(t As System.Type) As System.Type
 					If Not t.IsValueType Then
 						Return t
 					End If
@@ -227,16 +228,16 @@ Namespace LLVM.Interop
 				End Function
 
 				' Token: 0x04000068 RID: 104
-				Public Shared Hx0_ As Interop.ClrInterop.Managed.<>c = New Interop.ClrInterop.Managed.<>c()
+				Public Shared Hx0_ As c = New c()
 
 				' Token: 0x04000069 RID: 105
 				Public Shared Hx0___4_0 As Func(Of Reflection.ParameterInfo, Linq.Expressions.ParameterExpression)
 
 				' Token: 0x0400006A RID: 106
-				Public Shared Hx0___5_0 As Func(Of Reflection.ParameterInfo, Type)
+				Public Shared Hx0___5_0 As Func(Of Reflection.ParameterInfo, System.Type)
 
 				' Token: 0x0400006B RID: 107
-				Public Shared Hx0___5_1 As Func(Of Type, Type)
+				Public Shared Hx0___5_1 As Func(Of System.Type, System.Type)
 			End Class
 		End Class
 

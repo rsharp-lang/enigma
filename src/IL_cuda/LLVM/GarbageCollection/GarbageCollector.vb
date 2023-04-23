@@ -2,7 +2,7 @@
 Imports System.Collections.Generic
 Imports System.Runtime.CompilerServices
 Imports System.Runtime.InteropServices
-Imports LLVM.GarbageCollection.NativeGlue
+Imports Enigma.LLVM.GarbageCollection.NativeGlue
 
 Namespace LLVM.GarbageCollection
 	' Token: 0x0200002E RID: 46
@@ -39,12 +39,23 @@ Namespace LLVM.GarbageCollection
 
 		' Token: 0x0600012D RID: 301 RVA: 0x00003A9C File Offset: 0x00001C9C
 		Private Function GetExternalGCInfo() As GarbageCollection.NativeGlue.ExternalGCInfo
-			Return New GarbageCollection.NativeGlue.ExternalGCInfo() With { .CustomReadBarriers = Me.CustomReadBarriers, .CustomRoots = Me.CustomRoots, .CustomSafePoints = Me.CustomSafePoints, .CustomWriteBarriers = Me.CustomWriteBarriers, .FindCustomSafePoints = Me.findCustomSafePoints, .InitializeCustomLowering = Me.initializeCustomLowering, .InitRoots = Me.InitRoots, .NeededSafePoints = Me.NeededSafePoints, .PerformCustomLowering = Me.performCustomLowering, .UsesMetadata = Me.UsesMetadata }
+			Return New GarbageCollection.NativeGlue.ExternalGCInfo() With {
+				.CustomReadBarriers = Me.CustomReadBarriers,
+				.CustomRoots = Me.CustomRoots,
+				.CustomSafePoints = Me.CustomSafePoints,
+				.CustomWriteBarriers = Me.CustomWriteBarriers,
+				.FindCustomSafePoints = Me.FindCustomSafePoints,
+				.InitializeCustomLowering = Me.InitializeCustomLowering,
+				.InitRoots = Me.InitRoots,
+				.NeededSafePoints = Me.NeededSafePoints,
+				.PerformCustomLowering = Me.PerformCustomLowering,
+				.UsesMetadata = Me.UsesMetadata
+			}
 		End Function
 
 		' Token: 0x0600012E RID: 302 RVA: 0x00003B34 File Offset: 0x00001D34
 		Public Shared Sub Register(Of GC As{GarbageCollection.GarbageCollector, New})()
-			Dim Hx0___21_ As GarbageCollection.NativeGlue.GCStrategyConstructor = GarbageCollection.GarbageCollector.<>c__21(Of !!0).Hx0___21_0
+			Dim Hx0___21_ As GarbageCollection.NativeGlue.GCStrategyConstructor = c__21(Of GC).Hx0___21_0
 			Dim gcstrategyConstructor As GarbageCollection.NativeGlue.GCStrategyConstructor = Hx0___21_
 			If Hx0___21_ Is Nothing Then
 				Dim gcstrategyConstructor2 As GarbageCollection.NativeGlue.GCStrategyConstructor = Function()
@@ -59,10 +70,10 @@ Namespace LLVM.GarbageCollection
 					Return result
 				End Function
 				gcstrategyConstructor = gcstrategyConstructor2
-				GarbageCollection.GarbageCollector.<>c__21(Of !!0).Hx0___21_0 = gcstrategyConstructor2
+				c__21(Of GC).Hx0___21_0 = gcstrategyConstructor2
 			End If
 			Dim gcstrategyConstructor3 As GarbageCollection.NativeGlue.GCStrategyConstructor = gcstrategyConstructor
-			Dim fullName As String = GetType(!!0).FullName
+			Dim fullName As String = GetType(GC).FullName
 			Dim name As IntPtr = Runtime.InteropServices.Marshal.StringToHGlobalAnsi(fullName)
 			Dim obj As Collections.Generic.Dictionary(Of String, GarbageCollection.NativeGlue.GCStrategyConstructor) = GarbageCollection.GarbageCollector.constructors
 			SyncLock obj
@@ -112,15 +123,15 @@ Namespace LLVM.GarbageCollection
 		Private performCustomLowering As IntPtr
 
 		' Token: 0x0400003B RID: 59
-		Private Shared collectors As Collections.Generic.List(Of GarbageCollection.GarbageCollector) = New Collections.Generic.List(Of GarbageCollection.GarbageCollector)()
+		Private Shared collectors As New List(Of GarbageCollection.GarbageCollector)()
 
 		' Token: 0x0400003C RID: 60
-		Private Shared constructors As Collections.Generic.Dictionary(Of String, GarbageCollection.NativeGlue.GCStrategyConstructor) = New Collections.Generic.Dictionary(Of String, GarbageCollection.NativeGlue.GCStrategyConstructor)()
+		Private Shared constructors As New Dictionary(Of String, GarbageCollection.NativeGlue.GCStrategyConstructor)()
 
 		' Token: 0x0200003B RID: 59
 		<Runtime.CompilerServices.CompilerGenerated()>
 		<Serializable()>
-		Private NotInheritable Class <>c__21(Of GC As{GarbageCollection.GarbageCollector, New})
+		Private NotInheritable Class c__21(Of GC As {GarbageCollection.GarbageCollector, New})
 			' Token: 0x06000169 RID: 361 RVA: 0x0000441E File Offset: 0x0000261E
 			' Note: this type is marked as 'beforefieldinit'.
 			Shared Sub New()
@@ -144,7 +155,7 @@ Namespace LLVM.GarbageCollection
 			End Function
 
 			' Token: 0x04000060 RID: 96
-			Public Shared Hx0_ As GarbageCollection.GarbageCollector.<>c__21(Of GC) = New GarbageCollection.GarbageCollector.<>c__21(Of !0)()
+			Public Shared Hx0_ As c__21(Of GC) = New c__21(Of GC)()
 
 			' Token: 0x04000061 RID: 97
 			Public Shared Hx0___21_0 As GarbageCollection.NativeGlue.GCStrategyConstructor

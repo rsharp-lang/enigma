@@ -1,4 +1,4 @@
-﻿Imports System
+﻿Imports System.Runtime.CompilerServices
 
 Namespace LLVM
 	' Token: 0x02000028 RID: 40
@@ -91,6 +91,16 @@ Namespace LLVM
 		Public Overrides Function ToString() As String
 			Return Me.Kind.ToString()
 		End Function
+
+		<MethodImpl(MethodImplOptions.AggressiveInlining)>
+		Public Shared Operator +(si As String, type As Type) As String
+			Return si & type.ToString
+		End Operator
+
+		<MethodImpl(MethodImplOptions.AggressiveInlining)>
+		Public Shared Operator +(type As Type, si As String) As String
+			Return type.ToString & si
+		End Operator
 
 		' Token: 0x06000119 RID: 281 RVA: 0x000038FC File Offset: 0x00001AFC
 		Public Overridable Function StructuralEquals(obj As Type) As Boolean
