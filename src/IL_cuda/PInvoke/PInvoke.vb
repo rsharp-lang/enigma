@@ -6,6 +6,7 @@ Imports CC = System.Runtime.InteropServices.CallingConvention
 Imports [Module] = Enigma.LLVM.Module
 
 Friend Module PInvoke
+
     Const LlvmDll As String = "LLVM-3.3"
 
     <Extension()>
@@ -78,7 +79,13 @@ Friend Module PInvoke
     End Enum
 
     <DllImportAttribute(PInvoke.LlvmDll, CallingConvention:=CC.Cdecl)>
-    Public Function LLVMCreateTargetMachine(ByVal target As IntPtr, ByVal triple As String, ByVal cpu As String, ByVal features As String, ByVal level As PInvoke.LlvmCodeGenOptLevel, ByVal reloc As PInvoke.LlvmRelocMode, ByVal codeModel As PInvoke.LlvmCodeModel) As IntPtr
+    Public Function LLVMCreateTargetMachine(ByVal target As IntPtr,
+                                            ByVal triple As String,
+                                            ByVal cpu As String,
+                                            ByVal features As String,
+                                            ByVal level As PInvoke.LlvmCodeGenOptLevel,
+                                            ByVal reloc As PInvoke.LlvmRelocMode,
+                                            ByVal codeModel As PInvoke.LlvmCodeModel) As IntPtr
     End Function
 
     Public Enum LlvmCodeGenFileType
@@ -130,7 +137,9 @@ Friend Module PInvoke
     End Sub
 
     ' internal StructType(IntPtr typeref) : ... { }
-    Private ReadOnly StructTypeConstructor As ConstructorInfo = GetType(StructType).GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, {GetType(IntPtr)}, Nothing)
+    Private ReadOnly StructTypeConstructor As ConstructorInfo = GetType(StructType) _
+        .GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, {GetType(IntPtr)}, Nothing)
+
     <Extension()>
     Public Function GetTypeByName(ByVal [module] As [Module], ByVal name As String) As StructType
         Dim intPtr = PInvoke.LLVMGetTypeByName([module], name)

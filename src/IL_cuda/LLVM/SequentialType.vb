@@ -3,7 +3,7 @@
 Namespace LLVM
 	' Token: 0x02000022 RID: 34
 	Public Class SequentialType
-		Inherits Global.LLVM.CompositeType
+		Inherits CompositeType
 
 		' Token: 0x060000F8 RID: 248 RVA: 0x00002073 File Offset: 0x00000273
 		Friend Sub New(typeref As Global.System.IntPtr)

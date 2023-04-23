@@ -4,6 +4,7 @@ Imports System.Reflection.Emit
 Imports System.Runtime.InteropServices
 Imports System.Text
 Imports Enigma.LLVM
+Imports Enigma.MSIL
 
 ''' <summary>
 ''' Main CudaSharp class
@@ -69,7 +70,8 @@ Public Module IL_Cuda
     End Function
 
     ''' <summary>
-    ''' Translates all supplied methods into a single PTX object using the supplied target, giving back the kernel names and intermediate representations (for debugging)
+    ''' Translates all supplied methods into a single PTX object using the supplied target, 
+    ''' giving back the kernel names and intermediate representations (for debugging)
     ''' </summary>
     ''' <param name="kernelNames">Resulting kernel names in the ptx object</param>
     ''' <param name="llvmIr">LLVM IR of the module</param>
@@ -77,7 +79,12 @@ Public Module IL_Cuda
     ''' <param name="targetCpu">Target, usually in the form sm_##</param>
     ''' <param name="methods">Methods to translate</param>
     ''' <returns>PTX object to be loaded into the GPU or written to a .ptx file on disk</returns>
-    Public Function Translate(<Out> ByRef kernelNames As String(), <Out> ByRef llvmIr As String, <Out> ByRef ptxIr As String, ByVal targetCpu As String, ParamArray methods As MethodInfo()) As Byte()
+    Public Function Translate(<Out> ByRef kernelNames As String(),
+                              <Out> ByRef llvmIr As String,
+                              <Out> ByRef ptxIr As String,
+                              ByVal targetCpu As String,
+                              ParamArray methods As MethodInfo()) As Byte()
+
         Dim [module] = Translator.Translate(Context.Global, methods)
         kernelNames = methods.[Select](Function(m) m.Name.StripNameToValidPtx()).ToArray()
         Dim ptx = PInvokeHelper.EmitInMemory([module], targetCpu)

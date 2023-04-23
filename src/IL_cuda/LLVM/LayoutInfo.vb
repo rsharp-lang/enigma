@@ -11,7 +11,7 @@ Namespace LLVM
 
 		' Token: 0x06000073 RID: 115 RVA: 0x00003305 File Offset: 0x00001505
 		Public Sub New(size As Integer)
-			Me = New Global.LLVM.LayoutInfo(size, size)
+			Me = New LayoutInfo(size, size)
 		End Sub
 
 		' Token: 0x1700000D RID: 13

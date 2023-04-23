@@ -21,7 +21,7 @@ Namespace LLVM
 		Public Declare Function GetVoid Lib "LLVM-3.3" Alias "LLVMVoidTypeInContext" (context As Global.System.IntPtr) As Global.System.IntPtr
 
 		' Token: 0x0600007D RID: 125
-		Public Declare Function GetTypeKind Lib "LLVM-3.3" Alias "LLVMGetTypeKind" (typeref As Global.System.IntPtr) As Global.LLVM.TypeKind
+		Public Declare Function GetTypeKind Lib "LLVM-3.3" Alias "LLVMGetTypeKind" (typeref As Global.System.IntPtr) As TypeKind
 
 		' Token: 0x0600007E RID: 126
 		Public Declare Function GetPointerType Lib "LLVM-3.3" Alias "LLVMPointerType" (valueType As Global.System.IntPtr, addressSpace As Integer) As Global.System.IntPtr
@@ -132,7 +132,7 @@ Namespace LLVM
 		Public Declare Function GetPointerToFunction Lib "LLVM-3.3" Alias "LLVMGetPointerToFunction" (executionEngine As Global.System.IntPtr, globalval As Global.System.IntPtr) As Global.System.IntPtr
 
 		' Token: 0x060000A2 RID: 162
-		Public Declare Sub SetLazyFunctionCallback Lib "LLVM-3.3" Alias "LLVMSetLazyFunctionCallback" (executionEngine As Global.System.IntPtr, loader As Global.LLVM.LazyFunctionLoader)
+		Public Declare Sub SetLazyFunctionCallback Lib "LLVM-3.3" Alias "LLVMSetLazyFunctionCallback" (executionEngine As Global.System.IntPtr, loader As LazyFunctionLoader)
 
 		' Token: 0x060000A3 RID: 163
 		Public Declare Function GetParameter Lib "LLVM-3.3" Alias "LLVMGetParam" ([function] As Global.System.IntPtr, index As Integer) As Global.System.IntPtr
@@ -162,16 +162,16 @@ Namespace LLVM
 		Public Declare Function ToPointer Lib "LLVM-3.3" Alias "LLVMConstIntToPtr" (value As Global.System.IntPtr, targetType As Global.System.IntPtr) As Global.System.IntPtr
 
 		' Token: 0x060000AC RID: 172
-		Public Declare Sub SetCallingConvention Lib "LLVM-3.3" Alias "LLVMSetFunctionCallConv" (func As Global.System.IntPtr, conv As Global.LLVM.CallingConvention)
+		Public Declare Sub SetCallingConvention Lib "LLVM-3.3" Alias "LLVMSetFunctionCallConv" (func As Global.System.IntPtr, conv As CallingConvention)
 
 		' Token: 0x060000AD RID: 173
-		Public Declare Function GetCallingConvention Lib "LLVM-3.3" Alias "LLVMGetFunctionCallConv" (func As Global.System.IntPtr) As Global.LLVM.CallingConvention
+		Public Declare Function GetCallingConvention Lib "LLVM-3.3" Alias "LLVMGetFunctionCallConv" (func As Global.System.IntPtr) As CallingConvention
 
 		' Token: 0x060000AE RID: 174
-		Public Declare Sub SetInstructionCallingConvention Lib "LLVM-3.3" Alias "LLVMSetInstructionCallConv" (func As Global.System.IntPtr, conv As Global.LLVM.CallingConvention)
+		Public Declare Sub SetInstructionCallingConvention Lib "LLVM-3.3" Alias "LLVMSetInstructionCallConv" (func As Global.System.IntPtr, conv As CallingConvention)
 
 		' Token: 0x060000AF RID: 175
-		Public Declare Function GetInstructionCallingConvention Lib "LLVM-3.3" Alias "LLVMGetInstructionCallConv" (func As Global.System.IntPtr) As Global.LLVM.CallingConvention
+		Public Declare Function GetInstructionCallingConvention Lib "LLVM-3.3" Alias "LLVMGetInstructionCallConv" (func As Global.System.IntPtr) As CallingConvention
 
 		' Token: 0x060000B0 RID: 176
 		Public Declare Function IsTailCall Lib "LLVM-3.3" Alias "LLVMIsTailCall" ([call] As Global.System.IntPtr) As Boolean
@@ -186,13 +186,13 @@ Namespace LLVM
 		Public Declare Sub SetGC Lib "LLVM-3.3" Alias "LLVMSetGC" ([function] As Global.System.IntPtr, name As String)
 
 		' Token: 0x060000B4 RID: 180
-		Public Declare Function CreateGC Lib "LLVM-3.3" Alias "LLVMCreateExternalGC" (gcinfo As Global.LLVM.GarbageCollection.NativeGlue.ExternalGCInfo) As Global.System.IntPtr
+		Public Declare Function CreateGC Lib "LLVM-3.3" Alias "LLVMCreateExternalGC" (gcinfo As GarbageCollection.NativeGlue.ExternalGCInfo) As Global.System.IntPtr
 
 		' Token: 0x060000B5 RID: 181
-		Public Declare Function RegisterGC Lib "LLVM-3.3" Alias "LLVMRegisterExternalGC" (name As Global.System.IntPtr, descr As Global.System.IntPtr, ctor As Global.LLVM.GarbageCollection.NativeGlue.GCStrategyConstructor) As Global.System.IntPtr
+		Public Declare Function RegisterGC Lib "LLVM-3.3" Alias "LLVMRegisterExternalGC" (name As Global.System.IntPtr, descr As Global.System.IntPtr, ctor As GarbageCollection.NativeGlue.GCStrategyConstructor) As Global.System.IntPtr
 
 		' Token: 0x060000B6 RID: 182
-		Public Declare Function EmitCompare Lib "LLVM-3.3" Alias "LLVMBuildICmp" (ibuilder As Global.System.IntPtr, comparison As Global.LLVM.IntegerComparison, left As Global.System.IntPtr, right As Global.System.IntPtr, name As String) As Global.System.IntPtr
+		Public Declare Function EmitCompare Lib "LLVM-3.3" Alias "LLVMBuildICmp" (ibuilder As Global.System.IntPtr, comparison As IntegerComparison, left As Global.System.IntPtr, right As Global.System.IntPtr, name As String) As Global.System.IntPtr
 
 		' Token: 0x060000B7 RID: 183
 		Public Declare Function EmitIsNull Lib "LLVM-3.3" Alias "LLVMBuildIsNull" (ibuilder As Global.System.IntPtr, value As Global.System.IntPtr, name As String) As Global.System.IntPtr

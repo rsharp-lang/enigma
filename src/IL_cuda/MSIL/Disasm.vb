@@ -2,6 +2,7 @@
 Imports System.Reflection
 Imports System.Reflection.Emit
 Imports System.Runtime.CompilerServices
+Imports Microsoft.VisualBasic.ApplicationServices.Development.VisualStudio.IL
 
 Namespace MSIL
 
@@ -25,11 +26,16 @@ Namespace MSIL
             End If
 
             Dim stream = New BinaryReader(New MemoryStream(methodBody.GetILAsByteArray()))
+
             While stream.BaseStream.Position < stream.BaseStream.Length
                 Dim instructionStart = stream.BaseStream.Position
                 Dim byteOpcode = stream.ReadByte()
-                Dim shortOpcode = If(byteOpcode = &HFE, BitConverter.ToInt16(If(BitConverter.IsLittleEndian, {stream.ReadByte(), byteOpcode}, {byteOpcode, stream.ReadByte()}), 0), byteOpcode)
-                Dim opcode = Disasm.OpcodeLookupTable(shortOpcode)
+                Dim shortOpcode = If(
+                    byteOpcode = &HFE,
+                    BitConverter.ToInt16(If(BitConverter.IsLittleEndian, {stream.ReadByte(), byteOpcode}, {byteOpcode, stream.ReadByte()}), 0),
+                    byteOpcode
+                )
+                Dim opcode As OpCode = Globals.GetOpCode(shortOpcode)
                 Dim parameter As Object
                 Select Case opcode.OperandType
                     Case OperandType.InlineBrTarget
