@@ -100,11 +100,11 @@
             If branches Is Nothing Then
                 Throw New ArgumentNullException("branches")
             End If
-            Dim switch As Switch = New Switch(llvm.EmitSwitch(Me, value, elseCase, branches.Length))
+            Dim _switch As Switch = New Switch(llvm.EmitSwitch(Me, value, elseCase, branches.Length))
             For Each tuple As Tuple(Of Value, Block) In branches
-                switch.Add(tuple.Item1, tuple.Item2)
+                _switch.Add(tuple.Item1, tuple.Item2)
             Next
-            Return switch
+            Return _switch
         End Function
 
         ' Token: 0x06000041 RID: 65 RVA: 0x00002996 File Offset: 0x00000B96

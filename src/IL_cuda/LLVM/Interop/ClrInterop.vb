@@ -46,7 +46,7 @@ Namespace LLVM.Interop
 		Friend Class Managed
 			' Token: 0x06000156 RID: 342 RVA: 0x00003DA7 File Offset: 0x00001FA7
 			Public Sub New()
-				Me.[module] = AppDomain.CurrentDomain.DefineDynamicAssembly(New Reflection.AssemblyName() With { .Version = New Version(1, 0), .Name = Interop.ClrInterop.Managed.GenerateIdentifier() }, Reflection.Emit.AssemblyBuilderAccess.Run).DefineDynamicModule("DelegateTypes")
+				Me.[module] = AssemblyBuilder.DefineDynamicAssembly(New Reflection.AssemblyName() With {.Version = New Version(1, 0), .Name = Interop.ClrInterop.Managed.GenerateIdentifier()}, Reflection.Emit.AssemblyBuilderAccess.Run).DefineDynamicModule("DelegateTypes")
 			End Sub
 
 			' Token: 0x06000157 RID: 343 RVA: 0x00003DE7 File Offset: 0x00001FE7

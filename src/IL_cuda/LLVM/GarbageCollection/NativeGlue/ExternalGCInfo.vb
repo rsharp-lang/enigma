@@ -1,6 +1,4 @@
-﻿Imports System
-
-Namespace LLVM.GarbageCollection.NativeGlue
+﻿Namespace LLVM.GarbageCollection.NativeGlue
 	' Token: 0x02000031 RID: 49
 	Friend Structure ExternalGCInfo
 		' Token: 0x04000048 RID: 72
