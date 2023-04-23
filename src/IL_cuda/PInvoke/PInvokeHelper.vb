@@ -19,7 +19,7 @@ Friend Module PInvokeHelper
         Dim triple = Marshal.PtrToStringAnsi(PInvoke.LLVMGetTarget([module]))
         Dim errorMessage As IntPtr
         Dim target As IntPtr
-        If PInvoke.LLVMGetTargetFromTriple(triple, target, errorMessage) Then Throw New CudaSharpException(Marshal.PtrToStringAnsi(errorMessage))
+        If PInvoke.LLVMGetTargetFromTriple(triple, target, errorMessage) Then Throw New CudaException(Marshal.PtrToStringAnsi(errorMessage))
         Dim targetMachine = PInvoke.LLVMCreateTargetMachine(target, triple, targetCpu, "", PInvoke.LlvmCodeGenOptLevel.LlvmCodeGenLevelDefault, PInvoke.LlvmRelocMode.LlvmRelocDefault, PInvoke.LlvmCodeModel.LlvmCodeModelDefault)
 
         Dim memoryBuffer As IntPtr
@@ -27,7 +27,7 @@ Friend Module PInvokeHelper
 
         If errorMessage <> IntPtr.Zero Then
             Dim errorMessageStr = Marshal.PtrToStringAnsi(errorMessage)
-            If String.IsNullOrWhiteSpace(errorMessageStr) = False Then Throw New CudaSharpException(errorMessageStr)
+            If String.IsNullOrWhiteSpace(errorMessageStr) = False Then Throw New CudaException(errorMessageStr)
         End If
         Dim bufferStart = PInvoke.LLVMGetBufferStart(memoryBuffer)
         Dim bufferLength = PInvoke.LLVMGetBufferSize(memoryBuffer)

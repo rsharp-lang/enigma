@@ -5,22 +5,25 @@ Imports System.Runtime.CompilerServices
 
 Namespace MSIL
 
+    ''' <summary>
+    ''' extract the msil code from a .net clr function object
+    ''' </summary>
     Module Disasm
 
-        ReadOnly OpcodeLookupTable As Dictionary(Of Short, OpCode) = GetType(OpCodes) _
-            .GetFields() _
-            .[Select](Function(f)
-                          Return CType(f.GetValue(Nothing), OpCode)
-                      End Function) _
-            .ToDictionary(Function(op)
-                              Return op.Value
-                          End Function)
-
+        ''' <summary>
+        ''' extract the msil code from a given clr method/function
+        ''' </summary>
+        ''' <param name="method"></param>
+        ''' <returns></returns>
         <Extension()>
         Public Iterator Function Disassemble(ByVal method As MethodBase) As IEnumerable(Of OpCodeInstruction)
             Dim [module] = method.Module
             Dim methodBody = method.GetMethodBody()
-            If methodBody Is Nothing Then Throw New CudaSharpException("Could not get method body of " & method.Name)
+
+            If methodBody Is Nothing Then
+                Throw New CudaException("Could not get method body of " & method.Name)
+            End If
+
             Dim stream = New BinaryReader(New MemoryStream(methodBody.GetILAsByteArray()))
             While stream.BaseStream.Position < stream.BaseStream.Length
                 Dim instructionStart = stream.BaseStream.Position

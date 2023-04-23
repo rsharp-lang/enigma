@@ -11,13 +11,14 @@ Imports Enigma.LLVM
 ''' <remarks>
 ''' based on the project: 
 ''' </remarks>
-Public Module CudaSharp
+Public Module IL_Cuda
+
     Sub New()
         Dim extractTo = Path.GetFullPath("LLVM-3.3")
         If IO.File.Exists(extractTo) Then Return
         Dim file = IO.File.Open(extractTo, FileMode.OpenOrCreate)
         Dim llvm34 = Assembly.GetExecutingAssembly().GetManifestResourceStream("LLVM-3.4.dll")
-        If llvm34 Is Nothing Then Throw New CudaSharpException("Could not extract LLVM-3.4.dll")
+        If llvm34 Is Nothing Then Throw New CudaException("Could not extract LLVM-3.4.dll")
         llvm34.CopyTo(file)
         file.Close()
     End Sub

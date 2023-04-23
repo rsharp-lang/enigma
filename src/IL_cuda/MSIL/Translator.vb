@@ -28,7 +28,7 @@ Namespace MSIL
 
         Private Sub Translate(ByVal [module] As LLVM.[Module], ByVal method As System.Reflection.MethodBase)
             Dim [function] = Translator.EmitFunction([module], method)
-            If method.IsStatic = False Then Throw New CudaSharpException("Cannot translate instance methods to GPU code")
+            If method.IsStatic = False Then Throw New CudaException("Cannot translate instance methods to GPU code")
 
             Dim metadataArgs = {[function], PInvoke.LLVMMDStringInContext([module].Context, "kernel"), LLVM.IntegerType.GetInt32(CType(([module].Context), LLVM.Context)).Constant(1, True)}
             Dim metadata = [module].Context.MetadataNodeInContext(metadataArgs)
@@ -39,13 +39,13 @@ Namespace MSIL
             Dim methodInfo = TryCast(method, System.Reflection.MethodInfo)
             Dim methodConstructor = TryCast(method, System.Reflection.ConstructorInfo)
             Dim declaringType = method.DeclaringType
-            If methodInfo Is Nothing AndAlso methodConstructor Is Nothing Then Throw New CudaSharpException("Unknown MethodBase type " & method.[GetType]().FullName)
-            If declaringType Is Nothing Then Throw New CudaSharpException("Could not find the declaring type of " & method.Name.StripNameToValidPtx())
+            If methodInfo Is Nothing AndAlso methodConstructor Is Nothing Then Throw New CudaException("Unknown MethodBase type " & method.[GetType]().FullName)
+            If declaringType Is Nothing Then Throw New CudaException("Could not find the declaring type of " & method.Name.StripNameToValidPtx())
 
             Dim parameters = method.GetParameters().[Select](Function(p) p.ParameterType)
             If methodConstructor IsNot Nothing Then parameters = {declaringType.MakeByRefType()}.Concat(parameters)
             If methodInfo IsNot Nothing AndAlso methodInfo.IsStatic = False Then
-                If declaringType.IsValueType = False Then Throw New CudaSharpException("Cannot compile object instance methods (did you forget to mark the method as static?)")
+                If declaringType.IsValueType = False Then Throw New CudaException("Cannot compile object instance methods (did you forget to mark the method as static?)")
                 parameters = {declaringType.MakeByRefType()}.Concat(parameters)
             End If
             Dim llvmParameters = parameters.[Select](Function(t) Translator.ConvertType([module], t)).ToArray()
@@ -72,7 +72,7 @@ Namespace MSIL
             Call Translator.PrintHeader(efo)
             For Each opcode In opcodes
                 If Translator.EmitFunctions.ContainsKey(opcode.Opcode) = False Then
-                    Throw New CudaSharpException("Unsupported CIL instruction " & opcode.Opcode.ToString)
+                    Throw New CudaException("Unsupported CIL instruction " & opcode.Opcode.ToString)
                 End If
                 Dim func = Translator.EmitFunctions(opcode.Opcode)
                 efo.Argument = opcode.Parameter
@@ -144,7 +144,7 @@ Namespace MSIL
                 Return New LLVM.StructType([module].Context, name, Translator.AllFields(type).[Select](Function(t) Translator.ConvertType([module], t.FieldType)))
             End If
 
-            Throw New CudaSharpException("Type cannot be translated to CUDA: " & type.FullName)
+            Throw New CudaException("Type cannot be translated to CUDA: " & type.FullName)
         End Function
 
         Private Delegate Sub EmitFunc(ByVal arg As EmitFuncObj)

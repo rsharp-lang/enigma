@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\sciBASIC#\Microsoft.VisualBasic.Core\src\Core.vbproj" />
+    <ProjectReference Include="..\..\..\sciBASIC#\vs_solutions\dev\VisualStudio\VisualStudio.NET5.vbproj" />
   </ItemGroup>
 
 </Project>
