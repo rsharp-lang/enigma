@@ -18,7 +18,7 @@ Namespace MSIL
         ''' <returns></returns>
         <Extension()>
         Public Iterator Function Disassemble(ByVal method As MethodBase) As IEnumerable(Of OpCodeInstruction)
-            Dim [module] = method.Module
+            Dim [module] As [Module] = method.Module
             Dim methodBody = method.GetMethodBody()
 
             If methodBody Is Nothing Then
@@ -36,47 +36,55 @@ Namespace MSIL
                     byteOpcode
                 )
                 Dim opcode As OpCode = IL.GetOpCode(shortOpcode)
-                Dim parameter As Object
-                Select Case opcode.OperandType
-                    Case OperandType.InlineBrTarget
-                        parameter = stream.ReadInt32()
-                    Case OperandType.InlineField
-                        parameter = [module].ResolveField(stream.ReadInt32())
-                    Case OperandType.InlineI
-                        parameter = stream.ReadInt32()
-                    Case OperandType.InlineI8
-                        parameter = stream.ReadInt64()
-                    Case OperandType.InlineMethod
-                        parameter = [module].ResolveMethod(stream.ReadInt32())
-                    Case OperandType.InlineNone
-                        parameter = Nothing
-                    Case OperandType.InlineR
-                        parameter = stream.ReadDouble()
-                    Case OperandType.InlineSig
-                        parameter = [module].ResolveSignature(stream.ReadInt32())
-                    Case OperandType.InlineString
-                        parameter = [module].ResolveString(stream.ReadInt32())
-                    Case OperandType.InlineSwitch
-                        parameter = stream.ReadInt32()
-                    Case OperandType.InlineTok
-                        parameter = [module].ResolveMember(stream.ReadInt32())
-                    Case OperandType.InlineType
-                        parameter = [module].ResolveType(stream.ReadInt32())
-                    Case OperandType.InlineVar
-                        parameter = stream.ReadInt16()
-                    Case OperandType.ShortInlineBrTarget
-                        parameter = stream.ReadSByte()
-                    Case OperandType.ShortInlineI
-                        parameter = stream.ReadSByte()
-                    Case OperandType.ShortInlineR
-                        parameter = stream.ReadSingle()
-                    Case OperandType.ShortInlineVar
-                        parameter = stream.ReadByte()
-                    Case Else
-                        Throw New ArgumentOutOfRangeException()
-                End Select
-                Yield New OpCodeInstruction(instructionStart, opcode, parameter)
+
+                Yield New OpCodeInstruction(instructionStart, opcode, stream.ParseILOpCode([module], opcode))
             End While
+        End Function
+
+        <Extension>
+        Private Function ParseILOpCode(stream As BinaryReader, [module] As [Module], opcode As OpCode) As Object
+            Dim parameter As Object
+
+            Select Case opcode.OperandType
+                Case OperandType.InlineBrTarget
+                    parameter = stream.ReadInt32()
+                Case OperandType.InlineField
+                    parameter = [module].ResolveField(stream.ReadInt32())
+                Case OperandType.InlineI
+                    parameter = stream.ReadInt32()
+                Case OperandType.InlineI8
+                    parameter = stream.ReadInt64()
+                Case OperandType.InlineMethod
+                    parameter = [module].ResolveMethod(stream.ReadInt32())
+                Case OperandType.InlineNone
+                    parameter = Nothing
+                Case OperandType.InlineR
+                    parameter = stream.ReadDouble()
+                Case OperandType.InlineSig
+                    parameter = [module].ResolveSignature(stream.ReadInt32())
+                Case OperandType.InlineString
+                    parameter = [module].ResolveString(stream.ReadInt32())
+                Case OperandType.InlineSwitch
+                    parameter = stream.ReadInt32()
+                Case OperandType.InlineTok
+                    parameter = [module].ResolveMember(stream.ReadInt32())
+                Case OperandType.InlineType
+                    parameter = [module].ResolveType(stream.ReadInt32())
+                Case OperandType.InlineVar
+                    parameter = stream.ReadInt16()
+                Case OperandType.ShortInlineBrTarget
+                    parameter = stream.ReadSByte()
+                Case OperandType.ShortInlineI
+                    parameter = stream.ReadSByte()
+                Case OperandType.ShortInlineR
+                    parameter = stream.ReadSingle()
+                Case OperandType.ShortInlineVar
+                    parameter = stream.ReadByte()
+                Case Else
+                    Throw New ArgumentOutOfRangeException()
+            End Select
+
+            Return parameter
         End Function
     End Module
 End Namespace
