@@ -8,6 +8,9 @@ Imports Enigma.LLVM
 ''' <summary>
 ''' Main CudaSharp class
 ''' </summary>
+''' <remarks>
+''' based on the project: 
+''' </remarks>
 Public Module CudaSharp
     Sub New()
         Dim extractTo = Path.GetFullPath("LLVM-3.3")

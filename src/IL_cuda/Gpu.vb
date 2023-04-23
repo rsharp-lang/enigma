@@ -1,17 +1,19 @@
-﻿Imports System
-
-''' <summary>
+﻿''' <summary>
 ''' Various GPU intrinsics
 ''' </summary>
 Public Module Gpu
 
     ''' <summary>
-    ''' Apply this attribute to a method if you want it to be compiled to a GPU intrinsic (use the LLVM intrinsic name, not the traditional C library one)
+    ''' Apply this attribute to a method if you want it to be compiled to a GPU intrinsic 
+    ''' (use the LLVM intrinsic name, not the traditional C library one)
     ''' </summary>
     <AttributeUsage(AttributeTargets.Method)>
-    Public Class BuiltinAttribute
-        Inherits Attribute
-        Private ReadOnly _intrinsic As String
+    Public Class BuiltinAttribute : Inherits Attribute
+
+        ''' <summary>
+        ''' Gets the intrinsic function name
+        ''' </summary>
+        Public ReadOnly Property Intrinsic As String
 
         ''' <summary>
         ''' Applies the intrinsic instead of calling the method
@@ -21,14 +23,9 @@ Public Module Gpu
             _intrinsic = intrinsic
         End Sub
 
-        ''' <summary>
-        ''' Gets the intrinsic function name
-        ''' </summary>
-        Public ReadOnly Property Intrinsic As String
-            Get
-                Return _intrinsic
-            End Get
-        End Property
+        Public Overrides Function ToString() As String
+            Return Intrinsic
+        End Function
     End Class
 
     Private ReadOnly Property Exception As Exception

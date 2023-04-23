@@ -4,6 +4,7 @@ Imports [Module] = Enigma.LLVM.[Module]
 Imports Type = Enigma.LLVM.Type
 
 Friend Module Translator
+
     Public Function Translate(ByVal context As LLVM.Context, ParamArray methods As System.Reflection.MethodInfo()) As LLVM.[Module]
         Dim [module] = New LLVM.[Module]("Module", context)
 
