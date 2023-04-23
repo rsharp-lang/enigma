@@ -11,6 +11,7 @@ Imports Enigma.MSIL
 ''' </summary>
 ''' <remarks>
 ''' based on the project: https://github.com/khyperia/CudaSharp
+''' llvm nuget package: https://www.nuget.org/packages/LLVM
 ''' </remarks>
 Public Module IL_Cuda
 

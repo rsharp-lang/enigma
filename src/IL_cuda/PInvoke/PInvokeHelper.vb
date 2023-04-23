@@ -34,11 +34,14 @@ Friend Module PInvokeHelper
                 Throw New CudaException(errorMessageStr)
             End If
         End If
+
         Dim bufferStart = PInvoke.LLVMGetBufferStart(memoryBuffer)
         Dim bufferLength = PInvoke.LLVMGetBufferSize(memoryBuffer)
         Dim buffer = New Byte(bufferLength.ToInt32() - 1) {}
+
         Marshal.Copy(bufferStart, buffer, 0, buffer.Length)
         PInvoke.LLVMDisposeMemoryBuffer(memoryBuffer)
+
         Return buffer
     End Function
 End Module

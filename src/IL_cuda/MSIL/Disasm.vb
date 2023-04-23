@@ -2,7 +2,7 @@
 Imports System.Reflection
 Imports System.Reflection.Emit
 Imports System.Runtime.CompilerServices
-Imports Microsoft.VisualBasic.ApplicationServices.Development.VisualStudio.IL
+Imports Microsoft.VisualBasic.ApplicationServices.Development.VisualStudio
 
 Namespace MSIL
 
@@ -35,7 +35,7 @@ Namespace MSIL
                     BitConverter.ToInt16(If(BitConverter.IsLittleEndian, {stream.ReadByte(), byteOpcode}, {byteOpcode, stream.ReadByte()}), 0),
                     byteOpcode
                 )
-                Dim opcode As OpCode = Globals.GetOpCode(shortOpcode)
+                Dim opcode As OpCode = IL.GetOpCode(shortOpcode)
                 Dim parameter As Object
                 Select Case opcode.OperandType
                     Case OperandType.InlineBrTarget
