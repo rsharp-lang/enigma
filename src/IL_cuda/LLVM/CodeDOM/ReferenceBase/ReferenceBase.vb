@@ -1,9 +1,9 @@
-﻿Imports System
-
-Namespace LLVM
+﻿Namespace LLVM
 	' Token: 0x02000020 RID: 32
-	Public MustInherit Class ReferenceBase
-		Implements IEquatable(Of ReferenceBase)
+	Public MustInherit Class ReferenceBase : Implements IEquatable(Of ReferenceBase)
+
+		' Token: 0x0400001E RID: 30
+		Private reference As IntPtr
 
 		' Token: 0x060000F1 RID: 241 RVA: 0x0000350A File Offset: 0x0000170A
 		Protected Friend Sub New(reference As IntPtr)
@@ -19,12 +19,12 @@ Namespace LLVM
 		End Operator
 
 		' Token: 0x060000F3 RID: 243 RVA: 0x00003539 File Offset: 0x00001739
-		Public Overloads Function Equals(other As ReferenceBase) As Boolean Implements System.IEquatable(Of LLVM.ReferenceBase).Equals
+		Public Overloads Function Equals(other As ReferenceBase) As Boolean Implements IEquatable(Of ReferenceBase).Equals
 			Return other IsNot Nothing AndAlso Me.reference = other.reference
 		End Function
 
 		' Token: 0x060000F4 RID: 244 RVA: 0x00003551 File Offset: 0x00001751
-		Public Overrides Overloads Function Equals(obj As Object) As Boolean
+		Public Overloads Overrides Function Equals(obj As Object) As Boolean
 			Return Me.Equals(TryCast(obj, ReferenceBase))
 		End Function
 
@@ -37,8 +37,5 @@ Namespace LLVM
 		Public Overrides Function ToString() As String
 			Return String.Format("{0}: {1}", MyBase.[GetType]().Name, Me.reference)
 		End Function
-
-		' Token: 0x0400001E RID: 30
-		Private reference As IntPtr
 	End Class
 End Namespace

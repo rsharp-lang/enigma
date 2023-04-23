@@ -1,6 +1,6 @@
 ﻿Imports System
 Imports System.Runtime.CompilerServices
-Imports LLVM.GarbageCollection
+Imports Enigma.LLVM.GarbageCollection
 
 Namespace LLVM
 	' Token: 0x02000011 RID: 17
