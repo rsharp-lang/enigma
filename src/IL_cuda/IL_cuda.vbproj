@@ -12,7 +12,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="test\**" />
+    <EmbeddedResource Remove="test\**" />
+    <None Remove="test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="LLVM\AssemblyInfo.vb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ManagedCuda-12" Version="12.0.48" />
   </ItemGroup>
 
   <ItemGroup>
