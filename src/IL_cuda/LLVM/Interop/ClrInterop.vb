@@ -297,8 +297,8 @@ Namespace LLVM.Interop
 
 			' Token: 0x06000165 RID: 357 RVA: 0x00004308 File Offset: 0x00002508
 			Private Shared Function WrapCall([function] As [Function], wrapper As [Function], gen As InstructionBuilder) As [Call]
-				Dim argumentTypes As Type() = wrapper.Type.ArgumentTypes
-				Dim argumentTypes2 As Type() = [function].Type.ArgumentTypes
+				Dim argumentTypes As Type() = wrapper.FunctionType.ArgumentTypes
+				Dim argumentTypes2 As Type() = [function].FunctionType.ArgumentTypes
 				Dim list As Collections.Generic.List(Of Value) = New Collections.Generic.List(Of Value)()
 				For i As Integer = 0 To argumentTypes2.Length - 1
 					Dim argument As Argument = wrapper(i)

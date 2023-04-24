@@ -120,7 +120,7 @@
             If args Is Nothing Then
                 args = New Value(-1) {}
             End If
-            Dim argumentTypes As Type() = target.Type.ArgumentTypes
+            Dim argumentTypes As Type() = target.FunctionType.ArgumentTypes
             InstructionBuilder.CheckArgumentTypes(args, argumentTypes)
             Dim ibuilder As IntPtr = Me
             Dim func As IntPtr = target
@@ -145,7 +145,7 @@
         Public Function [Call](target As [Function], ParamArray args As Value()) As [Call]
             Dim selector As Func(Of Value, IntPtr) = Function(val As Value) val
             Dim args2 As IntPtr() = args.[Select](selector).ToArray()
-            InstructionBuilder.CheckArgumentTypes(args, target.Type.ArgumentTypes)
+            InstructionBuilder.CheckArgumentTypes(args, target.FunctionType.ArgumentTypes)
             Return New [Call](llvm.EmitCall(Me, target, args2, args.Length, "")) With {
                 .CallingConvention = target.CallingConvention
             }
