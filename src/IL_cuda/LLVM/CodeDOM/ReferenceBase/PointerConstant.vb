@@ -1,6 +1,4 @@
-﻿Imports System
-
-Namespace LLVM
+﻿Namespace LLVM
 	' Token: 0x0200001E RID: 30
 	Public Class PointerConstant
 		Inherits Constant

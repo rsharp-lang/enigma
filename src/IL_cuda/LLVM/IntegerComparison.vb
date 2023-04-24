@@ -1,6 +1,4 @@
-﻿Imports System
-
-Namespace LLVM
+﻿Namespace LLVM
 	' Token: 0x02000016 RID: 22
 	Public Enum IntegerComparison
 		' Token: 0x04000011 RID: 17

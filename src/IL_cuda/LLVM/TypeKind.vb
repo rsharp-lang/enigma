@@ -1,6 +1,4 @@
-﻿Imports System
-
-Namespace LLVM
+﻿Namespace LLVM
 	' Token: 0x02000029 RID: 41
 	Public Enum TypeKind
 		' Token: 0x04000020 RID: 32

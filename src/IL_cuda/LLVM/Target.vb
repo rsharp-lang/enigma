@@ -1,8 +1,7 @@
-﻿Imports System
-
-Namespace LLVM
+﻿Namespace LLVM
 	' Token: 0x02000026 RID: 38
 	Public Class Target
+
 		' Token: 0x0600010C RID: 268 RVA: 0x000037C6 File Offset: 0x000019C6
 		Public Shared Sub InitializeNative()
 			If Not llvm.InitializeNative() Then
