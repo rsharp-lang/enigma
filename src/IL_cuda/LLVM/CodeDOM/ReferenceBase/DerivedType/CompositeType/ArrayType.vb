@@ -2,8 +2,7 @@
 
 Namespace LLVM
 	' Token: 0x02000003 RID: 3
-	Public Class ArrayType
-		Inherits CompositeType
+	Public Class ArrayType : Inherits CompositeType
 
 		' Token: 0x06000003 RID: 3 RVA: 0x00002073 File Offset: 0x00000273
 		Friend Sub New(typeref As IntPtr)

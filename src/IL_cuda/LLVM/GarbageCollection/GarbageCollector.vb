@@ -1,13 +1,14 @@
-﻿Imports Enigma.LLVM.GarbageCollection.NativeGlue
+﻿Imports System.Runtime.InteropServices
+Imports Enigma.LLVM.GarbageCollection.NativeGlue
 
 Namespace LLVM.GarbageCollection
     ' Token: 0x0200002E RID: 46
     Public MustInherit Class GarbageCollector
         ' Token: 0x06000126 RID: 294 RVA: 0x00003A20 File Offset: 0x00001C20
         Protected Sub New()
-            Me._findCustomSafePoints = Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(New Func(Of IntPtr, IntPtr, Boolean)(AddressOf Me.FindCustomSafePoints))
-            Me._initializeCustomLowering = Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(New Func(Of [Module], Boolean)(AddressOf Me.InitializeCustomLowering))
-            Me._performCustomLowering = Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(New Func(Of [Function], Boolean)(AddressOf Me.PerformCustomLowering))
+            Me._findCustomSafePoints = Marshal.GetFunctionPointerForDelegate(New Func(Of IntPtr, IntPtr, Boolean)(AddressOf Me.FindCustomSafePoints))
+            Me._initializeCustomLowering = Marshal.GetFunctionPointerForDelegate(New Func(Of [Module], Boolean)(AddressOf Me.InitializeCustomLowering))
+            Me._performCustomLowering = Marshal.GetFunctionPointerForDelegate(New Func(Of [Function], Boolean)(AddressOf Me.PerformCustomLowering))
         End Sub
 
         ' Token: 0x06000127 RID: 295
@@ -50,18 +51,18 @@ Namespace LLVM.GarbageCollection
         End Function
 
         ' Token: 0x0600012E RID: 302 RVA: 0x00003B34 File Offset: 0x00001D34
-        Public Shared Sub Register(Of GC As {GarbageCollection.GarbageCollector, New})()
-            Dim Hx0___21_ As GarbageCollection.NativeGlue.GCStrategyConstructor = c__21(Of GC).Hx0___21_0
-            Dim gcstrategyConstructor As GarbageCollection.NativeGlue.GCStrategyConstructor = Hx0___21_
+        Public Shared Sub Register(Of GC As {GarbageCollector, New})()
+            Dim Hx0___21_ As GCStrategyConstructor = c__21(Of GC).Hx0___21_0
+            Dim gcstrategyConstructor As GCStrategyConstructor = Hx0___21_
             If Hx0___21_ Is Nothing Then
-                Dim gcstrategyConstructor2 As GarbageCollection.NativeGlue.GCStrategyConstructor =
+                Dim gcstrategyConstructor2 As GCStrategyConstructor =
                     Function()
-                        Dim obj2 As List(Of GarbageCollection.GarbageCollector) = GarbageCollection.GarbageCollector.collectors
+                        Dim obj2 As List(Of GarbageCollector) = GarbageCollector.collectors
                         Dim result As IntPtr
                         SyncLock obj2
                             Dim gc1 As GC = Activator.CreateInstance(Of GC)()
                             Dim intPtr As IntPtr = llvm.CreateGC(gc1.GetExternalGCInfo())
-                            GarbageCollection.GarbageCollector.collectors.Add(gc1)
+                            GarbageCollector.collectors.Add(gc1)
                             result = intPtr
                         End SyncLock
                         Return result
@@ -69,16 +70,17 @@ Namespace LLVM.GarbageCollection
                 gcstrategyConstructor = gcstrategyConstructor2
                 c__21(Of GC).Hx0___21_0 = gcstrategyConstructor2
             End If
-            Dim gcstrategyConstructor3 As GarbageCollection.NativeGlue.GCStrategyConstructor = gcstrategyConstructor
+            Dim gcstrategyConstructor3 As GCStrategyConstructor = gcstrategyConstructor
             Dim fullName As String = GetType(GC).FullName
-            Dim name As IntPtr = Runtime.InteropServices.Marshal.StringToHGlobalAnsi(fullName)
-            Dim obj As Collections.Generic.Dictionary(Of String, GarbageCollection.NativeGlue.GCStrategyConstructor) = GarbageCollection.GarbageCollector.constructors
+            Dim name As IntPtr = Marshal.StringToHGlobalAnsi(fullName)
+            Dim obj As Dictionary(Of String, GCStrategyConstructor) = GarbageCollector.constructors
+
             SyncLock obj
-                GarbageCollection.GarbageCollector.constructors.Add(fullName, gcstrategyConstructor3)
+                GarbageCollector.constructors.Add(fullName, gcstrategyConstructor3)
                 Try
                     llvm.RegisterGC(name, IntPtr.Zero, gcstrategyConstructor3)
                 Catch ex As Exception
-                    GarbageCollection.GarbageCollector.constructors.Remove(fullName)
+                    GarbageCollector.constructors.Remove(fullName)
                     Throw
                 End Try
             End SyncLock
@@ -90,7 +92,7 @@ Namespace LLVM.GarbageCollection
         End Sub
 
         ' Token: 0x04000031 RID: 49
-        Protected NeededSafePoints As GarbageCollection.SafePointKind
+        Protected NeededSafePoints As SafePointKind
 
         ' Token: 0x04000032 RID: 50
         Protected CustomReadBarriers As Boolean
@@ -120,13 +122,13 @@ Namespace LLVM.GarbageCollection
         Private _performCustomLowering As IntPtr
 
         ' Token: 0x0400003B RID: 59
-        Private Shared collectors As New List(Of GarbageCollection.GarbageCollector)()
+        Private Shared collectors As New List(Of GarbageCollector)()
 
         ' Token: 0x0400003C RID: 60
-        Private Shared constructors As New Dictionary(Of String, GarbageCollection.NativeGlue.GCStrategyConstructor)()
+        Private Shared constructors As New Dictionary(Of String, GCStrategyConstructor)()
 
         <Serializable()>
-        Private NotInheritable Class c__21(Of GC As {GarbageCollection.GarbageCollector, New})
+        Private NotInheritable Class c__21(Of GC As {GarbageCollector, New})
             ' Token: 0x06000169 RID: 361 RVA: 0x0000441E File Offset: 0x0000261E
             ' Note: this type is marked as 'beforefieldinit'.
             Shared Sub New()
@@ -138,12 +140,12 @@ Namespace LLVM.GarbageCollection
 
             ' Token: 0x0600016B RID: 363 RVA: 0x0000442C File Offset: 0x0000262C
             Friend Function b__21_0() As IntPtr
-                Dim collectors As Collections.Generic.List(Of GarbageCollection.GarbageCollector) = GarbageCollection.GarbageCollector.collectors
+                Dim collectors As List(Of GarbageCollector) = GarbageCollector.collectors
                 Dim result As IntPtr
                 SyncLock collectors
                     Dim gc As GC = Activator.CreateInstance(Of GC)()
                     Dim intPtr As IntPtr = llvm.CreateGC(gc.GetExternalGCInfo())
-                    GarbageCollection.GarbageCollector.collectors.Add(gc)
+                    GarbageCollector.collectors.Add(gc)
                     result = intPtr
                 End SyncLock
                 Return result
@@ -153,7 +155,7 @@ Namespace LLVM.GarbageCollection
             Public Shared Hx0_ As c__21(Of GC) = New c__21(Of GC)()
 
             ' Token: 0x04000061 RID: 97
-            Public Shared Hx0___21_0 As GarbageCollection.NativeGlue.GCStrategyConstructor
+            Public Shared Hx0___21_0 As GCStrategyConstructor
         End Class
     End Class
 End Namespace

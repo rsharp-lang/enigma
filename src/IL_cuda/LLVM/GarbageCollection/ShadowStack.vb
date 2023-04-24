@@ -18,7 +18,7 @@ Namespace LLVM.GarbageCollection
 			Me.rootVisitor = rootVisitor
 			Me.[Module] = [module]
 			Me.engine = engine
-			Me.rootPointer = [module].AddGlobal(Type.GetVoid([module].Context), "llvm_gc_root_chain", Nothing)
+			Me.rootPointer = [module].AddGlobal(Type.GetVoid([module].Context), rootName, Nothing)
 		End Sub
 
 		' Token: 0x06000131 RID: 305 RVA: 0x00003C54 File Offset: 0x00001E54
@@ -30,7 +30,7 @@ Namespace LLVM.GarbageCollection
 		Private Function GetRoot() As GarbageCollection.ShadowStack.StackEntry
 			Dim value As IntPtr = Me.engine.GetValue(Of IntPtr)(Me.rootPointer)
 			If Not value.IsNull() Then
-				Return CType(Runtime.InteropServices.Marshal.PtrToStructure(value, GetType(GarbageCollection.ShadowStack.StackEntry)), GarbageCollection.ShadowStack.StackEntry)
+				Return CType(Marshal.PtrToStructure(value, GetType(ShadowStack.StackEntry)), ShadowStack.StackEntry)
 			End If
 			Return Nothing
 		End Function
@@ -38,10 +38,10 @@ Namespace LLVM.GarbageCollection
 		' Token: 0x06000133 RID: 307 RVA: 0x00003CAC File Offset: 0x00001EAC
 		Public Sub VisitRoots(visitor As RootVisitor)
 			Diagnostics.Contracts.Contract.Requires(Of ArgumentNullException)(visitor IsNot Nothing)
-			Dim stackEntry As GarbageCollection.ShadowStack.StackEntry = Me.GetRoot()
+			Dim stackEntry As ShadowStack.StackEntry = Me.GetRoot()
 			While stackEntry.FrameMap <> IntPtr.Zero
 				Dim i As Integer = 0
-				Dim frameMap As GarbageCollection.ShadowStack.FrameMap = stackEntry.GetFrameMap()
+				Dim frameMap As ShadowStack.FrameMap = stackEntry.GetFrameMap()
 				Dim metaCount As Integer = frameMap.MetaCount
 				While i < metaCount
 					visitor(stackEntry.Roots + i * IntPtr.Size, frameMap.Meta + i * IntPtr.Size)

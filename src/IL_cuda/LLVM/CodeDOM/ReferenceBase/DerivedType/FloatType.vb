@@ -1,9 +1,6 @@
-﻿Imports System
-
-Namespace LLVM
+﻿Namespace LLVM
 	' Token: 0x02000004 RID: 4
-	Public Class FloatType
-		Inherits DerivedType
+	Public Class FloatType : Inherits DerivedType
 
 		' Token: 0x06000008 RID: 8 RVA: 0x000020FD File Offset: 0x000002FD
 		Friend Sub New(typeref As IntPtr)

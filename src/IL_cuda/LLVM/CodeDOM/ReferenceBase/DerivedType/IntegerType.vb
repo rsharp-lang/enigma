@@ -2,8 +2,7 @@
 
 Namespace LLVM
 	' Token: 0x02000018 RID: 24
-	Public Class IntegerType
-		Inherits DerivedType
+	Public Class IntegerType : Inherits DerivedType
 
 		' Token: 0x06000069 RID: 105 RVA: 0x000020FD File Offset: 0x000002FD
 		Friend Sub New(typeref As IntPtr)

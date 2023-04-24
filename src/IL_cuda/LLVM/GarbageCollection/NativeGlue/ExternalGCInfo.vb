@@ -2,7 +2,7 @@
 	' Token: 0x02000031 RID: 49
 	Friend Structure ExternalGCInfo
 		' Token: 0x04000048 RID: 72
-		Public NeededSafePoints As GarbageCollection.SafePointKind
+		Public NeededSafePoints As SafePointKind
 
 		' Token: 0x04000049 RID: 73
 		Public CustomReadBarriers As Boolean

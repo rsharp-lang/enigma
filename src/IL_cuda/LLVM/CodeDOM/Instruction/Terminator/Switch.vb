@@ -1,9 +1,6 @@
-﻿Imports System
-
-Namespace LLVM
+﻿Namespace LLVM
 	' Token: 0x02000002 RID: 2
-	Public Class Switch
-		Inherits Terminator
+	Public Class Switch : Inherits Terminator
 
 		' Token: 0x06000001 RID: 1 RVA: 0x00002050 File Offset: 0x00000250
 		Friend Sub New(valueref As IntPtr)

@@ -2,8 +2,7 @@
 
 Namespace LLVM
     ' Token: 0x0200000F RID: 15
-    Public Class ExecutionEngine
-        Inherits ReferenceBase
+    Public Class ExecutionEngine : Inherits ReferenceBase
 
         ' Token: 0x06000018 RID: 24 RVA: 0x00002224 File Offset: 0x00000424
         Private Shared Function Create(target As [Module]) As IntPtr

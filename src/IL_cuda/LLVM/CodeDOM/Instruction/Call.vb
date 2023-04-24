@@ -2,8 +2,7 @@
 
 Namespace LLVM
 	' Token: 0x02000008 RID: 8
-	Public Class [Call]
-		Inherits Instruction
+	Public Class [Call] : Inherits Instruction
 
 		' Token: 0x0600000D RID: 13 RVA: 0x00002181 File Offset: 0x00000381
 		Friend Sub New(valueref As IntPtr)
