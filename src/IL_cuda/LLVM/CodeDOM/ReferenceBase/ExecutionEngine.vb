@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.CompilerServices
+Imports System.Runtime.InteropServices
 
 Namespace LLVM
     ' Token: 0x0200000F RID: 15
@@ -8,10 +9,13 @@ Namespace LLVM
         Private Shared Function Create(target As [Module]) As IntPtr
             Dim result As IntPtr
             Dim text As String = Nothing
+
             If llvm.CreateExecutionEngine(result, target, text) Then
                 Throw New InvalidOperationException(text)
+            Else
+                Call String.IsNullOrEmpty(text)
             End If
-            String.IsNullOrEmpty(text)
+
             Return result
         End Function
 
@@ -23,16 +27,19 @@ Namespace LLVM
         End Sub
 
         ' Token: 0x0600001A RID: 26 RVA: 0x00002282 File Offset: 0x00000482
+        <MethodImpl(MethodImplOptions.AggressiveInlining)>
         Public Function GetPointer([global] As GlobalValue) As IntPtr
             Return llvm.GetPointer(Me, [global])
         End Function
 
         ' Token: 0x0600001B RID: 27 RVA: 0x00002295 File Offset: 0x00000495
+        <MethodImpl(MethodImplOptions.AggressiveInlining)>
         Public Function GetValue(Of T As Structure)([global] As GlobalValue) As T
             Return CType(CObj(Marshal.PtrToStructure(Me.GetPointer([global]), GetType(T))), T)
         End Function
 
         ' Token: 0x0600001C RID: 28 RVA: 0x000022B2 File Offset: 0x000004B2
+        <MethodImpl(MethodImplOptions.AggressiveInlining)>
         Private Shared Function Align(value As Integer, alignment As Integer) As Integer
             Return (value + alignment - 1) / alignment * alignment
         End Function
@@ -76,7 +83,7 @@ Namespace LLVM
         ' Token: 0x14000001 RID: 1
         ' (add) Token: 0x0600001E RID: 30 RVA: 0x000023FC File Offset: 0x000005FC
         ' (remove) Token: 0x0600001F RID: 31 RVA: 0x00002434 File Offset: 0x00000634
-        Public LazyLoad As LazyFunctionLoader
+        Public Property LazyLoad As LazyFunctionLoader
         '	AddHandler(value As LazyFunctionLoader)
         '		Dim lazyFunctionLoader As LazyFunctionLoader = Me._LazyLoad
         '		Dim lazyFunctionLoader2 As LazyFunctionLoader

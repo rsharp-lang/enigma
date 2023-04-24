@@ -124,14 +124,8 @@
             InstructionBuilder.CheckArgumentTypes(args, argumentTypes)
             Dim ibuilder As IntPtr = Me
             Dim func As IntPtr = target
-            Dim source As Collections.Generic.IEnumerable(Of Value) = args
-            Dim Hx0___11_ As Func(Of Value, IntPtr) = c.Hx0___11_0
-            Dim selector As Func(Of Value, IntPtr) = Hx0___11_
-            If Hx0___11_ Is Nothing Then
-                Dim func2 As Func(Of Value, IntPtr) = Function(val As Value) val
-                selector = func2
-                c.Hx0___11_0 = func2
-            End If
+            Dim source As IEnumerable(Of Value) = args
+            Dim selector As Func(Of Value, IntPtr) = Function(val As Value) val
             Return New [Call](llvm.EmitCall(ibuilder, func, source.[Select](selector).ToArray(), args.Length, name))
         End Function
 
@@ -149,16 +143,12 @@
 
         ' Token: 0x06000044 RID: 68 RVA: 0x00002AA4 File Offset: 0x00000CA4
         Public Function [Call](target As [Function], ParamArray args As Value()) As [Call]
-            Dim Hx0___13_ As Func(Of Value, IntPtr) = c.Hx0___13_0
-            Dim selector As Func(Of Value, IntPtr) = Hx0___13_
-            If Hx0___13_ Is Nothing Then
-                Dim func As Func(Of Value, IntPtr) = Function(val As Value) val
-                selector = func
-                c.Hx0___13_0 = func
-            End If
+            Dim selector As Func(Of Value, IntPtr) = Function(val As Value) val
             Dim args2 As IntPtr() = args.[Select](selector).ToArray()
             InstructionBuilder.CheckArgumentTypes(args, target.Type.ArgumentTypes)
-            Return New [Call](llvm.EmitCall(Me, target, args2, args.Length, "")) With {.CallingConvention = target.CallingConvention}
+            Return New [Call](llvm.EmitCall(Me, target, args2, args.Length, "")) With {
+                .CallingConvention = target.CallingConvention
+            }
         End Function
 
         ' Token: 0x06000045 RID: 69 RVA: 0x00002B18 File Offset: 0x00000D18
@@ -304,13 +294,7 @@
             If indexes Is Nothing Then
                 Throw New ArgumentNullException("indexes")
             End If
-            Dim Hx0___35_ As Func(Of Value, IntPtr) = c.Hx0___35_0
-            Dim selector As Func(Of Value, IntPtr) = Hx0___35_
-            If Hx0___35_ Is Nothing Then
-                Dim func As Func(Of Value, IntPtr) = Function(i As Value) i
-                selector = func
-                c.Hx0___35_0 = func
-            End If
+            Dim selector As Func(Of Value, IntPtr) = Function(i As Value) i
             Dim offsets As IntPtr() = indexes.[Select](selector).ToArray()
             Return New Value(llvm.EmitGetElementPointer(Me, pointer, offsets, indexes.Length, name))
         End Function
@@ -432,44 +416,5 @@
         Public Sub PointToEnd(block As Block)
             llvm.PointToEnd(Me, block)
         End Sub
-
-        <Serializable()>
-        Private NotInheritable Class c
-            ' Token: 0x0600014D RID: 333 RVA: 0x00003D8F File Offset: 0x00001F8F
-            ' Note: this type is marked as 'beforefieldinit'.
-            Shared Sub New()
-            End Sub
-
-            ' Token: 0x0600014E RID: 334 RVA: 0x000037DA File Offset: 0x000019DA
-            Public Sub New()
-            End Sub
-
-            ' Token: 0x0600014F RID: 335 RVA: 0x00003D7F File Offset: 0x00001F7F
-            Friend Function b__11_0(val As Value) As IntPtr
-                Return val
-            End Function
-
-            ' Token: 0x06000150 RID: 336 RVA: 0x00003D7F File Offset: 0x00001F7F
-            Friend Function b__13_0(val As Value) As IntPtr
-                Return val
-            End Function
-
-            ' Token: 0x06000151 RID: 337 RVA: 0x00003D7F File Offset: 0x00001F7F
-            Friend Function b__35_0(i As Value) As IntPtr
-                Return i
-            End Function
-
-            ' Token: 0x04000055 RID: 85
-            Public Shared Hx0_ As c = New c()
-
-            ' Token: 0x04000056 RID: 86
-            Public Shared Hx0___11_0 As Func(Of Value, IntPtr)
-
-            ' Token: 0x04000057 RID: 87
-            Public Shared Hx0___13_0 As Func(Of Value, IntPtr)
-
-            ' Token: 0x04000058 RID: 88
-            Public Shared Hx0___35_0 As Func(Of Value, IntPtr)
-        End Class
     End Class
 End Namespace
