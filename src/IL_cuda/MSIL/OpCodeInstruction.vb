@@ -9,7 +9,7 @@ Namespace MSIL
         Public ReadOnly Property Opcode As OpCode
         Public ReadOnly Property Parameter As Object
 
-        Public Sub New(ByVal instructionStart As Long, ByVal opcode As OpCode, ByVal parameter As Object)
+        Public Sub New(instructionStart As Long, opcode As OpCode, parameter As Object)
             _InstructionStart = instructionStart
             _Opcode = opcode
             _Parameter = parameter

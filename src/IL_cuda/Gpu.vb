@@ -19,7 +19,7 @@ Public Module Gpu
         ''' Applies the intrinsic instead of calling the method
         ''' </summary>
         ''' <param name="intrinsic">The intrinsic to call</param>
-        Public Sub New(ByVal intrinsic As String)
+        Public Sub New(intrinsic As String)
             _intrinsic = intrinsic
         End Sub
 

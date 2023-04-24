@@ -9,7 +9,7 @@ Namespace MSIL
 
     Friend Module Translator
 
-        Public Function Translate(ByVal context As LLVM.Context, ParamArray methods As System.Reflection.MethodInfo()) As LLVM.[Module]
+        Public Function Translate(context As LLVM.Context, ParamArray methods As System.Reflection.MethodInfo()) As LLVM.[Module]
             Dim [module] = New LLVM.[Module]("Module", context)
 
             If System.Environment.Is64BitOperatingSystem Then
@@ -27,7 +27,7 @@ Namespace MSIL
             Return [module]
         End Function
 
-        Private Sub Translate(ByVal [module] As LLVM.[Module], ByVal method As System.Reflection.MethodBase)
+        Private Sub Translate([module] As LLVM.[Module], method As System.Reflection.MethodBase)
             Dim [function] = Translator.EmitFunction([module], method)
             If method.IsStatic = False Then Throw New CudaException("Cannot translate instance methods to GPU code")
 
@@ -37,7 +37,7 @@ Namespace MSIL
             [module].AddNamedMetadataOperand("nvvm.annotations", metadata)
         End Sub
 
-        Private Function EmitFunction(ByVal [module] As LLVM.[Module], ByVal method As System.Reflection.MethodBase) As LLVM.[Function]
+        Private Function EmitFunction([module] As LLVM.[Module], method As System.Reflection.MethodBase) As LLVM.[Function]
             Dim methodInfo = TryCast(method, System.Reflection.MethodInfo)
             Dim methodConstructor = TryCast(method, System.Reflection.ConstructorInfo)
             Dim declaringType = method.DeclaringType
@@ -84,7 +84,7 @@ Namespace MSIL
             Return [function]
         End Function
 
-        Private Sub PrintHeader(ByVal __ As EmitFuncObj)
+        Private Sub PrintHeader(__ As EmitFuncObj)
             For index = 0 To __.Parameters.Length - 1
                 __.Parameters(index) = __.Builder.StackAlloc(__.[Function](CInt((index))).Type)
                 __.Builder.Store(__.[Function](index), __.Parameters(index))
@@ -94,7 +94,7 @@ Namespace MSIL
             Next
         End Sub
 
-        Private Sub FindBranchTargets(ByVal opCodes As IList(Of OpCodeInstruction), ByVal context As LLVM.Context, ByVal [function] As LLVM.[Function])
+        Private Sub FindBranchTargets(opCodes As IList(Of OpCodeInstruction), context As LLVM.Context, [function] As LLVM.[Function])
             For i = 0 To opCodes.Count - 1
                 Dim op = opCodes(i)
                 Dim opcode = op.Opcode
@@ -125,7 +125,7 @@ Namespace MSIL
             Next
         End Sub
 
-        Private Function ConvertType(ByVal [module] As LLVM.[Module], ByVal type As System.Type) As LLVM.Type
+        Private Function ConvertType([module] As LLVM.[Module], type As System.Type) As LLVM.Type
             If (type Is Nothing OrElse type Is GetType(Void)) Then
                 Return LLVM.Type.GetVoid([module].Context)
             End If
@@ -149,7 +149,7 @@ Namespace MSIL
             Throw New CudaException("Type cannot be translated to CUDA: " & type.FullName)
         End Function
 
-        Private Delegate Sub EmitFunc(ByVal arg As EmitFuncObj)
+        Private Delegate Sub EmitFunc(arg As EmitFuncObj)
 
         Private ReadOnly EmitFunctions As New Dictionary(Of OpCode, Translator.EmitFunc) From {
 {OpCodes.Nop, AddressOf Translator.Nop},
@@ -376,7 +376,7 @@ Namespace MSIL
 {OpCodes.Initobj, Sub(__) __.Builder.Store(Translator.ConvertType(CType((__.[Module]), LLVM.[Module]), CType(CType(__.Argument, System.Type), System.Type)).Zero, __.Stack.Pop())}
 }
 
-        Private Sub Ldfld(ByVal __ As EmitFuncObj)
+        Private Sub Ldfld(__ As EmitFuncObj)
             Dim obj = __.Stack.Pop()
 
             If TypeOf obj.Type Is LLVM.PointerType Then
@@ -386,22 +386,22 @@ Namespace MSIL
             End If
         End Sub
 
-        Private Function ElementPointer(ByVal __ As EmitFuncObj, ByVal pointer As LLVM.Value, ByVal index As Integer) As LLVM.Value
+        Private Function ElementPointer(__ As EmitFuncObj, pointer As LLVM.Value, index As Integer) As LLVM.Value
             Dim zeroConstant = LLVM.IntegerType.GetInt32(CType((__.Context), LLVM.Context)).Constant(0, False)
             Dim indexConstant = LLVM.IntegerType.GetInt32(CType((__.Context), LLVM.Context)).Constant(CULng(index), False)
             ' guarenteed to be pointer type
             Return __.Builder.Element(pointer, New LLVM.Value() {zeroConstant, indexConstant})
         End Function
 
-        Private Function AllFields(ByVal type As System.Type) As IEnumerable(Of System.Reflection.FieldInfo)
+        Private Function AllFields(type As System.Type) As IEnumerable(Of System.Reflection.FieldInfo)
             Return type.GetRuntimeFields().Where(Function(f) f.IsStatic = False)
         End Function
 
-        Private Function FieldIndex(ByVal field As System.Reflection.FieldInfo) As Integer
+        Private Function FieldIndex(field As System.Reflection.FieldInfo) As Integer
             Return Translator.AllFields(field.DeclaringType).IndexOf(Function(f) f Is field)
         End Function
 
-        Private Sub NewobjPreConstructor(ByVal __ As EmitFuncObj)
+        Private Sub NewobjPreConstructor(__ As EmitFuncObj)
             Dim stackalloca = __.Builder.StackAlloc(Translator.ConvertType(__.[Module], CType(__.Argument, ConstructorInfo).DeclaringType))
 
             Dim altstack = New Stack(Of LLVM.Value)()
@@ -418,7 +418,7 @@ Namespace MSIL
             Next
         End Sub
 
-        Private Sub [Call](ByVal __ As EmitFuncObj)
+        Private Sub [Call](__ As EmitFuncObj)
             Dim method = CType(__.Argument, MethodBase)
             Dim count = method.GetParameters().Length
 
@@ -436,54 +436,54 @@ Namespace MSIL
             End If
         End Sub
 
-        Private Sub FlipTopTwoStack(ByVal __ As EmitFuncObj)
+        Private Sub FlipTopTwoStack(__ As EmitFuncObj)
             Dim top = __.Stack.Pop()
             Dim bottom = __.Stack.Pop()
             __.Stack.Push(top)
             __.Stack.Push(bottom)
         End Sub
 
-        Private Sub Ceq(ByVal __ As EmitFuncObj)
+        Private Sub Ceq(__ As EmitFuncObj)
             Call Translator.FlipTopTwoStack(__)
             __.Stack.Push(__.Builder.Compare(LLVM.IntegerComparison.Equal, Translator.PopNoBool(__), Translator.PopNoBool(__)))
         End Sub
 
-        Private Sub Cgt(ByVal __ As EmitFuncObj)
+        Private Sub Cgt(__ As EmitFuncObj)
             Call Translator.FlipTopTwoStack(__)
             __.Stack.Push(__.Builder.Compare(LLVM.IntegerComparison.SignedGreater, __.Stack.Pop(), __.Stack.Pop()))
         End Sub
 
-        Private Sub CgtUn(ByVal __ As EmitFuncObj)
+        Private Sub CgtUn(__ As EmitFuncObj)
             Call Translator.FlipTopTwoStack(__)
             __.Stack.Push(__.Builder.Compare(LLVM.IntegerComparison.UnsignedGreater, __.Stack.Pop(), __.Stack.Pop()))
         End Sub
 
-        Private Sub Cge(ByVal __ As EmitFuncObj)
+        Private Sub Cge(__ As EmitFuncObj)
             Call Translator.FlipTopTwoStack(__)
             __.Stack.Push(__.Builder.Compare(LLVM.IntegerComparison.SignedGreaterEqual, __.Stack.Pop(), __.Stack.Pop()))
         End Sub
 
-        Private Sub CgeUn(ByVal __ As EmitFuncObj)
+        Private Sub CgeUn(__ As EmitFuncObj)
             Call Translator.FlipTopTwoStack(__)
             __.Stack.Push(__.Builder.Compare(LLVM.IntegerComparison.UnsignedGreaterEqual, __.Stack.Pop(), __.Stack.Pop()))
         End Sub
 
-        Private Sub Clt(ByVal __ As EmitFuncObj)
+        Private Sub Clt(__ As EmitFuncObj)
             Call Translator.FlipTopTwoStack(__)
             __.Stack.Push(__.Builder.Compare(LLVM.IntegerComparison.SignedLess, __.Stack.Pop(), __.Stack.Pop()))
         End Sub
 
-        Private Sub CltUn(ByVal __ As EmitFuncObj)
+        Private Sub CltUn(__ As EmitFuncObj)
             Call Translator.FlipTopTwoStack(__)
             __.Stack.Push(__.Builder.Compare(LLVM.IntegerComparison.UnsignedLess, __.Stack.Pop(), __.Stack.Pop()))
         End Sub
 
-        Private Sub Cle(ByVal __ As EmitFuncObj)
+        Private Sub Cle(__ As EmitFuncObj)
             Call Translator.FlipTopTwoStack(__)
             __.Stack.Push(__.Builder.Compare(LLVM.IntegerComparison.SignedLessEqual, __.Stack.Pop(), __.Stack.Pop()))
         End Sub
 
-        Private Sub CleUn(ByVal __ As EmitFuncObj)
+        Private Sub CleUn(__ As EmitFuncObj)
             Call Translator.FlipTopTwoStack(__)
             __.Stack.Push(__.Builder.Compare(LLVM.IntegerComparison.UnsignedLessEqual, __.Stack.Pop(), __.Stack.Pop()))
         End Sub
@@ -500,25 +500,25 @@ Namespace MSIL
             End Get
         End Property
 
-        Private Function PopNoBool(ByVal __ As EmitFuncObj) As LLVM.Value
+        Private Function PopNoBool(__ As EmitFuncObj) As LLVM.Value
             Dim popped = __.Stack.Pop()
             If popped.Type.StructuralEquals(LLVM.IntegerType.[Get](__.Context, 1)) Then popped = __.Builder.ZeroExtend(popped, LLVM.IntegerType.GetInt32(__.Context))
             Return popped
         End Function
 
-        Private Sub Nop(ByVal __ As EmitFuncObj)
+        Private Sub Nop(__ As EmitFuncObj)
             Dim block = CType(__.Argument, LLVM.Block)
             If block Is Nothing Then Return
             If __.Builder IsNot Nothing Then __.Builder.[GoTo](block)
             __.Builder = New LLVM.InstructionBuilder(__.Context, block)
         End Sub
 
-        Private Sub Br(ByVal __ As EmitFuncObj)
+        Private Sub Br(__ As EmitFuncObj)
             __.Builder.[GoTo](CType(__.Argument, LLVM.Block))
             __.Builder = Nothing
         End Sub
 
-        Private Sub BrCond(ByVal __ As EmitFuncObj, ByVal isTrue As Boolean)
+        Private Sub BrCond(__ As EmitFuncObj, isTrue As Boolean)
             Dim tuple = CType(__.Argument, System.Tuple(Of LLVM.Block, LLVM.Block))
             Dim cont = tuple.Item1
             Dim target = tuple.Item2
@@ -528,21 +528,21 @@ Namespace MSIL
         End Sub
 
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
-        Private Sub LdVar(ByVal __ As EmitFuncObj, ByVal values As LLVM.Value(), ByVal index As Integer)
+        Private Sub LdVar(__ As EmitFuncObj, values As LLVM.Value(), index As Integer)
             __.Stack.Push(__.Builder.Load(values(index)))
         End Sub
 
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
-        Private Sub LdVarA(ByVal __ As EmitFuncObj, ByVal values As LLVM.Value(), ByVal index As Integer)
+        Private Sub LdVarA(__ As EmitFuncObj, values As LLVM.Value(), index As Integer)
             __.Stack.Push(values(index))
         End Sub
 
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
-        Private Sub StVar(ByVal __ As EmitFuncObj, ByVal values As LLVM.Value(), ByVal index As Integer)
+        Private Sub StVar(__ As EmitFuncObj, values As LLVM.Value(), index As Integer)
             Call __.Builder.Store(__.Stack.Pop(), values(index))
         End Sub
 
-        Private Sub StElem(ByVal __ As EmitFuncObj)
+        Private Sub StElem(__ As EmitFuncObj)
             Dim value = __.Stack.Pop()
             Dim index = __.Stack.Pop()
             Dim array = __.Stack.Pop()
@@ -551,7 +551,7 @@ Namespace MSIL
             Call __.Builder.Store(value, idx)
         End Sub
 
-        Private Sub LdElem(ByVal __ As EmitFuncObj)
+        Private Sub LdElem(__ As EmitFuncObj)
             Dim index = __.Stack.Pop()
             Dim array = __.Stack.Pop()
             Dim idx = __.Builder.Element(array, {index})
@@ -559,7 +559,7 @@ Namespace MSIL
             __.Stack.Push(load)
         End Sub
 
-        Private Sub LdElemA(ByVal __ As EmitFuncObj)
+        Private Sub LdElemA(__ As EmitFuncObj)
             Dim index = __.Stack.Pop()
             Dim array = __.Stack.Pop()
             Dim idx = __.Builder.Element(array, {index})
@@ -567,7 +567,7 @@ Namespace MSIL
             Call __.Stack.Push(idx)
         End Sub
 
-        Private Sub ConvertNum(ByVal __ As EmitFuncObj, ByVal target As LLVM.Type, ByVal integerSignedness As Boolean)
+        Private Sub ConvertNum(__ As EmitFuncObj, target As LLVM.Type, integerSignedness As Boolean)
             Dim value = __.Stack.Pop()
             Dim valueType = value.Type
             If TypeOf valueType Is LLVM.IntegerType AndAlso TypeOf target Is LLVM.FloatType Then

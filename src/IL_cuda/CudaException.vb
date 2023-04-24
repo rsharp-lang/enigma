@@ -7,7 +7,7 @@ Public Class CudaException : Inherits Exception
     ''' Creates a CudaSharp exception
     ''' </summary>
     ''' <param name="message">Message</param>
-    Public Sub New(ByVal message As String)
+    Public Sub New(message As String)
         MyBase.New(message)
     End Sub
 End Class

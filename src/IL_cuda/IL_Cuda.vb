@@ -63,7 +63,7 @@ Public Module IL_Cuda
     ''' <param name="targetCpu">Target, usually in the form sm_##</param>
     ''' <param name="methods">Methods to translate</param>
     ''' <returns>PTX object to be loaded into the GPU or written to a .ptx file on disk</returns>
-    Public Function Translate(<Out> ByRef kernelNames As String(), ByVal targetCpu As String, ParamArray methods As MethodInfo()) As Byte()
+    Public Function Translate(<Out> ByRef kernelNames As String(), targetCpu As String, ParamArray methods As MethodInfo()) As Byte()
         Dim [module] = Translator.Translate(Context.Global, methods)
         kernelNames = methods.[Select](Function(m) m.Name.StripNameToValidPtx()).ToArray()
         Dim ptx = PInvokeHelper.EmitInMemory([module], targetCpu)
@@ -83,7 +83,7 @@ Public Module IL_Cuda
     Public Function Translate(<Out> ByRef kernelNames As String(),
                               <Out> ByRef llvmIr As String,
                               <Out> ByRef ptxIr As String,
-                              ByVal targetCpu As String,
+                              targetCpu As String,
                               ParamArray methods As MethodInfo()) As Byte()
 
         Dim [module] = Translator.Translate(Context.Global, methods)

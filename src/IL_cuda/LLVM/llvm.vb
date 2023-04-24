@@ -1,10 +1,12 @@
-﻿Imports System
-Imports System.Runtime.InteropServices
-Imports Enigma.LLVM.GarbageCollection.NativeGlue
+﻿Imports System.Runtime.InteropServices
 
 Namespace LLVM
+
 	' Token: 0x0200001B RID: 27
 	Friend Module llvm
+
+		' Token: 0x0400001D RID: 29
+		Public Const llvmdll As String = "LLVM-3.3"
 
 		' Token: 0x06000078 RID: 120
 		Public Declare Function GetInt32 Lib "LLVM-3.3" Alias "LLVMInt32TypeInContext" (context As IntPtr) As IntPtr
@@ -311,9 +313,6 @@ Namespace LLVM
 
 		' Token: 0x060000DD RID: 221
 		Public Declare Function EmitInsert Lib "LLVM-3.3" Alias "LLVMBuildInsertValue" (ibuilder As IntPtr, into As IntPtr, what As IntPtr, index As Integer, name As String) As IntPtr
-
-		' Token: 0x0400001D RID: 29
-		Public Const llvmdll As String = "LLVM-3.3"
 
 	End Module
 End Namespace

@@ -17,7 +17,7 @@ Namespace MSIL
         ''' <param name="method"></param>
         ''' <returns></returns>
         <Extension()>
-        Public Iterator Function Disassemble(ByVal method As MethodBase) As IEnumerable(Of OpCodeInstruction)
+        Public Iterator Function Disassemble(method As MethodBase) As IEnumerable(Of OpCodeInstruction)
             Dim [module] As [Module] = method.Module
             Dim methodBody = method.GetMethodBody()
 

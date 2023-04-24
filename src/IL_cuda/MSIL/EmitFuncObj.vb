@@ -20,14 +20,14 @@ Namespace MSIL
         Public Property Locals As LLVM.Value()
         Public Property Parameters As LLVM.Value()
 
-        Public Sub New(ByVal [module] As LLVM.[Module],
-                       ByVal [function] As LLVM.[Function],
-                       ByVal cilMethod As MethodBody,
-                       ByVal instructionBuilder As LLVM.InstructionBuilder,
-                       ByVal argument As Object,
-                       ByVal stack As Stack(Of LLVM.Value),
-                       ByVal locals As LLVM.Value(),
-                       ByVal parameters As LLVM.Value())
+        Public Sub New([module] As LLVM.[Module],
+                       [function] As LLVM.[Function],
+                       cilMethod As MethodBody,
+                       instructionBuilder As LLVM.InstructionBuilder,
+                       argument As Object,
+                       stack As Stack(Of LLVM.Value),
+                       locals As LLVM.Value(),
+                       parameters As LLVM.Value())
 
             Me.[Module] = [module]
             Me.[Function] = [function]

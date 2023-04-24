@@ -5,7 +5,7 @@ Friend Module PInvokeHelper
 
     Private _initialized As Boolean
 
-    Public Function EmitInMemory(ByVal [module] As [Module], ByVal targetCpu As String) As Byte()
+    Public Function EmitInMemory([module] As [Module], targetCpu As String) As Byte()
         If Not PInvokeHelper._initialized Then
             PInvokeHelper._initialized = True
             PInvoke.LLVMInitializeNVPTXTarget()
