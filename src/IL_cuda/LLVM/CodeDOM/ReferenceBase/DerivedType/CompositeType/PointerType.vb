@@ -4,6 +4,14 @@ Namespace LLVM
 	' Token: 0x0200001F RID: 31
 	Public Class PointerType : Inherits SequentialType
 
+		' Token: 0x17000014 RID: 20
+		' (get) Token: 0x060000EE RID: 238 RVA: 0x00002099 File Offset: 0x00000299
+		Public ReadOnly Property ElementType As Type
+			Get
+				Return Type.DetectType(llvm.GetElementType(Me))
+			End Get
+		End Property
+
 		' Token: 0x060000EC RID: 236 RVA: 0x0000346E File Offset: 0x0000166E
 		Friend Sub New(typeref As IntPtr)
 			MyBase.New(typeref)
@@ -13,14 +21,6 @@ Namespace LLVM
 		Public Shared Function [Get](valueType As Type, Optional addressSpace As Integer = 0) As PointerType
 			Return New PointerType(llvm.GetPointerType(valueType, addressSpace))
 		End Function
-
-		' Token: 0x17000014 RID: 20
-		' (get) Token: 0x060000EE RID: 238 RVA: 0x00002099 File Offset: 0x00000299
-		Public ReadOnly Property ElementType As Type
-			Get
-				Return Type.DetectType(llvm.GetElementType(Me))
-			End Get
-		End Property
 
 		' Token: 0x060000EF RID: 239 RVA: 0x0000348C File Offset: 0x0000168C
 		Public Overrides Function ToString() As String
