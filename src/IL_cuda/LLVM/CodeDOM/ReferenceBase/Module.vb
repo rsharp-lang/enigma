@@ -1,4 +1,6 @@
-﻿Namespace LLVM
+﻿Imports System.Runtime.CompilerServices
+
+Namespace LLVM
 
 	' Token: 0x0200001D RID: 29
 	Public Class [Module] : Inherits ReferenceBase
@@ -14,6 +16,7 @@
 		End Sub
 
 		' Token: 0x060000E1 RID: 225 RVA: 0x00003345 File Offset: 0x00001545
+		<MethodImpl(MethodImplOptions.AggressiveInlining)>
 		Public Function CreateFunction(name As String, type As FunctionType) As [Function]
 			Return New [Function](llvm.CreateFunction(Me, name, type))
 		End Function

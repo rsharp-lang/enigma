@@ -1,8 +1,18 @@
 ﻿Imports System
+Imports System.Runtime.CompilerServices
 
 Namespace LLVM
 	' Token: 0x02000003 RID: 3
 	Public Class ArrayType : Inherits CompositeType
+
+		' Token: 0x17000001 RID: 1
+		' (get) Token: 0x06000006 RID: 6 RVA: 0x00002099 File Offset: 0x00000299
+		Public ReadOnly Property ElementType As Type
+			<MethodImpl(MethodImplOptions.AggressiveInlining)>
+			Get
+				Return Type.DetectType(llvm.GetElementType(Me))
+			End Get
+		End Property
 
 		' Token: 0x06000003 RID: 3 RVA: 0x00002073 File Offset: 0x00000273
 		Friend Sub New(typeref As IntPtr)
@@ -18,14 +28,6 @@ Namespace LLVM
 		Private Shared Function arrayType(elemType As Type, elementCount As Integer) As IntPtr
 			Return llvm.ArrayType(elemType, elementCount)
 		End Function
-
-		' Token: 0x17000001 RID: 1
-		' (get) Token: 0x06000006 RID: 6 RVA: 0x00002099 File Offset: 0x00000299
-		Public ReadOnly Property ElementType As Type
-			Get
-				Return Type.DetectType(llvm.GetElementType(Me))
-			End Get
-		End Property
 
 		' Token: 0x06000007 RID: 7 RVA: 0x000020AC File Offset: 0x000002AC
 		Public Overrides Function ToString() As String

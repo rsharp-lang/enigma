@@ -14,13 +14,7 @@
 			End If
 			Dim ret2 As IntPtr = ret
 			Dim source As IEnumerable(Of Type) = args
-			Dim Hx0___1_ As Func(Of Type, IntPtr) = c.Hx0___1_0
-			Dim selector As Func(Of Type, IntPtr) = Hx0___1_
-			If Hx0___1_ Is Nothing Then
-				Dim func As Func(Of Type, IntPtr) = Function(arg As Type) arg
-				selector = func
-				c.Hx0___1_0 = func
-			End If
+			Dim selector As Func(Of Type, IntPtr) = Function(arg As Type) arg
 			Return llvm.FunctionType(ret2, source.[Select](selector).ToArray(), args.Length, vararg)
 		End Function
 
@@ -62,13 +56,8 @@
 			End If
 			Dim separator As String = " * "
 			Dim argumentTypes As IEnumerable(Of Type) = Me.ArgumentTypes
-			Dim Hx0___9_ As Func(Of Type, String) = c.Hx0___9_0
-			Dim selector As Func(Of Type, String) = Hx0___9_
-			If Hx0___9_ Is Nothing Then
-				Dim func As Func(Of Type, String) = Function(t As Type) t.ToString()
-				selector = func
-				c.Hx0___9_0 = func
-			End If
+			Dim selector As Func(Of Type, String) = Function(t As Type) t.ToString()
+
 			Return String.Join(separator, argumentTypes.[Select](selector)) & " -> " & Me.ReturnType.ToString
 		End Function
 
@@ -77,36 +66,5 @@
 			Dim functionType As FunctionType = TryCast(obj, FunctionType)
 			Return functionType IsNot Nothing AndAlso functionType.ReturnType.Equals(Me.ReturnType) AndAlso Me.ArgumentTypes.SequenceEqual(functionType.ArgumentTypes)
 		End Function
-
-		<Serializable()>
-		Private NotInheritable Class c
-			' Token: 0x06000149 RID: 329 RVA: 0x00003D73 File Offset: 0x00001F73
-			' Note: this type is marked as 'beforefieldinit'.
-			Shared Sub New()
-			End Sub
-
-			' Token: 0x0600014A RID: 330 RVA: 0x000037DA File Offset: 0x000019DA
-			Public Sub New()
-			End Sub
-
-			' Token: 0x0600014B RID: 331 RVA: 0x00003D7F File Offset: 0x00001F7F
-			Friend Function b__1_0(arg As Type) As IntPtr
-				Return arg
-			End Function
-
-			' Token: 0x0600014C RID: 332 RVA: 0x00003D87 File Offset: 0x00001F87
-			Friend Function b__9_0(t As Type) As String
-				Return t.ToString()
-			End Function
-
-			' Token: 0x04000052 RID: 82
-			Public Shared Hx0_ As c = New c()
-
-			' Token: 0x04000053 RID: 83
-			Public Shared Hx0___1_0 As Func(Of Type, IntPtr)
-
-			' Token: 0x04000054 RID: 84
-			Public Shared Hx0___9_0 As Func(Of Type, String)
-		End Class
 	End Class
 End Namespace

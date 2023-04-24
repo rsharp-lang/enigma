@@ -23,9 +23,15 @@ Namespace LLVM
 
 		' Token: 0x17000006 RID: 6
 		' (get) Token: 0x06000027 RID: 39 RVA: 0x000024EF File Offset: 0x000006EF
-		Public ReadOnly Property Type As FunctionType
+		Public Overrides ReadOnly Property Type As Type
 			Get
 				Return New FunctionType(llvm.GetElementType(llvm.[TypeOf](Me)))
+			End Get
+		End Property
+
+		Public ReadOnly Property FunctionType As FunctionType
+			Get
+				Return Type
 			End Get
 		End Property
 
@@ -49,7 +55,7 @@ Namespace LLVM
 
 		' Token: 0x0600002B RID: 43 RVA: 0x00002533 File Offset: 0x00000733
 		Public Sub SetGC(Of GC As GarbageCollector)()
-			If GetType(GC) = GetType(GarbageCollection.ShadowStack) Then
+			If GetType(GC) = GetType(ShadowStack) Then
 				Me.SetShadowStackGC()
 				Return
 			End If
