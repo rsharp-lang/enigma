@@ -9,6 +9,8 @@
     <OutputPath>../../assembly</OutputPath>
     <DocumentationFile>enigma.xml</DocumentationFile>
     <Title>GPU computing toolkit for R# language based on LLVM/Cuda</Title>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>IL-CUDA enable compile the R#/javascript code as nividia cuda kernel for run HPC on GPU</Description>
   </PropertyGroup>
 
   <ItemGroup>
