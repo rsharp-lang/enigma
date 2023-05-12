@@ -47,6 +47,7 @@ Console.WriteLine(RunKernel(p =>
         p[0]++;
     }
 }, new int[] { 2 }));
+
 Console.WriteLine(RunKernel(p =>
 {
     var tid = Gpu.BlockX() * Gpu.ThreadDimX() + Gpu.ThreadX();
