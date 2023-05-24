@@ -38,29 +38,6 @@
 */
 declare namespace learning {
    /**
-    * ### create a new machine learning model
-    *  
-    *  In mathematics, a tensor is an algebraic object that describes
-    *  a multilinear relationship between sets of algebraic objects 
-    *  related to a vector space. Tensors may map between different 
-    *  objects such as vectors, scalars, and even other tensors. There
-    *  are many types of tensors, including scalars and vectors (which 
-    *  are the simplest tensors), dual vectors, multilinear maps between 
-    *  vector spaces, and even some operations such as the dot product.
-    *  Tensors are defined independent of any basis, although they are 
-    *  often referred to by their components in a basis related to a 
-    *  particular coordinate system.
-    * 
-    * 
-     * @param model the source of the machine learning model where it comes from:
-     *  
-     *  1. could be a file name to the trained model file
-     *  2. could be a function name in ``models`` namespace to train a new model
-     * @param env 
-     * + default value Is ``null``.
-   */
-   function tensor(model:any, env?:object): object;
-   /**
     * feed training data to the machine learning model
     * 
     * > Typically, machine learning models require a high quantity of 
@@ -87,7 +64,7 @@ declare namespace learning {
      * @param env 
      * + default value Is ``null``.
    */
-   function feed(model:object, x:any, features:any, args?:object, env?:object): object;
+   function feed(model: object, x: any, features: any, args?: object, env?: object): object;
    /**
     * configs of the hidden layer of the ``@``T:enigma.ANN```` model
     * 
@@ -101,26 +78,7 @@ declare namespace learning {
      * 
      * + default value Is ``null``.
    */
-   function hidden_layer(model:object, size:any, activate?:any, env?:object): object;
-   /**
-    * ### configs of the output labels 
-    *  
-    *  configs of the output labels of the feeded training data 
-    *  for machine learning model
-    * 
-    * 
-     * @param model -
-     * @param labels The data field name for get the actual label value from the input
-     *  training data
-     * 
-     * + default value Is ``null``.
-     * @param args 
-     * + default value Is ``null``.
-     * @param env -
-     * 
-     * + default value Is ``null``.
-   */
-   function output(model:object, labels?:any, args?:object, env?:object): object;
+   function hidden_layer(model: object, size: any, activate?: any, env?: object): object;
    /**
     * Do machine learning model training
     * 
@@ -153,7 +111,26 @@ declare namespace learning {
      * 
      * + default value Is ``null``.
    */
-   function learn(model:object, args?:object, env?:object): object;
+   function learn(model: object, args?: object, env?: object): object;
+   /**
+    * ### configs of the output labels 
+    *  
+    *  configs of the output labels of the feeded training data 
+    *  for machine learning model
+    * 
+    * 
+     * @param model -
+     * @param labels The data field name for get the actual label value from the input
+     *  training data
+     * 
+     * + default value Is ``null``.
+     * @param args 
+     * + default value Is ``null``.
+     * @param env -
+     * 
+     * + default value Is ``null``.
+   */
+   function output(model: object, labels?: any, args?: object, env?: object): object;
    /**
     * Do data prediction
     * 
@@ -167,7 +144,30 @@ declare namespace learning {
      * 
      * + default value Is ``null``.
    */
-   function solve(model:object, data:any, env?:object): any;
+   function solve(model: object, data: any, env?: object): any;
+   /**
+    * ### create a new machine learning model
+    *  
+    *  In mathematics, a tensor is an algebraic object that describes
+    *  a multilinear relationship between sets of algebraic objects 
+    *  related to a vector space. Tensors may map between different 
+    *  objects such as vectors, scalars, and even other tensors. There
+    *  are many types of tensors, including scalars and vectors (which 
+    *  are the simplest tensors), dual vectors, multilinear maps between 
+    *  vector spaces, and even some operations such as the dot product.
+    *  Tensors are defined independent of any basis, although they are 
+    *  often referred to by their components in a basis related to a 
+    *  particular coordinate system.
+    * 
+    * 
+     * @param model the source of the machine learning model where it comes from:
+     *  
+     *  1. could be a file name to the trained model file
+     *  2. could be a function name in ``models`` namespace to train a new model
+     * @param env 
+     * + default value Is ``null``.
+   */
+   function tensor(model: any, env?: object): object;
    /**
     * ### Split a Dataset into Train and Test Sets
     *  
@@ -197,5 +197,5 @@ declare namespace learning {
      * 
      * + default value Is ``null``.
    */
-   function trainTestSplit(x:object, train_ratio?:number, cross?:number, env?:object): object;
+   function trainTestSplit(x: object, train_ratio?: number, cross?: number, env?: object): object;
 }

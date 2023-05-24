@@ -17,24 +17,32 @@ declare namespace model {
       */
       function regression(): object;
    }
-   /**
-    * ### XGBoost (eXtreme Gradient Boosting)
-    *  
-    *  XGBoost is an optimized distributed gradient boosting library
-    *  designed to be highly efficient, flexible and portable. 
-    *  It implements machine learning algorithms under the Gradient
-    *  Boosting framework. XGBoost provides a parallel tree boosting 
-    *  (also known as GBDT, GBM) that solve many data science 
-    *  problems in a fast and accurate way.
-    * 
-    * 
-   */
-   function xgboost(): object;
    module randomForest {
       /**
       */
       function regression(): object;
    }
+   /**
+    * load saved machine learning model
+    * 
+    * 
+     * @param file A file path to the model snapshot data file.
+     * @param env -
+     * 
+     * + default value Is ``null``.
+   */
+   function readModelFile(file: any, env?: object): object;
+   /**
+    * make the snapshot of the machine learning model
+    * 
+    * 
+     * @param model A machine learning model
+     * @param file A file path value, the model snapshot will be save to this file.
+     * @param env -
+     * 
+     * + default value Is ``null``.
+   */
+   function snapshot(model: object, file: string, env?: object): boolean;
    /**
     * ### Support-vector machines
     * 
@@ -61,24 +69,16 @@ declare namespace model {
    */
    function svr(): object;
    /**
-    * make the snapshot of the machine learning model
+    * ### XGBoost (eXtreme Gradient Boosting)
+    *  
+    *  XGBoost is an optimized distributed gradient boosting library
+    *  designed to be highly efficient, flexible and portable. 
+    *  It implements machine learning algorithms under the Gradient
+    *  Boosting framework. XGBoost provides a parallel tree boosting 
+    *  (also known as GBDT, GBM) that solve many data science 
+    *  problems in a fast and accurate way.
     * 
     * 
-     * @param model A machine learning model
-     * @param file A file path value, the model snapshot will be save to this file.
-     * @param env -
-     * 
-     * + default value Is ``null``.
    */
-   function snapshot(model:object, file:string, env?:object): boolean;
-   /**
-    * load saved machine learning model
-    * 
-    * 
-     * @param file A file path to the model snapshot data file.
-     * @param env -
-     * 
-     * + default value Is ``null``.
-   */
-   function readModelFile(file:any, env?:object): object;
+   function xgboost(): object;
 }

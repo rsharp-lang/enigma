@@ -38,25 +38,6 @@
 */
 declare namespace activateFunction {
    /**
-    * Logistic Sigmoid Function Formula
-    * 
-    * 
-     * @param alpha -
-     * 
-     * + default value Is ``0.2``.
-     * @param truncate 
-     * + default value Is ``-1``.
-   */
-   function sigmoid(alpha?:number, truncate?:number): object;
-   /**
-     * @param truncate default value Is ``-1``.
-   */
-   function identical(truncate?:number): object;
-   /**
-     * @param truncate default value Is ``-1``.
-   */
-   function qlinear(truncate?:number): object;
-   /**
     * create a new custom activate function
     * 
     * 
@@ -68,5 +49,24 @@ declare namespace activateFunction {
      * 
      * + default value Is ``null``.
    */
-   function func(forward:any, derivative:any, truncate?:number, env?:object): any;
+   function func(forward: any, derivative: any, truncate?: number, env?: object): any;
+   /**
+     * @param truncate default value Is ``-1``.
+   */
+   function identical(truncate?: number): object;
+   /**
+     * @param truncate default value Is ``-1``.
+   */
+   function qlinear(truncate?: number): object;
+   /**
+    * Logistic Sigmoid Function Formula
+    * 
+    * 
+     * @param alpha -
+     * 
+     * + default value Is ``0.2``.
+     * @param truncate 
+     * + default value Is ``-1``.
+   */
+   function sigmoid(alpha?: number, truncate?: number): object;
 }
