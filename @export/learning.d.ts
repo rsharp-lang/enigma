@@ -1,5 +1,7 @@
 ﻿// export R# package module type define for javascript/typescript language
 //
+//    imports "learning" from "enigma";
+//
 // ref=enigma.learning@enigma, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 
 /**
