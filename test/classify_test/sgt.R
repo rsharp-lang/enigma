@@ -11,9 +11,9 @@ let seqs = lapply(data$Sequence, i -> i, names = data$"Entry name");
 str(seqs);
 
 let sgt = SGT(alphabets = estimate_alphabets(seqs),
-     kappa = 1,
+     kappa = 3,
                       length.sensitive = TRUE,
-                      full = TRUE);
+                      full = FALSE);
 
 let graph = fit(sgt, seqs, df = TRUE);
 
