@@ -25,3 +25,9 @@ let scatter = as.data.frame(umap$umap, labels = umap$labels, dimension = ["x","y
 scatter[, "class"] = data$"Protein families";
 
 write.csv(scatter, file = "./protein_umap.csv", row.names = TRUE);
+
+let pca = as.data.frame(prcomp(graph), npc = 3);
+
+pca[, "class"] = data$"Protein families";
+
+write.csv(pca, file = "./protein_pca.csv", row.names = TRUE);
