@@ -11,15 +11,15 @@ let seqs = lapply(data$Sequence, i -> i, names = data$"Entry name");
 str(seqs);
 
 let sgt = SGT(alphabets = estimate_alphabets(seqs),
-     kappa = 3,
+     kappa = 1,
                       length.sensitive = TRUE,
-                      full = FALSE);
+                      full = TRUE);
 
 let graph = fit(sgt, seqs, df = TRUE);
 
 print(graph);
 
-let umap = umap(graph, dimension = 3);
+let umap = umap(graph, dimension = 3, numberOfNeighbors = 64 );
 let scatter = as.data.frame(umap$umap, labels = umap$labels, dimension = ["x","y","z"]);
 
 scatter[, "class"] = data$"Protein families";
