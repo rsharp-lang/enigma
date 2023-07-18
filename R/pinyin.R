@@ -25,14 +25,22 @@ const data_aishell3 = function(text) {
 const .aishell3_pinyin = function(pinyin_lib, si) {
     let pinyin = clr::call_clr(pinyin_lib, "TranscriptPinYin", str = si, sep = " | ");
     let split2 = clr::call_clr(pinyin_lib, "SplitZhChars", str = si, sep = " | ");
-    
+    let input2 = si;
+
     split2 = split2[nchar(split2) > 0];
     pinyin = pinyin 
     |> strsplit(" | ", fixed = TRUE) 
     |> tolower()
     ;
 
-    data.frame(pinyin, chs = split2);
+    si = `${split2} ${pinyin}`;
+    si = paste(si, " ");
+
+    {
+        text: input2,
+        chars: data.frame(pinyin, chs = split2),
+        data_aishell3: si 
+    }
 }
 
 const .pinyin = function(pinyin_lib, si) {
