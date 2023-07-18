@@ -7,8 +7,10 @@ declare namespace enigma {
       /**
       */
       function onLoad(): object;
+      /**
+      */
+      function pinyin(pinyin_lib: any, si: any): object;
    }
-   pinyin_lib: any;
    /**
    */
    function transcript_pinyin(text: any): object;
