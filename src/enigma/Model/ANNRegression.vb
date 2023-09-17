@@ -2,7 +2,7 @@
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
-Imports REnv = SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 
 Public Class ANNRegression : Inherits ANN
 
@@ -24,8 +24,8 @@ Public Class ANNRegression : Inherits ANN
         Dim outputs = DirectCast(data, dataframe).forEachRow(Me.Labels).ToArray
 
         For i As Integer = 0 To inputs.Length - 1
-            Dim input As Double() = REnv.asVector(Of Double)(inputs(i).value)
-            Dim output As Double() = REnv.asVector(Of Double)(outputs(i).value)
+            Dim input As Double() = CLRVector.asNumeric(inputs(i).value)
+            Dim output As Double() = CLRVector.asNumeric(outputs(i).value)
 
             Call model.train(input, output)
         Next
@@ -44,7 +44,7 @@ Public Class ANNRegression : Inherits ANN
             Next
 
             For i As Integer = 0 To inputs.Length - 1
-                Dim v As Double() = REnv.asVector(Of Double)(inputs(i).value)
+                Dim v As Double() = CLRVector.asNumeric(inputs(i).value)
                 Dim o As Double() = ANN.predict(v)
                 Dim j As i32 = Scan0
 

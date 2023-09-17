@@ -5,7 +5,7 @@ Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork
 Imports Microsoft.VisualBasic.MachineLearning.NeuralNetwork.Activations
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
-Imports REnv = SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 
 Public Class ANN : Inherits MLModel
 
@@ -48,10 +48,10 @@ Public Class ANN : Inherits MLModel
         Dim inputs = DirectCast(data, dataframe).forEachRow(Features).ToArray
         Dim outputs = DirectCast(data, dataframe).forEachRow(Me.Labels).ToArray
         Dim output_range As New Dictionary(Of String, DoubleRange)
-        Dim std As DoubleRange = {0, 1}
+        Dim std As DoubleRange = New Double() {0, 1}
 
         For Each field As String In Me.Labels
-            Dim v As Double() = REnv.asVector(Of Double)(data(field))
+            Dim v As Double() = CLRVector.asNumeric(data(field))
             Dim range As New DoubleRange(v)
 
             output_range.Add(field, range)
@@ -60,8 +60,8 @@ Public Class ANN : Inherits MLModel
         output.range = output_range.ToDictionary(Function(a) a.Key, Function(a) {a.Value.Min, a.Value.Max})
 
         For i As Integer = 0 To inputs.Length - 1
-            Dim input As Double() = REnv.asVector(Of Double)(inputs(i).value)
-            Dim output As Double() = REnv.asVector(Of Double)(outputs(i).value)
+            Dim input As Double() = CLRVector.asNumeric(inputs(i).value)
+            Dim output As Double() = CLRVector.asNumeric(outputs(i).value)
 
             Call Me.Labels _
                 .Select(Function(key, idx)
@@ -82,14 +82,14 @@ Public Class ANN : Inherits MLModel
             Dim rowNames As String() = df.getRowNames
             Dim outputs As New Dictionary(Of String, Double())
             Dim ANN As Network = Model
-            Dim std As DoubleRange = {0, 1}
+            Dim std As DoubleRange = New Double() {0, 1}
 
             For Each label As String In Me.Labels
                 outputs.Add(label, New Double(rowNames.Length - 1) {})
             Next
 
             For i As Integer = 0 To inputs.Length - 1
-                Dim v As Double() = REnv.asVector(Of Double)(inputs(i).value)
+                Dim v As Double() = CLRVector.asNumeric(inputs(i).value)
                 Dim o As Double() = ANN.Compute(v)
                 Dim j As i32 = Scan0
 

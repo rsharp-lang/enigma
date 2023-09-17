@@ -5,7 +5,7 @@ Imports Microsoft.VisualBasic.MachineLearning.SVM
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
-Imports REnv = SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 
 Public Class SVMModel : Inherits MLModel
 
@@ -21,7 +21,7 @@ Public Class SVMModel : Inherits MLModel
         If svr Then
             problem = svmDataSet.svrProblem(Features, Labels(Scan0), data, env)
         Else
-            Problem = svmDataSet.svmProblem(Features, REnv.asVector(Of String)(data(Me.Labels(Scan0))), data, env)
+            problem = svmDataSet.svmProblem(Features, CLRVector.asCharacter(data(Me.Labels(Scan0))), data, env)
         End If
 
         If problem Like GetType(Message) Then
