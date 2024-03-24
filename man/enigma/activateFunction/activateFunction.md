@@ -1,4 +1,4 @@
-# activateFunction
+﻿# activateFunction
 
 #### the activate function handler
  

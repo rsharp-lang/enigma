@@ -5,142 +5,7 @@
     <title>create artificial neural network</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-    <style rel="stylesheet" type="text/css">
-        @media screen {
-            .container {
-                padding-right: 10px;
-                padding-left: 10px;
-                margin-right: auto;
-                margin-left: auto;
-                max-width: 900px;
-            }
-        }
-
-        .rimage img {
-            /* from knitr - for examples and demos */
-            width: 96%;
-            margin-left: 2%;
-        }
-
-        .katex {
-            font-size: 1.1em;
-        }
-
-        code {
-            color: rgb(194, 42, 42);
-            background: inherit;
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        pre code {
-            color: rgb(54, 54, 54);
-            font-style: normal;
-        }
-
-        body {
-            line-height: 1.4;
-            background: white;
-            color: black;
-        }
-
-        a:link {
-            background: white;
-            color: blue;
-        }
-
-        a:visited {
-            background: white;
-            color: rgb(50%, 0%, 50%);
-        }
-
-        h1 {
-            background: white;
-            color: rgb(55%, 55%, 55%);
-            font-family: monospace;
-            font-size: 1.4em;
-            /* x-large; */
-            text-align: center;
-        }
-
-        h2 {
-            background: white;
-            color: rgb(40%, 40%, 40%);
-            font-family: monospace;
-            font-size: 1.2em;
-            /* large; */
-            text-align: center;
-        }
-
-        h3 {
-            background: white;
-            color: rgb(40%, 40%, 40%);
-            font-family: monospace;
-            font-size: 1.2em;
-            /* large; */
-        }
-
-        h4 {
-            background: white;
-            color: rgb(40%, 40%, 40%);
-            font-family: monospace;
-            font-style: italic;
-            font-size: 1.2em;
-            /* large; */
-        }
-
-        h5 {
-            background: white;
-            color: rgb(40%, 40%, 40%);
-            font-family: monospace;
-        }
-
-        h6 {
-            background: white;
-            color: rgb(40%, 40%, 40%);
-            font-family: monospace;
-            font-style: italic;
-        }
-
-        img.toplogo {
-            width: 4em;
-            vertical-align: middle;
-        }
-
-        img.arrow {
-            width: 30px;
-            height: 30px;
-            border: 0;
-        }
-
-        span.acronym {
-            font-size: small;
-        }
-
-        span.env {
-            font-family: monospace;
-        }
-
-        span.file {
-            font-family: monospace;
-        }
-
-        span.option {
-            font-family: monospace;
-        }
-
-        span.pkg {
-            font-weight: bold;
-        }
-
-        span.samp {
-            font-family: monospace;
-        }
-
-        div.vignettes a:hover {
-            background: rgb(85%, 85%, 85%);
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
 </head>
 
 <body>
@@ -157,7 +22,7 @@
 
         <h3>Description</h3>
 
-        <p><br /> Artificial neural networks (ANNs), or connectionist systems, are <br /> computing systems vaguely inspired by the biological neural networks<br /> that constitute animal brains. Such systems "learn" to perform <br /> tasks by considering examples, generally without being programmed <br /> with any task-specific rules.<br /><br /> An ANN Is a model based On a collection Of connected units Or nodes<br /> called "artificial neurons", which loosely model the neurons In a <br /> biological brain. Each connection, Like the synapses In a biological <br /> brain, can transmit information, a "signal", from one artificial <br /> neuron To another. An artificial neuron that receives a signal can<br /> process it And Then signal additional artificial neurons connected <br /> To it. In common ANN implementations, the signal at a connection <br /> between artificial neurons Is a real number, And the output Of Each <br /> artificial neuron Is computed by some non-linear Function Of the sum <br /> Of its inputs. The connections between artificial neurons are called <br /> "edges". Artificial neurons And edges typically have a weight that <br /> adjusts As learning proceeds. The weight increases Or decreases the<br /> strength Of the signal at a connection. Artificial neurons may have <br /> a threshold such that the signal Is only sent If the aggregate signal<br /> crosses that threshold. Typically, artificial neurons are aggregated <br /> into layers. Different layers may perform different kinds Of transformations <br /> On their inputs. Signals travel from the first layer (the input layer)<br /> To the last layer (the output layer), possibly after traversing the<br /> layers multiple times.<br /><br /> The original goal Of the ANN approach was To solve problems In the<br /> same way that a human brain would. However, over time, attention <br /> moved To performing specific tasks, leading To deviations from biology. <br /> Artificial neural networks have been used On a variety Of tasks,<br /> including computer vision, speech recognition, machine translation,<br /> social network filtering, playing board And video games And medical <br /> diagnosis.<br /><br /> Deep learning consists Of multiple hidden layers In an artificial <br /> neural network. This approach tries To model the way the human brain <br /> processes light And sound into vision And hearing. Some successful <br /> applications Of deep learning are computer vision And speech recognition.</p>
+         <br /> Artificial neural networks (ANNs), or connectionist systems, are <br /> computing systems vaguely inspired by the biological neural networks<br /> that constitute animal brains. Such systems "learn" to perform <br /> tasks by considering examples, generally without being programmed <br /> with any task-specific rules.<br /><br /> An ANN Is a model based On a collection Of connected units Or nodes<br /> called "artificial neurons", which loosely model the neurons In a <br /> biological brain. Each connection, Like the synapses In a biological <br /> brain, can transmit information, a "signal", from one artificial <br /> neuron To another. An artificial neuron that receives a signal can<br /> process it And Then signal additional artificial neurons connected <br /> To it. In common ANN implementations, the signal at a connection <br /> between artificial neurons Is a real number, And the output Of Each <br /> artificial neuron Is computed by some non-linear Function Of the sum <br /> Of its inputs. The connections between artificial neurons are called <br /> "edges". Artificial neurons And edges typically have a weight that <br /> adjusts As learning proceeds. The weight increases Or decreases the<br /> strength Of the signal at a connection. Artificial neurons may have <br /> a threshold such that the signal Is only sent If the aggregate signal<br /> crosses that threshold. Typically, artificial neurons are aggregated <br /> into layers. Different layers may perform different kinds Of transformations <br /> On their inputs. Signals travel from the first layer (the input layer)<br /> To the last layer (the output layer), possibly after traversing the<br /> layers multiple times.<br /><br /> The original goal Of the ANN approach was To solve problems In the<br /> same way that a human brain would. However, over time, attention <br /> moved To performing specific tasks, leading To deviations from biology. <br /> Artificial neural networks have been used On a variety Of tasks,<br /> including computer vision, speech recognition, machine translation,<br /> social network filtering, playing board And video games And medical <br /> diagnosis.<br /><br /> Deep learning consists Of multiple hidden layers In an artificial <br /> neural network. This approach tries To model the way the human brain <br /> processes light And sound into vision And hearing. Some successful <br /> applications Of deep learning are computer vision And speech recognition.
 
         <h3>Usage</h3>
 
@@ -176,10 +41,13 @@
 
         
 
+        <h3 style="display: block">Authors</h3>
+
+        enigma
 
         <h3>Value</h3>
 
-        this function returns data object of type <a href="/clr/enigma/ANN.html">ANN</a>.
+        this function returns data object of type <a href="/vignettes/clr/enigma/ANN.html">ANN</a>.<h4>clr value class</h4><ul><li><a href="/vignettes/clr/enigma/ANN.html">ANN</a></li></ul>
 
         <h3 style="display: none;">Examples</h3>
 
@@ -191,5 +59,9 @@
         </div>
     </div>
 </body>
+
+<script type="text/javascript" src="../../_assets/R_syntax.js"></script>
+<script type="text/javascript" src="../../_assets/highlights.js"></script>
+<script type="text/javascript">r_highlights("example_r");</script>
 
 </html>
