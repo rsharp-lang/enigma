@@ -352,3 +352,7 @@ MigrationBackup/
 .ionide/
 .pkg/enigma.zip
 .pkg/biodeepdbkit.zip
+test/graph_embedding_datasets/model/MatrixE-k50-lmbda0.00100-gamma0.10000-neg2.imag
+test/graph_embedding_datasets/model/MatrixE-k50-lmbda0.00100-gamma0.10000-neg2.real
+test/graph_embedding_datasets/model/MatrixR-k50-lmbda0.00100-gamma0.10000-neg2.imag
+test/graph_embedding_datasets/model/MatrixR-k50-lmbda0.00100-gamma0.10000-neg2.real
