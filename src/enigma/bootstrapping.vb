@@ -2,6 +2,7 @@
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.MachineLearning.Bootstrapping
 Imports Microsoft.VisualBasic.MachineLearning.Bootstrapping.GraphEmbedding
+Imports Microsoft.VisualBasic.MachineLearning.Bootstrapping.node2vec
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -42,5 +43,20 @@ Module bootstrapping
             Case Else
                 Return Internal.debug.stop($"invalid algorithm name({alg})!", env)
         End Select
+    End Function
+
+    <ExportAPI("node2vec")>
+    Public Function node2vec(graph As Object, Optional dims As Integer = 10) As Object
+        Dim g As node2vec.Graph
+
+        If TypeOf graph Is String Then
+            g = New node2vec.Graph(graph, True)
+        ElseIf TypeOf graph Is node2vec.Graph Then
+            g = graph
+        Else
+            Throw New NotImplementedException
+        End If
+
+        Return Solver.CreateEmbedding(g, dimensions:=dims)
     End Function
 End Module
