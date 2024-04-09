@@ -26,11 +26,13 @@ Module bootstrapping
                             <RRawVectorArgument(TypeCodes.string)>
                             Optional algorithm As Object = "ComplEx|complex_NNE|complex_NNE_AER|complex_R",
                             Optional rules As String = Nothing,
+                            Optional iterations As Integer = 1000,
                             Optional env As Environment = Nothing) As Object
 
         Dim alg As String = CLRVector.asCharacter(algorithm).DefaultFirst("ComplEx")
 
         args.other = New Dictionary(Of String, String) From {{"rules", rules}}
+        args.iterations = iterations
 
         Select Case alg.ToLower
             Case "complex" : Return GraphEmbedding.Algorithm.learn(Of GraphEmbedding.complex.ComplEx)(args)
