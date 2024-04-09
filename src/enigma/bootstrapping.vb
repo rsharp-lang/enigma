@@ -50,7 +50,7 @@ Module bootstrapping
         Dim g As node2vec.Graph
 
         If TypeOf graph Is String Then
-            g = New node2vec.Graph(graph, True)
+            g = New node2vec.Graph(graph, False)
         ElseIf TypeOf graph Is node2vec.Graph Then
             g = graph
         Else
