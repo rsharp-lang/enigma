@@ -9,10 +9,10 @@ imports "bootstrapping" from "enigma";
 setwd(@dir);
 
 let args = bootstrapping::arguments(
-    fnTrainTriples = "DB100K\\_train.txt", 
-    fnValidTriples = "DB100K\\_valid.txt", 
-    fnTestTriples = "DB100K\\_test.txt", 
-    fnAllTriples = NULL
+    fnTrainTriples = "DB100K\\train.txt", 
+    fnValidTriples = "DB100K\\valid.txt", 
+    fnTestTriples = "DB100K\\test.txt", 
+    fnAllTriples = "DB100K\\all.txt"
 );
 
 bootstrapping::complex(args);
