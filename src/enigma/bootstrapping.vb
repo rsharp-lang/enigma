@@ -12,8 +12,13 @@ Imports SMRUCC.Rsharp.Runtime.Vectorization
 Module bootstrapping
 
     <ExportAPI("arguments")>
-    Public Function arguments() As Arguments
-        Return New Arguments
+    Public Function arguments(fnTrainTriples As String, fnValidTriples As String, fnTestTriples As String, fnAllTriples As String) As Arguments
+        Return New Arguments With {
+            .fnAllTriples = fnAllTriples,
+            .fnTestTriples = fnTestTriples,
+            .fnTrainTriples = fnTrainTriples,
+            .fnValidTriples = fnValidTriples
+        }
     End Function
 
     <ExportAPI("complex")>
