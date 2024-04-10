@@ -46,6 +46,11 @@ Module bootstrapping
         End Select
     End Function
 
+    <ExportAPI("graph2vec")>
+    Public Function graph2vec(<RRawVectorArgument> graph As Object) As Object
+
+    End Function
+
     <ExportAPI("node2vec")>
     Public Function node2vec(graph As Object, Optional dims As Integer = 10) As Object
         Dim g As node2vec.Graph
