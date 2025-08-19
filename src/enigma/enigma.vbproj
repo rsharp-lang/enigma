@@ -114,7 +114,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ILGPU" Version="1.4.0" />
+    <PackageReference Include="ILGPU" Version="1.5.3" />
   </ItemGroup>
 
   <ItemGroup>
